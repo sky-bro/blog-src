@@ -6,7 +6,7 @@ draft: false
 hideToc: false
 enableToc: true
 enableTocContent: true
-tocPosition: outer
+tocPosition:
 tags:
 - shortcode
 series:

@@ -1,6 +1,7 @@
 baseURL = "https://sky-bro.github.io"
 title = "kyle's blog"
 theme = "zzo-sky"
+enableRobotsTXT = true
 
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
@@ -9,7 +10,7 @@ hasCJKLanguage = true
 summaryLength = 70
 buildFuture = true
 
-copyright = "&copy;{year}, All Rights Reserved"
+copyright = 'All content is subject to the license of <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a> .'
 timeout = 10000
 enableEmoji = true
 paginate = 10

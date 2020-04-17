@@ -22,7 +22,7 @@ header:
     imageSize: cover
     imageRepeat: no-repeat
     imagePosition: center
-    height: 235
+    height: 100vh # this height will subtract the nav height
     paddingX: 50
     paddingY: 0
     align: center
@@ -31,12 +31,12 @@ header:
     subtitle:
       - "Improvise, Adapt and Overcome!"
     titleColor:
-    titleShadow: false
+    titleShadow: true
     titleFontSize: 44
     subtitleColor:
-    subtitleCursive: false
-    subtitleFontSize: 16
-    spaceBetweenTitleSubtitle: 20
+    subtitleCursive: true
+    subtitleFontSize: 18
+    spaceBetweenTitleSubtitle: 16
 
   - type: slide
     height: 235

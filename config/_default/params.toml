@@ -9,11 +9,11 @@ themecolor = ""
 
 themeOptions = ["dark", "light", "hacker", "solarized", "kimbie"]
 notAllowedTypesInHome = ["contact", "talks", "about", "showcase", "publication", "presentation", "resume"]
-notAllowedTypesInHomeSidebar = ["about", "archive", "showcase", "publication", "presentation", "resume"]
+notAllowedTypesInHomeSidebar = ["gallery", "about", "archive", "showcase", "publication", "presentation", "resume"]
 notAllowedTypesInArchive = ["about", "talks", "showcase", "publication", "presentation", "resume"]
 notAllowedTypesInHomeFeed = ["about", "archive", "contact", "talks", "showcase", "publication", "presentation", "resume", "gallery"]
 
-viewportSize = "normal" # widest, wider, wide, normal, narrow
+viewportSize = "wide" # widest, wider, wide, normal, narrow
 enableUiAnimation = true
 hideSingleContentsWhenJSDisabled = false
 
@@ -46,12 +46,13 @@ whoami = "studying..."
 bioImageUrl = ""
 useGravatar = true
 location = "Harbin, China"
-organization = "HIT"
+organization = "@HIT"
 link = "https://sky-bro.github.io"
 
 # sidebar
 enableBio = true
 enableBioImage = true
+enableBioSocial = false
 enableSidebar = true
 enableSidebarTags = true
 enableSidebarSeries = true
@@ -61,7 +62,7 @@ enableListSidebarTitles = true
 enableToc = true
 hideToc = false
 tocFolding = true
-tocPosition = "outer" # inner, outer
+tocPosition = "inner" # inner, outer
 enableTocSwitch = true
 itemsPerCategory = 5
 sidebarPosition = "left"
@@ -85,8 +86,9 @@ enableThemeChange = true
 
 # service
 googleTagManager = ""  # "GTM-M5GTJCD" # GTM-XXXXXX
-baiduAnalytics = "42f41a835674a8363d37ac48ef389083"
-baiduSiteVerificationContent = "hiIYzkvqlY"
+baiduPush = true        # baidu push                  # 百度
+baiduAnalytics = "42f41a835674a8363d37ac48ef389083"      # Baidu Analytics
+baiduVerification = "hiIYzkvqlY"   # Baidu Verification
 enableBusuanzi = true
 busuanziSiteUV = true
 busuanziSitePV = true
@@ -152,8 +154,8 @@ commento = false
 [socialOptions]
   email = "mailto:sky_io@outlook.com"
   phone = ""
-  facebook = ""
-  twitter = ""
+  facebook = "https://www.facebook.com/profile.php?id=100005027239118"
+  twitter = "https://twitter.com/KaiyuShi"
   github = "https://github.com/sky-bro"
   stack-overflow = ""
   instagram = ""

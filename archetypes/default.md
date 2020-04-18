@@ -17,4 +17,6 @@ series:
 categories:
 -
 image: images/icons/tortoise.png
+libraries:
+- katex
 ---

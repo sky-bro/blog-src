@@ -3,9 +3,6 @@ title = "kyle's blog"
 theme = "zzo-sky"
 enableRobotsTXT = true
 
-[Author]
-  name = '<a href="https://sky-bro.github.io" class="theme-link">Kyle</a>'
-
 defaultContentLanguage = "en"
 defaultContentLanguageInSubdir = false
 hasCJKLanguage = true
@@ -21,6 +18,9 @@ rssLimit = 100
 
 enableGitInfo = true
 googleAnalytics = "UA-163569254-1"
+
+[Author]
+  name = '<a href="https://sky-bro.github.io" class="theme-link">Kyle</a>'
 
 [markup]
   [markup.goldmark]

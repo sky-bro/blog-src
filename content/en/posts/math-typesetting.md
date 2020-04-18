@@ -16,6 +16,7 @@ tags:
 - hugo
 series:
 - Use Hugo
+image: images/icons/math-operators.png
 ---
 
 {{< box >}}

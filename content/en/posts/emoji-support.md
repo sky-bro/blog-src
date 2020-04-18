@@ -16,6 +16,7 @@ categories:
 - hugo
 series:
 - Use Hugo
+image: images/icons/emoji-wink.png
 ---
 
 Emoji can be enabled in a Hugo project in a number of ways. 

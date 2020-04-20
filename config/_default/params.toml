@@ -13,7 +13,7 @@ notAllowedTypesInHomeSidebar = ["gallery", "about", "archive", "showcase", "publ
 notAllowedTypesInArchive = ["about", "talks", "showcase", "publication", "presentation", "resume"]
 notAllowedTypesInHomeFeed = ["about", "archive", "contact", "talks", "showcase", "publication", "presentation", "resume", "gallery"]
 
-viewportSize = "wide" # widest, wider, wide, normal, narrow
+viewportSize = "normal" # widest, wider, wide, normal, narrow
 enableUiAnimation = true
 hideSingleContentsWhenJSDisabled = false
 

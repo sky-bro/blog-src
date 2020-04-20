@@ -1,7 +1,7 @@
 ---
 title: "Segment Tree"
 date: 2020-04-17T15:53:35+08:00
-description: A segment tree is a binary tree where each node represents an interval.
+description:
 draft: false
 hideToc: true
 enableToc: true
@@ -18,12 +18,13 @@ categories:
 - "Data Structure & Algorithm"
 image: images/icons/binarytree.png
 libraries:
-- katex
+- mathjax
 ---
 
 A segment tree is a binary tree where each node represents an interval. Each node stores some property of its corresponding interval: like the maximum/minimum num, the sum of that interval.
 
-<!-- more -->
+<!--more-->
+
 ## Applicable Problems
 
 For any array `a`, where every element belongs to some monoid $(S, \oplus)$ we can build a segment tree to answer the following queries (problems):
@@ -144,7 +145,7 @@ void update(int i, int val) {
 {{< /code >}}
 {{< /codes >}}
 
-## Complete Solution for Example Problem
+### Complete Solution to the Problem
 
 {{< expand "Leetcode 307 Solution (C++)" >}}
 

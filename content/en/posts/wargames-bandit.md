@@ -1,12 +1,10 @@
 ---
 title: "Wargames Bandit"
 date: 2020-08-02T12:33:40+08:00
-description:
+description: "my solutions to the bandit wargame: https://overthewire.org/wargames/bandit/"
 draft: false
-hideToc: false
 enableToc: true
 enableTocContent: false
-tocPosition:
 tocLevels: ["h2", "h3", "h4"]
 author: '<a href="https://sky-bro.github.io" class="theme-link">Kyle</a>'
 authorEmoji: 🦂

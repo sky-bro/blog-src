@@ -3,7 +3,6 @@ title: "Clusterfuzz Local Setup"
 date: 2020-05-18T12:59:28+08:00
 description:
 draft: true
-hideToc: false
 enableToc: true
 enableTocContent: false
 tocPosition:

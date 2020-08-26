@@ -17,4 +17,4 @@ images:
 image: images/feature2/gallery.png
 ---
 
-Sample images from [Pixabay](https://pixabay.com)
+<!-- Sample images from [Pixabay](https://pixabay.com) -->

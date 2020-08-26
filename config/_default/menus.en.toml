@@ -12,7 +12,7 @@
 
 [[main]]
   identifier = "presentation"
-  name = "Pt"
+  name = "Presentations"
   url = "presentation"
   weight = 3
 
@@ -40,12 +40,12 @@
 
 [[main]]
   identifier = "showcase"
-  name = "Showcase"
+  name = "Projects"
   url = "showcase"
   weight = 6
 
-[[main]]
-  identifier = "publication"
-  name = "Pub"
-  url = "publication"
-  weight = 7
+# [[main]]
+#   identifier = "publication"
+#   name = "Pub"
+#   url = "publication"
+#   weight = 7

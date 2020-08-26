@@ -1,12 +1,10 @@
 ---
 title: "Use Random in C++"
 date: 2020-04-18T10:04:13+08:00
-description: introduce randomness into your C++ programs.
+description: introduce randomness into your C++ programs, the right way.
 draft: false
-hideToc: false
 enableToc: true
 enableTocContent: false
-tocPosition:
 tocLevels: ["h2", "h3", "h4"]
 author: '<a href="https://sky-bro.github.io" class="theme-link">Kyle</a>'
 authorEmoji: 🦂

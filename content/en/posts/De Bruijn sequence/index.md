@@ -1,12 +1,10 @@
 ---
 title: "De Bruijn Sequence"
 date: 2020-05-04T11:58:48+08:00
-description: A de Bruijn sequence of order n on a size-k alphabet A is a cyclic sequence in which every possible length-n string on A occurs exactly once as a substring.
+description:
 draft: false
-hideToc: false
 enableToc: true
 enableTocContent: false
-tocPosition:
 tocLevels: ["h2", "h3", "h4"]
 author: '<a href="https://sky-bro.github.io" class="theme-link">Kyle</a>'
 authorEmoji: 🦂

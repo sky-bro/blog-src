@@ -34,7 +34,7 @@
 
 [[main]]
   identifier = "posts"
-  name = "博文"
+  name = "文章"
   url = "posts"
   weight = 5
 
@@ -44,8 +44,8 @@
   url = "showcase"
   weight = 6
 
-[[main]]
-  identifier = "publication"
-  name = "发表"
-  url = "publication"
-  weight = 7
+# [[main]]
+#   identifier = "publication"
+#   name = "发表"
+#   url = "publication"
+#   weight = 7

@@ -3,7 +3,7 @@ author: Hugo Authors
 title: Math Typesetting
 date: 2019-12-17T12:00:06+09:00
 description: A brief guide to setup KaTeX
-draft: false
+draft: true
 hideToc: false
 enableToc: true
 enableTocContent: false
@@ -18,7 +18,6 @@ series:
 - Use Hugo
 image: images/icons/math-operators.png
 ---
-
 {{< box >}}
 We need goldmark katex entension which is not yet we have: 
 [https://github.com/gohugoio/hugo/issues/6544](https://github.com/gohugoio/hugo/issues/6544)

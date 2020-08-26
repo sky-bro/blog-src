@@ -2,7 +2,7 @@
 title: "Syntax highlighting"
 date: 2019-12-18T10:33:41+09:00
 description: "Syntax highlighting test"
-draft: false
+draft: true
 hideToc: false
 enableToc: true
 enableTocContent: false
@@ -17,7 +17,6 @@ categories:
 - hugo
 image: images/feature2/color-palette.png
 ---
-
 Verify the following code blocks render as code blocks and highlight properly. 
 
 More about tuning syntax highlighting is the [Hugo documentation](https://gohugo.io/content-management/syntax-highlighting/).

@@ -3,7 +3,7 @@ title: "Use Random in C++"
 date: 2020-04-18T10:04:13+08:00
 description: introduce randomness into your C++ programs.
 draft: false
-hideToc: true
+hideToc: false
 enableToc: true
 enableTocContent: false
 tocPosition:
@@ -22,7 +22,6 @@ categories:
 - Crypto
 image: images/icons/dice-white.svg
 ---
-
 ## Old way
 
 use `rand()`, usually pair with a random initialization of the seed:

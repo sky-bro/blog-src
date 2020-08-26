@@ -2,7 +2,7 @@
 title: "Chart support"
 date: 2019-11-18T12:00:06+09:00
 description: "Simple yet flexible JavaScript charting for designers & developers"
-draft: false
+draft: true
 enableToc: false
 enableTocContent: false
 tags:
@@ -15,7 +15,6 @@ libraries:
 - chart
 image: images/feature1/graph.png
 ---
-
 ```chart
 {
     "type": "bar",

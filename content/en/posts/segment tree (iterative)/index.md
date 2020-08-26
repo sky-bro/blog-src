@@ -3,7 +3,7 @@ title: "Segment Tree (Iterative)"
 date: 2020-04-17T15:53:35+08:00
 description: a binary tree where each node represents an interval.
 draft: false
-hideToc: true
+hideToc: false
 enableToc: true
 enableTocContent: false
 tocPosition:
@@ -20,7 +20,6 @@ image: "images/posts/segment tree/iterative02.svg"
 libraries:
 - mathjax
 ---
-
 A segment tree is a binary tree where each node represents an interval. Each node stores some property of its corresponding interval: like the maximum/minimum num, the sum of that interval.
 
 <!--more-->

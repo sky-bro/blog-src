@@ -3,7 +3,7 @@ title: "Segment Tree (Recursive)"
 date: 2020-04-17T15:53:35+08:00
 description: implement a segment tree in a recusive style.
 draft: true
-hideToc: true
+hideToc: false
 enableToc: true
 enableTocContent: false
 tocPosition:
@@ -20,7 +20,6 @@ image: "images/posts/segment tree/recursive02.svg"
 libraries:
 - mathjax
 ---
-
 The recursive version is not as good as the [iterative version](../segment-tree-iterative/), but if you need to update a range of instead of just a single element of the array, you need to know the recursive version, because the [lazy propagation method](../segment-tree-recursive-with-lazy-propagation) (used to tackle the range updating problem) is modified on the basis of a recursive segment tree. So let's see how to implement the segment tree in a recusive style.
 
 <!--more-->

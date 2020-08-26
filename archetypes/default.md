@@ -3,7 +3,7 @@ title: "{{ replace .Name "-" " " | title }}"
 date: {{ .Date }}
 description:
 draft: true
-hideToc: true
+hideToc: false
 enableToc: true
 enableTocContent: false
 tocPosition:
@@ -16,7 +16,7 @@ series:
 -
 categories:
 -
-image: images/icons/tortoise.png
+image: # images/icons/tortoise.png
 libraries:
 - mathjax
 ---

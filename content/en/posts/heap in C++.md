@@ -3,7 +3,7 @@ title: "Heap in C++"
 date: 2020-04-17T15:25:33+08:00
 description: learn how to use heap in C++
 draft: false
-hideToc: true
+hideToc: false
 enableToc: true
 enableTocContent: false
 tocPosition:
@@ -19,7 +19,6 @@ categories:
 - "Data Structure & Algorithm"
 image: images/icons/stack of rocks.png
 ---
-
 let's learn how to use heap in C++
 
 <!-- more -->

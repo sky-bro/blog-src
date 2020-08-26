@@ -2,7 +2,7 @@
 title: "Mermaid support"
 date: 2019-11-17T12:00:06+09:00
 description: "Generate diagrams, charts, graphs or flows from markdown-like text via javascript."
-draft: false
+draft: true
 enableToc: false
 enableTocContent: false
 tags:
@@ -15,7 +15,6 @@ libraries:
 - mermaid
 image: images/feature2/workflow.png
 ---
-
 ```mermaid
 graph TD;
   A-->B;

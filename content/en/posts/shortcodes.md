@@ -2,7 +2,7 @@
 title: "Shortcodes"
 date: 2020-01-25T06:40:51+09:00
 description: tabs, code-tabs, expand, alert, warning, notice, img, box
-draft: false
+draft: true
 hideToc: false
 enableToc: true
 enableTocContent: true
@@ -15,7 +15,6 @@ categories:
 -
 image: images/feature3/code-file.png
 ---
-
 ## Markdownify box
 
 {{< boxmd >}}

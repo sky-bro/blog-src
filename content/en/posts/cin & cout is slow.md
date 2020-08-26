@@ -3,7 +3,6 @@ title: "cin & cout is slow?"
 date: 2020-04-17T16:07:30+08:00
 description: is or why is cin, cout slow in C++?
 draft: false
-hideToc: true
 enableToc: true
 enableTocContent: false
 tocPosition:
@@ -18,7 +17,6 @@ categories:
 - "C++"
 image: images/icons/tortoise.png
 ---
-
 ## Yes, by default
 
 I heard before that using `scanf/printf` is faster than using `cin/cout`, and it's true from my real experience, but I really didn't get to know the reason behind, and later in leetcode, I saw others include these lines in their code:

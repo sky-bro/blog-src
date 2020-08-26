@@ -7,13 +7,13 @@ useFaviconGenerator = false # https://www.favicon-generator.org/
 meta_image = ""
 themecolor = ""
 
-themeOptions = ["dark", "light", "hacker", "solarized", "kimbie"]
+themeOptions = ["light", "dark", "hacker", "solarized", "kimbie"] # first is the default theme
 notAllowedTypesInHome = ["contact", "talks", "about", "showcase", "publication", "presentation", "resume"]
 notAllowedTypesInHomeSidebar = ["gallery", "about", "archive", "showcase", "publication", "presentation", "resume"]
 notAllowedTypesInArchive = ["about", "talks", "showcase", "publication", "presentation", "resume"]
 notAllowedTypesInHomeFeed = ["about", "archive", "contact", "talks", "showcase", "publication", "presentation", "resume", "gallery"]
 
-viewportSize = "normal" # widest, wider, wide, normal, narrow
+viewportSize = "wider" # widest, wider, wide, normal, narrow
 enableUiAnimation = true
 hideSingleContentsWhenJSDisabled = false
 
@@ -54,7 +54,7 @@ enableBio = true
 enableBioImage = true
 enableBioSocial = false
 enableSidebar = true
-enableSidebarTags = true
+enableSidebarTags = false
 enableSidebarSeries = true
 enableSidebarCategories = true
 enableHomeSidebarTitles = true
@@ -62,7 +62,7 @@ enableListSidebarTitles = true
 enableToc = true
 hideToc = false
 tocFolding = true
-tocPosition = "inner" # inner, outer
+tocPosition = "outer" # inner, outer
 enableTocSwitch = true
 itemsPerCategory = 5
 sidebarPosition = "left"
@@ -76,7 +76,7 @@ postMetaInFooter = true   # contain author, lastMod, markdown link, license     
 # 指定 git 仓库地址，可以生成指向最近更新的 git commit 的链接，需要将 enableGitInfo 设置成 true.
 gitRepo = "https://github.com/sky-bro/blog-src"
 linkToMarkDown = true    # Only effective when hugo will output .md files.           # 链接到markdown原始文件（仅当允许hugo生成markdown文件时有效）
-contentCopyright = '<a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a>'     # e.g. '<a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a>'
+contentCopyright = '<a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a>'     # e.g. '<a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank">CC BY-NC-ND 4.0</a>'
 
 showPoweredBy = true
 showFeedLinks = true

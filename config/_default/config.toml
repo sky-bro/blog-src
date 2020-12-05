@@ -43,7 +43,7 @@ googleAnalytics = "UA-163569254-1"
    suffixes = ["md"]
 
 [outputs]
-  page = ["HTML", "SearchIndex", "MarkDown"]
+  page = ["HTML", "MarkDown"]
   home = ["HTML", "RSS", "SearchIndex"]
   section = ["HTML", "RSS", "SearchIndex"]
   taxonomyTerm = ["HTML", "RSS", "SearchIndex"]

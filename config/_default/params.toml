@@ -8,9 +8,9 @@ meta_image = ""
 themecolor = ""
 
 themeOptions = ["light", "dark", "hacker", "solarized", "kimbie"] # first is the default theme
-notAllowedTypesInHome = ["contact", "talks", "about", "showcase", "publication", "presentation", "resume"]
+notAllowedTypesInHome = ["contact", "talks", "about", "showcase", "publication", "presentation", "resume", "gallery"]
 notAllowedTypesInHomeSidebar = ["gallery", "about", "archive", "showcase", "publication", "presentation", "resume"]
-notAllowedTypesInArchive = ["about", "talks", "showcase", "publication", "presentation", "resume"]
+notAllowedTypesInArchive = ["about", "talks", "showcase", "publication", "presentation", "resume", "gallery"]
 notAllowedTypesInHomeFeed = ["about", "archive", "contact", "talks", "showcase", "publication", "presentation", "resume", "gallery"]
 
 viewportSize = "wider" # widest, wider, wide, normal, narrow

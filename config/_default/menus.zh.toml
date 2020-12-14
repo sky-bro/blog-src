@@ -10,27 +10,27 @@
   url = "archive"
   weight = 2
   
-[[main]]
-  identifier = "presentation"
-  name = "幻灯片"
-  url = "presentation"
-  weight = 3
+# [[main]]
+#   identifier = "presentation"
+#   name = "幻灯片"
+#   url = "presentation"
+#   weight = 3
 
-[[main]]
-  identifier = "gallery"
-  name = "图片"
-  url = "gallery"
-  weight = 4
+# [[main]]
+#   identifier = "gallery"
+#   name = "图片"
+#   url = "gallery"
+#   weight = 4
     
-[[main]]
-  parent = "gallery"
-  name = "卡通"
-  url = "gallery/cartoon"
+# [[main]]
+#   parent = "gallery"
+#   name = "卡通"
+#   url = "gallery/cartoon"
 
-[[main]]
-  parent = "gallery"
-  name = "摄影"
-  url = "gallery/photo"
+# [[main]]
+#   parent = "gallery"
+#   name = "摄影"
+#   url = "gallery/photo"
 
 [[main]]
   identifier = "posts"
@@ -40,7 +40,7 @@
 
 [[main]]
   identifier = "showcase"
-  name = "作品"
+  name = "代码"
   url = "showcase"
   weight = 6
 

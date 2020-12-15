@@ -20,7 +20,7 @@ libraries:
 ---
 here goes my description
 
-<!-- more -->
+<!--more-->
 
 ## Title 1
 

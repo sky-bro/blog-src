@@ -19,6 +19,7 @@ libraries:
 - mathjax
 ---
 准备用qt写一个简单的fq/代理软件，叫做SocksAB，分为服务端Socks-Bob和客户端Socks-Alice两个部分。
+程序源代码托管在[github.com/sky-bro/SocksAB](https://github.com/sky-bro/SocksAB)
 
 <!--more-->
 

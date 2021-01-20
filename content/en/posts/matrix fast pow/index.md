@@ -9,11 +9,12 @@ tocLevels: ["h2", "h3", "h4"]
 author: '<a href="https://sky-bro.github.io" class="theme-link">Kyle</a>'
 authorEmoji: 🦂
 tags:
--
+- fast pow
+- matrix
 series:
 -
 categories:
--
+- Data Structure & Algorithm
 image: # images/icons/tortoise.png
 libraries:
 - mathjax
@@ -181,7 +182,7 @@ class Solution {
     * 0 #
     */
     Matrix<ll, 10, 10, MOD> x;
-    vector<vector<int>> trans = {{4, 6}, {6, 8}, {7, 9}, {4, 8}, {0, 3, 9}, {}, {0, 1, 7}, {2, 6}, {1, 3}, {2, 4}};
+    vector<vector<int>> trans = { {4, 6}, {6, 8}, {7, 9}, {4, 8}, {0, 3, 9}, {}, {0, 1, 7}, {2, 6}, {1, 3}, {2, 4} };
     for (int i = 0; i < 10; ++i)
       for (int j : trans[i]) x.m[i][j] = 1;
     return (res * pow(x, n - 1)).sum();

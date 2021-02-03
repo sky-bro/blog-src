@@ -39,10 +39,10 @@ header:
     spaceBetweenTitleSubtitle: 16
 
   - type: slide
-    height: 235
+    height: 60vh
     options:
         startSlide: 0
-        auto: 5000
+        auto: 3500
         draggable: true
         autoRestart: true
         continuous: true
@@ -52,45 +52,45 @@ header:
       - paddingX: 50
         paddingY: 0
         align: left
-        imageSrc: images/header/background.jpg
+        imageSrc: images/header/background6.jpg
         imageSize: cover
         imageRepeat: no-repeat
         imagePosition: center
         title:
-          - header title1
+          -
         subtitle:
-          - header subtitle1
-        titleFontSize: 44
+          -
+        titleFontSize: 32
         subtitleFontSize: 16
         spaceBetweenTitleSubtitle: 20
 
       - paddingX: 50
         paddingY: 0
         align: center
-        imageSrc: images/header/background.jpg
+        imageSrc: images/header/background7.jpg
         imageSize: cover
         imageRepeat: no-repeat
         imagePosition: center
         title:
-          - header title2
+          -
         subtitle:
-          - header subtitle2
-        titleFontSize: 44
+          - 
+        titleFontSize: 32
         subtitleFontSize: 16
         spaceBetweenTitleSubtitle: 20
 
       - paddingX: 50
         paddingY: 0
         align: right
-        imageSrc: images/header/background.jpg
+        imageSrc: images/header/background4.jpg
         imageSize: cover
         imageRepeat: no-repeat
         imagePosition: center
         title:
-          - header title3
+          -
         subtitle:
-          - header subtitle3
-        titleFontSize: 44
+          -
+        titleFontSize: 32
         subtitleFontSize: 16
         spaceBetweenTitleSubtitle: 20
 ---

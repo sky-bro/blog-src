@@ -18,7 +18,7 @@ enableUiAnimation = true
 hideSingleContentsWhenJSDisabled = false
 
 # header
-homeHeaderType = "img" # text, img, slide
+homeHeaderType = "slide" # text, img, slide
 
 # menu
 showMobileMenuTerms = ["tags", "categories", "series"]

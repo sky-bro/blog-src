@@ -5,6 +5,6 @@
 	path = public
 	url = git@github.com:sky-bro/sky-bro.github.io.git
 	branch = master
-[submodule "themes/even-sky"]
-	path = themes/even-sky
-	url = git@github.com:sky-bro/hugo-theme-even.git
+# [submodule "themes/even-sky"]
+# 	path = themes/even-sky
+# 	url = git@github.com:sky-bro/hugo-theme-even.git

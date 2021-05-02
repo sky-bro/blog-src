@@ -1,6 +1,6 @@
 logoText = ""
 logoType = "short" # long, short
-description = "This is Kyle's Blog"
+description = "This is k4i's blog"
 custom_css = ["scss/partials/body/copyright.scss"]
 custom_js = []
 useFaviconGenerator = false # https://www.favicon-generator.org/
@@ -40,14 +40,14 @@ talksGroupByDate = "2006"
 pubPaginate = 20
 
 # whoami
-myname = "Kyle"
+myname = "k4i"
 email = "sky_io@outlook.com"
 whoami = "studying..."
 bioImageUrl = ""
 useGravatar = true
 location = "Harbin, China"
 organization = "@HIT"
-link = "https://sky-bro.github.io"
+link = "https://k4i.top"
 
 # sidebar
 enableBio = true
@@ -70,7 +70,7 @@ tocLevels = ["h2", "h3", "h4"]
 enableSidebarPostsByOrder = false
 
 # footer
-author = '<a href="https://sky-bro.github.io" class="theme-link">Kyle</a>'
+author = '<a href="https://k4i.top" class="theme-link">k4i</a>'
 postMetaInFooter = true   # contain author, lastMod, markdown link, license           # 包含作者，上次修改时间，markdown链接，许可信息
 # use public git repo url to link lastmod git commit, enableGitInfo should be true.
 # 指定 git 仓库地址，可以生成指向最近更新的 git commit 的链接，需要将 enableGitInfo 设置成 true.

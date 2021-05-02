@@ -1,5 +1,5 @@
-baseURL = "https://sky-bro.github.io"
-title = "kyle's blog"
+baseURL = "https://k4i.top"
+title = "k4i's blog"
 theme = "zzo-sky"
 enableRobotsTXT = true
 
@@ -20,7 +20,7 @@ enableGitInfo = true
 googleAnalytics = "UA-163569254-1"
 
 [Author]
-  name = '<a href="https://sky-bro.github.io" class="theme-link">Kyle</a>'
+  name = '<a href="https://k4i.top" class="theme-link">k4i</a>'
 
 [markup]
   [markup.goldmark]

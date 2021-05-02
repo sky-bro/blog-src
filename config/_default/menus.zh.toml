@@ -10,11 +10,11 @@
   url = "archive"
   weight = 2
   
-# [[main]]
-#   identifier = "presentation"
-#   name = "幻灯片"
-#   url = "presentation"
-#   weight = 3
+[[main]]
+  identifier = "presentation"
+  name = "幻灯片"
+  url = "presentation"
+  weight = 3
 
 # [[main]]
 #   identifier = "gallery"

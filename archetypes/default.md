@@ -6,7 +6,7 @@ draft: true
 enableToc: true
 enableTocContent: false
 tocLevels: ["h2", "h3", "h4"]
-author: '<a href="https://sky-bro.github.io" class="theme-link">Kyle</a>'
+author: '<a href="https://k4i.top" class="theme-link">k4i</a>'
 authorEmoji: 🦂
 tags:
 -
@@ -34,6 +34,6 @@ something
 
 more...
 
-## Title 2
+## Refs
 
-content under title 2
+* [ref1](link1)

@@ -18,7 +18,7 @@ header:
     spaceBetweenTitleSubtitle: 16
   
   - type: img
-    imageSrc: images/header/background.jpg
+    imageSrc: images/header/sheep.jpg
     imageSize: cover
     imageRepeat: no-repeat
     imagePosition: center
@@ -27,9 +27,9 @@ header:
     paddingY: 0
     align: center
     title:
-      - "Always"
+      # - "Always"
     subtitle:
-      - "Improvise, Adapt and Overcome!"
+      # - "Improvise, Adapt and Overcome!"
     titleColor:
     titleShadow: true
     titleFontSize: 44

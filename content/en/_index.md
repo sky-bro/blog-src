@@ -18,18 +18,18 @@ header:
     spaceBetweenTitleSubtitle: 16
   
   - type: img
-    imageSrc: images/header/background.jpg
+    imageSrc: images/header/sheep.jpg
     imageSize: cover
     imageRepeat: no-repeat
     imagePosition: center
     height: 100vh # this height will subtract the nav height
     paddingX: 50
     paddingY: 0
-    align: center
+    align: left
     title:
-      - "Always"
+      # - "Always"
     subtitle:
-      - "Improvise, Adapt and Overcome!"
+      # - "Improvise, Adapt and Overcome!"
     titleColor:
     titleShadow: true
     titleFontSize: 44
@@ -39,10 +39,10 @@ header:
     spaceBetweenTitleSubtitle: 16
 
   - type: slide
-    height: 60vh
+    height: 100vh
     options:
         startSlide: 0
-        auto: 3500
+        auto: 2500
         draggable: true
         autoRestart: true
         continuous: true
@@ -52,7 +52,7 @@ header:
       - paddingX: 50
         paddingY: 0
         align: left
-        imageSrc: images/header/background6.jpg
+        imageSrc: images/header/sheep.jpg
         imageSize: cover
         imageRepeat: no-repeat
         imagePosition: center
@@ -67,7 +67,7 @@ header:
       - paddingX: 50
         paddingY: 0
         align: center
-        imageSrc: images/header/background7.jpg
+        imageSrc: images/header/study.jpg
         imageSize: cover
         imageRepeat: no-repeat
         imagePosition: center
@@ -82,7 +82,7 @@ header:
       - paddingX: 50
         paddingY: 0
         align: right
-        imageSrc: images/header/background4.jpg
+        imageSrc: images/header/study.jpg
         imageSize: cover
         imageRepeat: no-repeat
         imagePosition: center

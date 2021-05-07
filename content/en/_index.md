@@ -18,7 +18,7 @@ header:
     spaceBetweenTitleSubtitle: 16
   
   - type: img
-    imageSrc: images/header/sheep.jpg
+    imageSrc: images/header/bubble.jpg
     imageSize: cover
     imageRepeat: no-repeat
     imagePosition: center
@@ -52,7 +52,7 @@ header:
       - paddingX: 50
         paddingY: 0
         align: left
-        imageSrc: images/header/sheep.jpg
+        imageSrc: images/header/bubble.jpg
         imageSize: cover
         imageRepeat: no-repeat
         imagePosition: center
@@ -67,7 +67,7 @@ header:
       - paddingX: 50
         paddingY: 0
         align: center
-        imageSrc: images/header/study.jpg
+        imageSrc: images/header/bubble2.jpg
         imageSize: cover
         imageRepeat: no-repeat
         imagePosition: center

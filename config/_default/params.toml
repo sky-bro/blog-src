@@ -1,4 +1,4 @@
-logoText = ""
+logoText = "K4i"
 logoType = "short" # long, short
 description = "This is k4i's blog"
 custom_css = ["scss/partials/body/copyright.scss"]
@@ -16,22 +16,33 @@ notAllowedTypesInHomeFeed = ["about", "archive", "contact", "talks", "showcase",
 viewportSize = "wider" # widest, wider, wide, normal, narrow
 enableUiAnimation = true
 hideSingleContentsWhenJSDisabled = false
+enablePinnedPosts = true
+minItemsToShowInTagCloud = 1 # Minimum items to show in tag cloud
+
+# appbar
+enableAppbarSearchIcon = false
+enableAppbarLangIcon = false
 
 # header
 homeHeaderType = "img" # text, img, slide
+hideHomeHeaderWhenMobile = true
 
 # menu
 showMobileMenuTerms = ["tags", "categories", "series"]
 
-# body
-enableBreadcrumb = true
-enablePhotoSwipe = true
+# search
 enableSearch = true
 enableSearchHighlight = true
+searchResultPosition = "main" # side, main
+searchContent = true # include content to search index
+searchDistance = 100 # fuse option
+searchThreshold = 0.4 # 0.0: exact match, 1.0: any match
+
+# body
+enableBreadcrumb = true
 enableGoToTop = true
 enableWhoami = false
 summaryShape = "classic" # card, classic, compact
-searchResultPosition = "side" # side, main
 archiveGroupByDate = "2006" # "2006-01": group by month, "2006": group by year
 archivePaginate = 20
 paginateWindow = 1 # 1: 5, 2: 7, 3: 9
@@ -40,7 +51,7 @@ talksGroupByDate = "2006"
 pubPaginate = 20
 
 # whoami
-myname = "k4i"
+myname = "K4i"
 email = "sky_io@outlook.com"
 whoami = "studying..."
 bioImageUrl = ""

@@ -10,7 +10,7 @@ author: '<a href="https://sky-bro.github.io" class="theme-link">Kyle</a>'
 authorEmoji: 🦂
 tags:
 - tmux
-- cheetsheet
+- cheatsheet
 series:
 -
 categories:

@@ -1,7 +1,7 @@
 ---
 title: "LaTex Basics"
 date: 2020-05-23T20:14:12+08:00
-description: My LaTex CheetSheet
+description: My LaTex CheatSheet
 draft: true
 hideToc: false
 enableToc: true
@@ -11,7 +11,7 @@ tocLevels: ["h2", "h3", "h4"]
 author: '<a href="https://sky-bro.github.io" class="theme-link">Kyle</a>'
 authorEmoji: 🦂
 tags:
--
+- cheatsheet
 series:
 -
 categories:

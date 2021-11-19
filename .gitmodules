@@ -1,6 +1,6 @@
 [submodule "themes/zzo-sky"]
 	path = themes/zzo-sky
-	url = git@github.com:sky-bro/hugo-theme-zzo.git
+	url = https://github.com/sky-bro/hugo-theme-zzo.git
 # [submodule "public"]
 # 	path = public
 # 	url = git@github.com:sky-bro/sky-bro.github.io.git

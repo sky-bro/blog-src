@@ -98,8 +98,8 @@ enableThemeChange = true
 # service
 googleTagManager = ""  # "GTM-M5GTJCD" # GTM-XXXXXX
 baiduPush = true        # baidu push                  # 百度
-baiduAnalytics = "42f41a835674a8363d37ac48ef389083"      # Baidu Analytics
-baiduVerification = "hiIYzkvqlY"   # Baidu Verification
+baiduAnalytics = "ca6f8344808d4544e0b64df2d9622ec0"      # Baidu Analytics
+baiduVerification = "code-ZHAuX2gvUH"   # Baidu Verification
 enableBusuanzi = true
 busuanziSiteUV = true
 busuanziSitePV = true

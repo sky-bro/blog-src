@@ -1,34 +1,47 @@
----
-title: "关于"
-description: "About Kyle Shi / sky / Kaiyu Shi, whoami, I am an enthusiast!"
-type: "about"
-date: "2020-04-16"
----
-![the matrix has you...](/images/about/the-matrix-has-you.gif)
++++
+title = "关于"
+date = 2021-11-23T16:16:00+08:00
+draft = false
+image = "/images/icons/tortoise.png"
+libraries = ["mathjax"]
+description = "about k4i"
+type = "about"
++++
 
-## :triangular_flag_on_post: 关于本站
+{{< figure src="/images/about/the-matrix-has-you.gif" >}}
 
-使用[Hugo](https://gohugo.io/)生成，博客源码在[blog-src](https://github.com/sky-bro/blog-src), 主题fork([my fork](https://github.com/sky-bro/hugo-theme-zzo))自: [hugo-theme-zzo](https://github.com/zzossig/hugo-theme-zzo)
 
-## :sunrise: 我的日常
+## :triangular_flag_on_post: 关于本站 {#triangular-flag-on-post-关于本站}
 
-* [@哈工大](http://www.hit.edu.cn/)
-* C / C++, Python, ASM
-* Arch, VSCode
-* CTF / Binary
+使用[Hugo](https://gohugo.io/)生成，博客源码在[blog-src](https://github.com/sky-bro/blog-src), 主题fork([my fork](https://github.com/sky-bro/hugo-theme-zzo))自: [hugo-theme-zzo](https://github.com/zzossig/hugo-theme-zzo).
 
-## :love_letter: 联系我
+另外现在不直接编辑 `.md` 文件了, 而是先编辑 `.org` 文件 (保存到了
+[blog-src/content-org](https://github.com/sky-bro/blog-src/tree/master/content-org)), 然后用[ox-hugo](https://ox-hugo.scripter.co/)导出到 `.md`.
 
-* 邮件: [sky_io@outlook.com](mailto:sky_io@outlook.com)
-* 微信: sky_bro
-* 脸书: [Kaiyu Shi](https://www.facebook.com/profile.php?id=100005027239118)
-* 推特: [KaiyuShi](https://twitter.com/KaiyuShi)
-* GPG公钥: [Kyle.asc](/Kyle.asc) (F4CD 0E4A 3661 65D1 62E6  B6CE 7D36 AE60 55B0 60A6)
 
-## :chicken: 我的朋友
+## :sunrise: 我的日常 {#sunrise-我的日常}
+
+-   [@哈工大](http://www.hit.edu.cn/)
+-   C/C++, Golang, Python, ASM
+-   Arch, Eamcs, VSCode
+-   CTF, ACM
+
+
+## :love_letter: 联系我 {#love-letter-联系我}
+
+-   邮件: [sky\_io@outlook.com](mailto:sky%5Fio@outlook.com)
+-   微信: sky\_bro
+-   脸书: [Kaiyu Shi](https://www.facebook.com/profile.php?id=100005027239118)
+-   推特: [KaiyuShi](https://twitter.com/KaiyuShi)
+-   GPG公钥: [Kyle.asc](/Kyle.asc) (F4CD 0E4A 3661 65D1 62E6  B6CE 7D36 AE60 55B0 60A6)
+
+
+## :chicken: 我的朋友 {#chicken-我的朋友}
 
 [TheSong](https://thesong96.github.io/), [路人枭](http://lurenxiao1998.github.io/), [wxk](https://pullp.github.io)
 
-## :musical_score: 最近在听
 
-[<img src="https://spotify-readme-ky13.vercel.app/api/spotify-playing" alt="Kyle Listening" />](https://open.spotify.com/user/22sit26j5lamlvm3sgikxwuoq)
+## :musical_score: 最近在听 {#musical-score-最近在听}
+
+[<img src="https://spotify-readme-ky13.vercel.app/api/spotify" alt="Kyle
+Listening" />](https://open.spotify.com/user/22sit26j5lamlvm3sgikxwuoq)

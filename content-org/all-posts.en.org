@@ -1,0 +1,707 @@
+#+STARTUP: overview
+#+HUGO_BASE_DIR: ../
+#+HUGO_SECTION: en/posts
+#+AUTHOR:
+#+HUGO_CUSTOM_FRONT_MATTER: :author "<a href='https://k4i.top' class='theme-link'>k4i</a>"
+
+* DONE About
+  CLOSED: [2021-11-23 Tue 16:16]
+:PROPERTIES:
+:EXPORT_HUGO_SECTION: en/
+:EXPORT_HUGO_BUNDLE: about
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2021-11-23 Tue 14:18]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "About K4i"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :type "about"
+:END:
+
+[[../static/images/about/the-matrix-has-you.gif]]
+
+** :triangular_flag_on_post: This Site
+
+Generated using [[https://gohugo.io/][Hugo]], source code here: [[https://github.com/sky-bro/blog-src][blog-src]], and the theme is forked ([[https://github.com/sky-bro/hugo-theme-zzo][my
+fork]]) from: [[https://github.com/zzossig/hugo-theme-zzo][hugo-theme-zzo]].
+
+BTW, instead of writing ~.md~ files, I keep all my blogs in ~.org~ files (stored
+inside [[https://github.com/sky-bro/blog-src/tree/master/content-org][blog-src/content-org]]), and export them to ~.md~ files with [[https://ox-hugo.scripter.co/][ox-hugo]].
+
+** :sunrise: Daily Life
+
+   + [[http://www.hit.edu.cn/][@HIT]]
+   + C/C++, Golang, Python, ASM
+   + Arch, Emacs, VSCode
+   + CTF, ACM
+
+** :love_letter: Contact Me
+
+   + Email: [[mailto:sky_io@outlook.com][sky_io@outlook.com]]
+   + WeChat: sky_bro
+   + Facebook: [[https://www.facebook.com/profile.php?id=100005027239118][Kaiyu Shi]]
+   + Twitter: [[https://twitter.com/KaiyuShi][KaiyuShi]]
+   + GPG Pub: [[/Kyle.asc][Kyle.asc]] (F4CD 0E4A 3661 65D1 62E6  B6CE 7D36 AE60 55B0 60A6)
+
+** :chicken: My Friends
+
+[[https://thesong96.github.io/][TheSong]], [[https://lurenxiao1998.github.io/][路人枭]], [[https://pullp.github.io][wxk]]
+
+** :musical_score: Listening recently
+ 
+[[https://open.spotify.com/user/22sit26j5lamlvm3sgikxwuoq][<img src="https://spotify-readme-ky13.vercel.app/api/spotify" alt="Kyle
+Listening" />]]
+
+* TODO Writing Guide (org + ox-hugo)                        :@notes:hugo:org:
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: writing-guide--org-plus-ox-hugo
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2021-11-22 Mon 20:23]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/tortoise.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "Now I blog in org mode!"
+:END:
+
+I've recently switched to [[https://orgmode.org/][org mode]], now I write all my blogs in org mode
+([[https://github.com/sky-bro/blog-src/blob/master/content-org/][blog-src/content-org/]]), and export them to ~.md~ files ([[https://github.com/sky-bro/blog-src/blob/master/content/][blog-src/content/]]) with
+ox-hugo.
+
+So instead of editing ~.md~ files under ~content~ folder, now I write ~.org~
+files stored under ~content-org~ folder.
+
+* TODO Org Notes                                                 :@notes:org:
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: org-notes
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2021-11-22 Mon 10:50]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "My Notes on org writing."
+:END:
+
+
+** Basic Editing
+*** Comments
+
+    + /*C-c ;*/ :: toggle comment of an entry
+ 
+    #+BEGIN_COMMENT
+    this is comment line 01,
+    this is comment line 02.
+    #+END_COMMENT
+ 
+    # comment a line / line comment
+ 
+*** Font types
+ 
+    + /italic/
+    + *bold*
+    + _underlined_
+    + =verbatim=
+    + ~code~
+    + +strike through+
+
+** Code
+
+   offers two types of source code:
+   1. code block
+   2. inline code
+
+*** inline
+
+     #+begin_src c++
+     #include <iostream>
+     using namespace std;
+
+     int main() {
+       return 0;
+     }
+     #+end_src
+   
+    src_c++[:exports code]{ typedef long long ll; } this code is inlined
+    src_shell[:exports code]{ echo -e "test" }
+
+*** code block
+
+    source code blocks are one of many Org block types.
+
+    #+BEGIN_SRC cpp
+      #include <iostream>
+      using namespace std;
+      int main() {
+        cout << "123\n";
+        return 0;
+      }
+    #+END_SRC
+
+*** List
+  
+   + M-RET :: new item at current level
+   + M-S-RET :: new item with a checkbox
+   + M-UP/DOWN :: move item up/down, including subitems
+   + M-S-UP/DOWN :: move item up/down
+   + M-LEFT/RIGHT :: decrease/increase indentation of item
+   + M-S-LEFT/RIGHT :: decrease/increase indentation of item, including subitems
+   + C-c C-c :: toggle checkbox
+   + C-c - :: Cycle through itemize/enumerate bullets
+ 
+** Table
+
+   + /*|Name|Age C-c RET*/ create table with headers
+     | NAME | Age |
+     |------+-----|
+     | sky  |  22 |
+     | k4i  |  23 |
+   + /*RET*/ go to next row
+   + /*S-UP/DOWN/LEFT/RIGHT*/ swap between rows/columns
+   + /*M-UP/DOWN/LEFT/RIGHT*/ swap between cells
+   + /*M-S-UP/DOWN/LEFT/RIGHT*/ insert/delete row/column
+   + /*C-c -*/ insert horizontal line below
+   + /*C-c RET*/ insert horizontal line below, move to next row
+   + /*C-c ^*/ sort column
+ 
+** Footnote
+
+*** footnote types:
+   
+   + named footnote :: fn:NAME
+   + anonymous, inline footnote :: fn:: inline definition, fn:NAME: inline definition
+
+   org-footnote-section
+   org-footnote-define-inline
+
+** hyperlinks
+   + formats
+     + =[[link][description]]=
+     + =[[link]]=
+     + [[https://k4i.top/][k4i's home!]]
+   + link types
+     + internal links
+     + external links
+   + shortcuts
+     + /*C-c C-l*/ :: insert/delete link
+     + /*C-c C-o*/ :: open link
+ 
+     #+CAPTION: students info table
+     | Name | Age |
+     |------+-----|
+     | sky  |  23 |
+
+** todos [1/2]
+*** DONE subtask 01
+    CLOSED: [2021-10-23 Sat 23:18]
+ 
+    + /*M-S-RET*/ :: new todo item
+    + /*C-c C-t*/ :: cycle through todo states
+ 
+*** BUG subtask 02 [1/2]
+    + [-] item 01
+      + [ ] item 01.01
+      + [X] item 01.02
+    + [X] item 02
+
+** Images
+
+   # [[~/Pictures/id-card.jpg]]
+ 
+   + /*C-c C-x C-v*/ :: toggle images (org-toggle-inline-images)
+  
+** Exports
+
+*** DONE latex
+    CLOSED: [2021-11-22 Mon 10:42]
+
+    latex config
+   
+    #+BEGIN_SRC shell
+    tlmgr update elegantpaper
+    tlmgr install elegantpaper # [[https://github.com/ElegantLaTeX/ElegantPaper][elegantpaper]]
+    tlmgr uninstall elegantpaper
+    pip install pygments # dependency of [[https://github.com/gpoore/minted][minted]]
+    #+END_SRC
+
+    add this in your front matter
+ 
+    #+BEGIN_SRC org
+      ,#+LATEX_COMPILER: xelatex
+      ,#+LATEX_CLASS: elegantpaper
+      ,#+OPTIONS: prop:t
+    #+END_SRC
+ 
+* TODO Golang Notes                                           :@notes:golang:
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: golang-notes
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2021-11-21 Sun 23:56]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image '/images/icons/tortoise.png' :libraries '(mathjax)
+:END:
+
+
+** Packages
+
+   every go programs is made up of packages, entry function: /func main()/
+
+   import statements could be grouped together using parenthesis ("factored"
+   import statements)
+
+   #+begin_src go
+     import "fmt"
+     import "math"
+   #+end_src
+
+   same as:
+
+   #+begin_src go
+     import (
+       "fmt"
+       "math"
+     )
+   #+end_src
+
+   Capitalized names are exported, when importing a package, you can only refer
+   its exported names.
+
+** Basic Types
+
+   #+begin_src go
+     package main
+    
+     import (
+       "fmt"
+       "math/cmplx"
+     )
+    
+     // bool
+    
+     // string
+    
+     // int int8 int16 int32 int 64
+     // uint uint8 uint16 uint32 uint64 unitptr
+    
+     // bytes // alias for uint8
+    
+     // rune // alias for int32, represents a unicode code point
+    
+     // float32 float64
+    
+     // complex64 complex128
+    
+     var (
+       ToBe   bool       = false
+       MaxInt uint64     = 1<<64 - 1
+       z      complex128 = cmplx.Sqrt(-5 + 12i)
+     )
+    
+     func main() {
+       fmt.Printf("Type: %T Value: %v\n", ToBe, ToBe)
+       fmt.Printf("Type: %T Value: %v\n", MaxInt, MaxInt)
+       fmt.Printf("Type: %T Value: %v\n", z, z)
+     }
+   #+end_src
+
+   the int, uint, and uintptr types are usually 32 bits on 32-bit systems and 64
+   bits on 64-bit systems.
+
+** Variables
+
+   /var/ statement declares a list of variables, the type comes last. A /var/
+   statement can be at package or function level.
+
+   A var declaration can include initializers, if an initializer is present, the
+   type can be omitted.
+
+   inside a function, the ~:=~ short assignment statement can be used instead of
+   a ~var~ declaration with implicit type
+
+   when the right hand side of the declaration is typed, the new variable is of
+   that same type.
+
+   with ~const~ keyword, you declare constants. Constants cannot be declared
+   using the ~:=~ syntax.
+
+   #+begin_src go
+     // with initializer
+     var i, j int = 1, 2
+     // omit type (type inference)
+     var i, j = 1, 2
+     // short variable declarations (also type inference)
+     a := 3 // int
+     b := 3.14 // float64
+     c := 0.1 + 0.2i
+    
+     // constants
+     const Pi = 3.14
+     // numeric constants are high-precision values
+     const (
+       Big = 1 << 100    // 1 << 100
+       Small = Big >> 99 // 2
+     )
+   #+end_src
+
+** Zero values
+
+   variables declared without an explicit initial value are given their zero
+   value.
+
+   + 0 for numeric types
+   + false for the boolean type
+   + "" (the empty string) for the strings
+
+** Type conversions
+
+   ~T(v)~ converts the value ~v~ to the type ~T~.
+
+   #+begin_src go
+     i := 42
+     f := float64(i)
+     u := uint(f)
+   #+end_src
+
+   **no implicit conversion in go**
+
+** Functions
+
+   #+begin_src go
+     // type comes after variable name.
+     func add(x int, y int) int {
+       return x + y;
+     }
+    
+     // consecutive named function parameters share a type
+     func add(x, y int) int {
+       return x + y;
+     }
+    
+     // function can return any number of results
+     func swap(x, y string) (string, string) {
+       return y, x
+     }
+    
+     // naked return: a return without arguments, can harm readability in longer
+     // functions
+     func split(sum int) (x, y int) {
+       x = sum * 4 / 9
+       y = sum - x
+       return
+     }
+   #+end_src
+
+** For
+
+   Go only has for loop, no while loop, has three components:
+   + init statement
+   + condition statement
+   + post statement
+    
+   no parentheses, but curly braces ~{}~ are always required.
+ 
+   #+begin_src go
+     package main
+    
+     import "fmt"
+    
+     func main() {
+       sum := 0
+       for i := 0; i < 10; i++ {
+         sum += i
+       }
+       fmt.Println(sum)
+     }
+   #+end_src
+
+   any of the three components can be omitted, if you only have condition or
+   nothing left, semicolon can be omitted.
+
+   #+begin_src go
+     sum := 0
+     // just like while loop
+     for sum < 1000 {
+       sum++
+     }
+    
+     for {
+       // loop forever
+     }
+   #+end_src
+
+   you can ~continue~ or ~break~ inside a loop
+
+** If
+
+   like ~for~ loops, no parentheses ~()~, but curly braces ~{}~ are required
+
+   can have init statement
+
+   #+begin_src go
+     if i := 0; i != 0 {
+       fmt.Println("what?")
+     } else if i == 0 {
+       fmt.Println("got 0")
+     } else {
+       fmt.Println("no way here")
+     }
+   #+end_src
+
+** Switch
+
+   + shorter way to write a sequence of ~if-else~ statements.
+
+   + no break or default fallthrough in switch
+
+   + cases need not be constants
+
+   + values need not to be integers (but types must match)
+
+   + also support init statements like ~if~ and ~for~.
+
+   #+begin_src go
+     package main
+    
+     import (
+       "fmt"
+       "runtime"
+     )
+    
+     func main() {
+       fmt.Print("Go runs on ")
+       switch os := runtime.GOOS; os {
+       case "darwin":
+         fmt.Println("OS X.")
+       case "linux":
+         fmt.Println("Linux.")
+       default:
+         // freebsd, openbsd,
+         // plan9, windows...
+         fmt.Printf("%s.\n", os)
+       }
+     }
+   #+end_src
+
+   + you can use ~fallthrough~ keyword to fallthrough
+   + mutiple statements in a single case:
+   + omit condition is the same as ~switch true~ (clean way to write long
+     if-then-else chains)
+
+   #+begin_src go
+     package main
+    
+     import (
+       "fmt"
+       "time"
+     )
+    
+     func main() {
+       t := time.Now()
+    
+       // same as: switch true
+       switch {
+       // default will always be last evaluated
+       default:
+         fmt.Println("default")
+       case t.Hour() < 12:
+         fmt.Println("morning")
+       case t.Hour() < 17, true: // like useing '||', match any
+         fmt.Println("afternoon")
+         fallthrough
+       case false:
+         // even condition is false, fallthrough do fallthrough here
+         fmt.Println("Are you ok?")
+         // cannot put fallthrough in the last case or default
+         // fallthrough
+       }
+     }
+   #+end_src
+  
+** Defer
+
+   a ~defer~ statement defers the execution of a function until the surrounding
+   function returns.
+
+   arguments evaluated immediately, but function call is not executed until the
+   surrounding function returns.
+
+   defered function calls are pushed onto a stack, so executed in last-in-first-outo order
+
+   #+begin_src go
+     package main
+    
+     import "fmt"
+    
+     func main() {
+       fmt.Println("counting")
+    
+       for i := 0; i < 10; i++ {
+         defer fmt.Println(i)
+       }
+    
+       fmt.Println("done")
+     }
+   #+end_src
+
+** Advanced types
+ 
+*** Pointers
+ 
+   A pointer holds the memory address of a vaalue.
+
+   Go has no pointer arithmetic.
+
+   #+begin_src go
+     var p *int
+     i := 42
+     p = &i // referencing
+     fmt.Println(*p) // dereferencing
+   #+end_src
+  
+*** Structs
+
+    can be defined inside functions
+
+    access struct fileds using a dot
+
+    struct fields can also be accessed through a struct pointer, without explicit
+    dereferencing.
+ 
+    #+begin_src go
+      package main
+     
+      import "fmt"
+     
+      func main() {
+        type Vertex struct {
+          X int
+          Y int
+        }
+        v := Vertex{1, 2}
+        p := &v // pointer to a struct
+        v.X = 4
+        (*p).Y = 6 // dereference the struct first - cumbersum
+        p.Y = 5    // without explicit dereference
+        fmt.Println(v)
+      }
+    #+end_src
+
+    struct literal
+
+    #+begin_src go
+      package main
+     
+      import "fmt"
+     
+      type Vertex struct {
+        X, Y int
+      }
+     
+      func main() {
+        var (
+          v1 = Vertex{1, 2}  // {1, 2}, has type Vertex
+          v2 = Vertex{Y: 1}  // {0, 1}
+          v3 = Vertex{}      // {0, 0}
+          p  = &Vertex{3, 4} // has type *Vertex
+        )
+     
+        // {1 2} {0 1} {0 0} &{3 4}
+        fmt.Println(v1, v2, v3, p)
+      }
+    #+end_src
+ 
+*** Arrays
+
+    ~[n]T~ is an array of ~n~ values of type ~T~.
+
+    Arrays cannot be resized
+
+    #+begin_src go
+      package main
+     
+      import "fmt"
+     
+      func main() {
+        // [1 2 0]
+        fmt.Println([3]int{1, 2})
+      }
+    #+end_src
+ 
+*** Slices
+
+    A slice is a dynamically-sezed, flexible view into the elements of an array.
+   
+    #+begin_src go
+      package main
+     
+      import "fmt"
+     
+      func main() {
+        v := [5]int{1, 2}
+        v1 := v[:3]
+        fmt.Println(cap(v))  // 5
+        fmt.Println(cap(v1)) // 5
+        fmt.Println(len(v1)) // 3
+        fmt.Println(v1)      // [1 2 0]
+      }
+    #+end_src
+ 
+*** 
+** Practice
+
+*** Sqrt
+
+    #+begin_src go
+      package main
+     
+      import "fmt"
+     
+      func Sqrt(x float64) (res float64) {
+        res = 1.
+        diff := 1.
+        for diff > 1e-5 || diff < -1e-5 {
+          diff = (res*res - x) / (2 * res)
+          res -= diff
+        }
+        return
+      }
+     
+      func main() {
+        fmt.Println(Sqrt(4))
+      }
+    #+end_src
+ 
+* TODO ox-hugo test                                         :@notes:hugo:org:
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: ox-hugo-test
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2021-11-22 Mon 00:27]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/tortoise.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "this is a description"
+:END:
+
+** Math Test
+
+   $x^2 + y^2 = z^2 \frac{1}{2}$
+
+   \begin{aligned}
+    x &= 1 + 1 \\
+    y &= 2 + 1
+   \end{aligned}
+   
+** Diagrams
+
+*** Plantuml
+ 
+   #+begin_src plantuml :file "images/first.svg"
+     title Authentication Sequence
+     
+     Alice->Bob: Authentication Request
+     note right of Bob: Bob thinks about it
+     Bob->Alice: Authentication Response
+   #+end_src
+
+   #+RESULTS:
+   [[file:images/first.svg]]
+ 
+*** Mermaid
+ 
+** revealjs / presentation
+ 
+** shortcodes
+
+  {{< youtube ZJthWmvUzzc >}}
+   

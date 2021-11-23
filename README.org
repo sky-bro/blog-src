@@ -1,0 +1,25 @@
+* My Blog Source
+
+  This is my blog source repo, which generates [[https://k4i.top][my site]] using hugo.
+
+** TODO Ideas [0/7]
+
+   + [ ] 通过各个顺序遍历的结果恢复二叉树
+   + [ ] 拓扑排序
+     + [Kahn’s algorithm, track indegree of nodes](https://www.geeksforgeeks.org/topological-sorting-indegree-based-solution/)
+     + [dfs + stack](https://www.geeksforgeeks.org/topological-sorting/)
+     + [All Topological Sorts](https://www.geeksforgeeks.org/all-topological-sorts-of-a-directed-acyclic-graph/)
+   + [ ] parse pcap with c/c++
+   + [ ] Modular multiplicative inverse, The multiplicative inverse
+     of “a modulo m” exists if and only if a and m are relatively prime (i.e.,
+     if gcd(a, m) = 1), three ways.
+     + Extended Euclidean algorithms
+     + Fermats’s little theorem (special case of Euler's theorem)
+     + Finding the modular inverse for every number modulo m
+     + refs:
+       + [Modular Multiplicative Inverse](https://cp-algorithms.com/algebra/module-inverse.html)
+       + [wiki: Modular multiplicative inverse](https://en.wikipedia.org/wiki/Modular_multiplicative_inverse)
+   + [ ] ways to calculate combinations
+   + [ ] minimax
+  + [ ] gRPC
+ 

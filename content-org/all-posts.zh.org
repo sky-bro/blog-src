@@ -1,0 +1,69 @@
+#+STARTUP: overview
+#+HUGO_BASE_DIR: ../
+#+HUGO_SECTION: zh/posts
+#+AUTHOR:
+#+HUGO_CUSTOM_FRONT_MATTER: :author "<a href='https://k4i.top' class='theme-link'>k4i</a>"
+
+* DONE 关于
+  CLOSED: [2021-11-23 Tue 16:16]
+:PROPERTIES:
+:EXPORT_HUGO_SECTION: zh/
+:EXPORT_HUGO_BUNDLE: about
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2021-11-23 Tue 15:32]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/tortoise.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "about k4i"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :type "about"
+:END:
+
+[[../static/images/about/the-matrix-has-you.gif]]
+
+** :triangular_flag_on_post: 关于本站
+
+使用[[https://gohugo.io/][Hugo]]生成，博客源码在[[https://github.com/sky-bro/blog-src][blog-src]], 主题fork([[https://github.com/sky-bro/hugo-theme-zzo][my fork]])自: [[https://github.com/zzossig/hugo-theme-zzo][hugo-theme-zzo]].
+
+另外现在不直接编辑 ~.md~ 文件了, 而是先编辑 ~.org~ 文件 (保存到了
+[[https://github.com/sky-bro/blog-src/tree/master/content-org][blog-src/content-org]]), 然后用[[https://ox-hugo.scripter.co/][ox-hugo]]导出到 ~.md~.
+
+** :sunrise: 我的日常
+
+   + [[http://www.hit.edu.cn/][@哈工大]]
+   + C/C++, Golang, Python, ASM
+   + Arch, Eamcs, VSCode
+   + CTF, ACM
+
+** :love_letter: 联系我
+
+   + 邮件: [[mailto:sky_io@outlook.com][sky_io@outlook.com]]
+   + 微信: sky_bro
+   + 脸书: [[https://www.facebook.com/profile.php?id=100005027239118][Kaiyu Shi]]
+   + 推特: [[https://twitter.com/KaiyuShi][KaiyuShi]]
+   + GPG公钥: [[/Kyle.asc][Kyle.asc]] (F4CD 0E4A 3661 65D1 62E6  B6CE 7D36 AE60 55B0 60A6)
+
+** :chicken: 我的朋友
+
+[[https://thesong96.github.io/][TheSong]], [[http://lurenxiao1998.github.io/][路人枭]], [[https://pullp.github.io][wxk]]
+
+** :musical_score: 最近在听
+
+[[https://open.spotify.com/user/22sit26j5lamlvm3sgikxwuoq][<img src="https://spotify-readme-ky13.vercel.app/api/spotify" alt="Kyle
+Listening" />]]
+
+* TODO 写作指南 (org + ox-hugo)                             :@notes:hugo:org:
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: writing-guide--org-plus-ox-hugo
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2021-11-22 Mon 20:23]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/tortoise.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "Now I blog in org mode!"
+:END:
+
+我最近开始采用[[https://orgmode.org/][org mode]]来写作, 我所有的博客都将使用org mode进行编辑
+([[https://github.com/sky-bro/blog-src/blob/master/content-org/][blog-src/content-org/]]), 然后利用ox-hugo将他们导出为 ~.md~ 文件
+([[https://github.com/sky-bro/blog-src/blob/master/content/][blog-src/content/]]).
+
+所以就是将原来编辑 ~content~ 目录下的 ~.md~ 文件改为了编辑 ~content-org~ 目录下
+的 ~.org~ 文件.
+

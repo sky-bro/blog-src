@@ -4,7 +4,7 @@ theme = "zzo-sky"
 enableRobotsTXT = true
 
 defaultContentLanguage = "en"
-defaultContentLanguageInSubdir = true
+defaultContentLanguageInSubdir = false
 hasCJKLanguage = true
 
 summaryLength = 70

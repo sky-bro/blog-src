@@ -50,22 +50,302 @@ inside [[https://github.com/sky-bro/blog-src/tree/master/content-org][blog-src/c
 [[https://open.spotify.com/user/22sit26j5lamlvm3sgikxwuoq][<img src="https://spotify-readme-ky13.vercel.app/api/spotify" alt="Kyle
 Listening" />]]
 
-* TODO Writing Guide (org + ox-hugo)                        :@notes:hugo:org:
+* DONE Writing Guide (org + ox-hugo)                        :@notes:hugo:org:
+  CLOSED: [2021-12-05 Sun 20:58]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: writing-guide--org-plus-ox-hugo
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: [2021-11-22 Mon 20:23]
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/tortoise.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/org-mode-unicorn.png"
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "Now I blog in org mode!"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "New writing/bloging guide, Now I blog in org mode!"
 :END:
 
-I've recently switched to [[https://orgmode.org/][org mode]], now I write all my blogs in org mode
-([[https://github.com/sky-bro/blog-src/blob/master/content-org/][blog-src/content-org/]]), and export them to ~.md~ files ([[https://github.com/sky-bro/blog-src/blob/master/content/][blog-src/content/]]) with
-ox-hugo.
+I've recently switched to [[https://orgmode.org/][org mode]], now I write all my blogs in org mode ([[https://github.com/sky-bro/blog-src/blob/master/content-org/][blog-src/content-org/]]), and export them to ~.md~ files ([[https://github.com/sky-bro/blog-src/blob/master/content/][blog-src/content/]]) with ox-hugo.
 
-So instead of editing ~.md~ files under ~content~ folder, now I write ~.org~
-files stored under ~content-org~ folder.
+So instead of editing ~.md~ files under ~content~ folder, now I write ~.org~ files stored under ~content-org~ folder.
+
+** Create new post
+
+Invoking org-capture-templates function, and choose hugo post template, as shown in Figure [[fig:org-capture-template-ox-hugo]]
+
+#+CAPTION: creating new post with org-capture-template
+#+NAME: fig:org-capture-template-ox-hugo
+[[../static/images/posts/Writing-Guide-Org/org-capture-template-ox-hugo.gif]]
+
+** Front matter
+
+As in [[https://ox-hugo.scripter.co/doc/custom-front-matter/][ox-hugo: Custom Front-matter Parameters]], hugo front matters can be added like below:
+
+#+begin_src org
+  :PROPERTIES:
+  :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :key1 value1 :key2 value2
+  :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :key3 value3
+  :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :key4 value4
+  :END:
+#+end_src
+
+** Code
+
+Inline code with '\equal' or '\tilde': ==echo 123==, ~~echo 456~~
+
+Code block with
+
+#+begin_src org
+  ,#+begin_src c
+    int main() {
+      return 0
+    }
+  ,#+end_src
+#+end_src
+
+** Images
+
+Store all the images under =$HUGO_BASE_DIR/static/= folder (except some generated images), so just include them using relative path from the org file.
+
+You can add caption and name (for referencing purpose: as in figure [[fig:gopher]]) to an image.
+
+#+CAPTION: Gogpher
+#+NAME: fig:gopher
+[[../static/images/icons/gopher001.png]]
+
+#+begin_src org
+  ,#+CAPTION: Gogpher
+  ,#+NAME: fig:gopher
+  [[../static/images/icons/gopher001.png]]
+#+end_src
+
+** Math Support (with MathJax)
+
+We need to have MathJax library in our front matter.
+
+#+begin_src org
+  :PROPERTIES:
+  :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+  :END:
+#+end_src
+
+Inline formulas with =\$..\$=. This is inline math: $x^2 + y^2 = z^2 \frac{1}{2}$.
+
+Displayed equations with =\$\$..\$\$= or $\LaTeX$ encironments. This is displayed math:
+
+The code:
+
+#+begin_src tex
+  \begin{equation}\label{eq:1}
+    \begin{split}
+      a &= b+c-d\\
+        &\quad +e-f\\
+        &= g+h\\
+        &= i
+    \end{split}
+  \end{equation}
+#+end_src
+
+will be rendered as:
+
+\begin{equation}\label{eq:1}
+  \begin{split}
+    a &= b+c-d\\
+      &\quad +e-f\\
+      &= g+h\\
+      &= i
+  \end{split}
+\end{equation}
+
+{{< alert theme="warning" >}}
+It seems that zzo theme does not support math equation referencing and numbering yet?
+{{< /alert >}}
+
+** Diagrams
+
+*** Plantuml
+
+#+begin_src plantuml :file "../static/images/posts/Writing-Guide-Org/first.svg"
+  title Authentication Sequence
+
+  Alice->Bob: Authentication Request
+  note right of Bob: Bob thinks about it
+  Bob->Alice: Authentication Response
+#+end_src
+
+** revealjs / presentation
+
+** shortcodes
+
+*** Alert
+
+You can have alert like this:
+
+#+begin_src org
+  {{</* alert theme="info" dir="ltr" */>}}
+  theme could be one of: success, info, warning, danger
+  {{</* /alert */>}}
+#+end_src
+
+{{< alert theme="success" >}}
+this is a success.
+{{< /alert >}}
+
+{{< alert theme="info" >}}
+this is a info.
+{{< /alert >}}
+
+{{< alert theme="warning" >}}
+this is a warning.
+{{< /alert >}}
+
+{{< alert theme="danger" >}}
+this is a danger.
+{{< /alert >}}
+
+*** Notice
+
+#+begin_src org
+  {{</* notice success "This is a success type of notice" */>}}
+  notice could be success, info, warning, error.
+  {{</* /notice */>}}
+#+end_src
+
+{{< notice success "This is a success type of notice" >}}
+success notice.
+{{< /notice >}}
+
+{{< notice info "This is a info type of notice" >}}
+info notice.
+{{< /notice >}}
+
+{{< notice warning "This is a warning type of notice" >}}
+warning notice.
+{{< /notice >}}
+
+{{< notice error "This is a error type of notice" >}}
+error notice.
+{{< /notice >}}
+
+*** Simple box
+
+#+begin_src org
+  {{</* box */>}}
+  Plain text
+  {{</* /box */>}}
+#+end_src
+
+{{< box >}}
+Plain text
+{{< /box >}}
+
+*** Code in multiple language
+
+#+begin_src org
+  {{</* codes java javascript */>}}
+    {{</* code */>}}
+    ,#+begin_src java
+      System.out.Println("Hello World!");
+    ,#+end_src
+    {{</* /code */>}}
+    {{</* code */>}}
+    ,#+begin_src javascript
+      console.log('Hello World!');
+    ,#+end_src
+    {{</* /code */>}}
+  {{</* /codes */>}}
+#+end_src
+
+{{< codes java javascript >}}
+  {{< code >}}
+  #+begin_src java
+    System.out.Println("Hello World!");
+  #+end_src
+  {{< /code >}}
+  {{< code >}}
+  #+begin_src javascript
+    console.log('Hello World!');
+  #+end_src
+  {{< /code >}}
+{{< /codes >}}
+
+*** Tab
+
+#+begin_src org
+  {{</* tabs Windows MacOS Ubuntu */>}}
+    {{</* tab */>}}
+
+    ,*** Windows section
+
+    ,#+begin_src javascript
+      console.log('Hello World!');
+    ,#+end_src
+
+    {{</* /tab */>}}
+    {{</* tab */>}}
+
+    ,*** MacOS section
+
+    Hello world!
+    {{</* /tab */>}}
+    {{</* tab */>}}
+
+    ,*** Ubuntu section
+
+    Great!
+    {{</* /tab */>}}
+  {{</* /tabs */>}}
+#+end_src
+
+{{< tabs Windows MacOS Ubuntu >}}
+  {{< tab >}}
+
+  *** Windows section
+
+  #+begin_src javascript
+    console.log('Hello World!');
+  #+end_src
+
+  {{< /tab >}}
+  {{< tab >}}
+
+  *** MacOS section
+
+  Hello world!
+  {{< /tab >}}
+  {{< tab >}}
+
+  *** Ubuntu section
+
+  Great!
+  {{< /tab >}}
+{{< /tabs >}}
+*** Expand
+
+#+begin_src org
+  {{</* expand "Expand me" */>}}
+  Some Markdown Contents
+  {{</* /expand */>}}
+#+end_src
+
+{{< expand "Expand me" >}}
+Some Markdown Contents
+#+begin_src go
+  package main
+
+  import "fmt"
+
+  func main() {
+    fmt.Println("hello sky!")
+  }
+#+end_src
+{{< /expand >}}
+
+*** video
+
+{{< youtube 2liXzaIIyuE >}}
+
+** References
+
++ [[https://ox-hugo.scripter.co/][ox-hugo official site]]
++ [[https://plantuml.com/][plantuml official site]]
++ [[https://zzo-docs.vercel.app/zzo/shortcodes/][zzo-docs on shortcodes]]
 
 * TODO Org Notes                                                 :@notes:org:
 :PROPERTIES:

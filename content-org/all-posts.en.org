@@ -347,11 +347,13 @@ Some Markdown Contents
 + [[https://plantuml.com/][plantuml official site]]
 + [[https://zzo-docs.vercel.app/zzo/shortcodes/][zzo-docs on shortcodes]]
 
-* TODO Org Notes                                                 :@notes:org:
+* DONE Org Notes                                                 :@notes:org:
+  CLOSED: [2021-12-06 Mon 21:37]
 :PROPERTIES:
 :EXPORT_HUGO_BUNDLE: org-notes
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: [2021-11-22 Mon 10:50]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/org-mode-unicorn.png"
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "My Notes on org writing."
 :END:
@@ -360,117 +362,141 @@ Some Markdown Contents
 ** Basic Editing
 *** Comments
 
-    + /*C-c ;*/ :: toggle comment of an entry
- 
-    #+BEGIN_COMMENT
-    this is comment line 01,
-    this is comment line 02.
-    #+END_COMMENT
- 
-    # comment a line / line comment
- 
++ /*C-c ;*/ :: toggle comment of an entry
+
+#+BEGIN_COMMENT
+this is comment line 01,
+this is comment line 02.
+#+END_COMMENT
+
+# comment a line / line comment
+
 *** Font types
- 
-    + /italic/
-    + *bold*
-    + _underlined_
-    + =verbatim=
-    + ~code~
-    + +strike through+
+
+#+begin_src org
+  + /italic/
+  + *bold*
+  + _underlined_
+  + =verbatim=
+  + ~code~
+  + +strike-through+
+#+end_src
+
+will be rendered as:
+
++ /italic/
++ *bold*
++ _underlined_
++ =verbatim=
++ ~code~
++ +strike through+
 
 ** Code
 
-   offers two types of source code:
-   1. code block
-   2. inline code
+Offers two types of source code:
+
+1. code block
+2. inline code
+
+org-entities-help function helps you insert some code.
 
 *** inline
 
-     #+begin_src c++
-     #include <iostream>
-     using namespace std;
+#+begin_src org
+  src_c++[:exports code]{ typedef long long ll; }
+  src_shell[:exports code]{ echo -e "test" }
+#+end_src
 
-     int main() {
-       return 0;
-     }
-     #+end_src
-   
-    src_c++[:exports code]{ typedef long long ll; } this code is inlined
-    src_shell[:exports code]{ echo -e "test" }
+src_c++[:exports code]{ typedef long long ll; }
+src_shell[:exports code]{ echo -e "test" }
 
 *** code block
 
-    source code blocks are one of many Org block types.
+source code blocks are one of many Org block types.
 
-    #+BEGIN_SRC cpp
-      #include <iostream>
-      using namespace std;
-      int main() {
-        cout << "123\n";
-        return 0;
-      }
-    #+END_SRC
+#+begin_src org
+  ,#+BEGIN_SRC cpp
+    #include <iostream>
+    using namespace std;
+    int main() {
+      cout << "123\n";
+      return 0;
+    }
+  ,#+END_SRC
+#+end_src
 
-*** List
-  
-   + M-RET :: new item at current level
-   + M-S-RET :: new item with a checkbox
-   + M-UP/DOWN :: move item up/down, including subitems
-   + M-S-UP/DOWN :: move item up/down
-   + M-LEFT/RIGHT :: decrease/increase indentation of item
-   + M-S-LEFT/RIGHT :: decrease/increase indentation of item, including subitems
-   + C-c C-c :: toggle checkbox
-   + C-c - :: Cycle through itemize/enumerate bullets
- 
+#+BEGIN_SRC cpp
+  #include <iostream>
+  using namespace std;
+  int main() {
+    cout << "123\n";
+    return 0;
+  }
+#+END_SRC
+
+** List
+
++ M-RET :: new item at current level
++ M-S-RET :: new item with a checkbox
++ M-UP/DOWN :: move item up/down, including subitems
++ M-S-UP/DOWN :: move item up/down
++ M-LEFT/RIGHT :: decrease/increase indentation of item
++ M-S-LEFT/RIGHT :: decrease/increase indentation of item, including subitems
++ C-c C-c :: toggle checkbox
++ C-c - :: Cycle through itemize/enumerate bullets
+
 ** Table
 
-   + /*|Name|Age C-c RET*/ create table with headers
-     | NAME | Age |
-     |------+-----|
-     | sky  |  22 |
-     | k4i  |  23 |
-   + /*RET*/ go to next row
-   + /*S-UP/DOWN/LEFT/RIGHT*/ swap between rows/columns
-   + /*M-UP/DOWN/LEFT/RIGHT*/ swap between cells
-   + /*M-S-UP/DOWN/LEFT/RIGHT*/ insert/delete row/column
-   + /*C-c -*/ insert horizontal line below
-   + /*C-c RET*/ insert horizontal line below, move to next row
-   + /*C-c ^*/ sort column
- 
++ /*|Name|Age C-c RET*/ create table with headers
+  | NAME | Age |
+  |------+-----|
+  | sky  |  22 |
+  | k4i  |  23 |
++ /*RET*/ go to next row
++ /*S-UP/DOWN/LEFT/RIGHT*/ swap between cells
++ /*M-UP/DOWN/LEFT/RIGHT*/ swap between rows/columns
++ /*M-S-UP/DOWN/LEFT/RIGHT*/ insert/delete row/column
++ /*C-c -*/ insert horizontal line below
++ /*C-c RET*/ insert horizontal line below, move to next row
++ /*C-c ^*/ sort column
+
 ** Footnote
 
-*** footnote types:
-   
-   + named footnote :: fn:NAME
-   + anonymous, inline footnote :: fn:: inline definition, fn:NAME: inline definition
+for more information on footnote, please refer to the official org site[fn:orgmode].
 
-   org-footnote-section
-   org-footnote-define-inline
+*** footnote types:
+
++ named footnote :: fn:NAME
++ anonymous, inline footnote :: fn:: inline definition, fn:NAME: inline definition
+
+*** example
+
+ #+begin_src org
+   The Org homepage[fn:1] now looks a lot better than it used to.
+   ...
+   [fn:1] The link is: https://orgmode.org
+ #+end_src
 
 ** hyperlinks
-   + formats
-     + =[[link][description]]=
-     + =[[link]]=
-     + [[https://k4i.top/][k4i's home!]]
-   + link types
-     + internal links
-     + external links
-   + shortcuts
-     + /*C-c C-l*/ :: insert/delete link
-     + /*C-c C-o*/ :: open link
- 
-     #+CAPTION: students info table
-     | Name | Age |
-     |------+-----|
-     | sky  |  23 |
++ formats
+  + =[[link][description]]=
+  + =[[link]]=
+  + [[https://k4i.top/][k4i's home!]]
++ link types
+  + internal links
+  + external links
++ shortcuts
+  + /*C-c C-l*/ :: insert/delete link
+  + /*C-c C-o*/ :: open link
 
 ** todos [1/2]
+
 *** DONE subtask 01
     CLOSED: [2021-10-23 Sat 23:18]
- 
+
     + /*M-S-RET*/ :: new todo item
     + /*C-c C-t*/ :: cycle through todo states
- 
+
 *** BUG subtask 02 [1/2]
     + [-] item 01
       + [ ] item 01.01
@@ -479,31 +505,32 @@ Some Markdown Contents
 
 ** Images
 
-   # [[~/Pictures/id-card.jpg]]
- 
-   + /*C-c C-x C-v*/ :: toggle images (org-toggle-inline-images)
-  
++ /*C-c C-x C-v*/ :: toggle images (org-toggle-inline-images)
+
 ** Exports
 
-*** DONE latex
-    CLOSED: [2021-11-22 Mon 10:42]
+*** latex
 
-    latex config
-   
-    #+BEGIN_SRC shell
-    tlmgr update elegantpaper
-    tlmgr install elegantpaper # [[https://github.com/ElegantLaTeX/ElegantPaper][elegantpaper]]
-    tlmgr uninstall elegantpaper
-    pip install pygments # dependency of [[https://github.com/gpoore/minted][minted]]
-    #+END_SRC
+latex config
 
-    add this in your front matter
+#+BEGIN_SRC shell
+tlmgr update elegantpaper
+tlmgr install elegantpaper # [[https://github.com/ElegantLaTeX/ElegantPaper][elegantpaper]]
+tlmgr uninstall elegantpaper
+pip install pygments # dependency of [[https://github.com/gpoore/minted][minted]]
+#+END_SRC
 
-    #+BEGIN_SRC org
-      ,#+LATEX_COMPILER: xelatex
-      ,#+LATEX_CLASS: elegantpaper
-      ,#+OPTIONS: prop:t
-    #+END_SRC
+add this in your front matter
+
+#+BEGIN_SRC org
+  ,#+LATEX_COMPILER: xelatex
+  ,#+LATEX_CLASS: elegantpaper
+  ,#+OPTIONS: prop:t
+#+END_SRC
+
+** Footnotes
+
+[fn:orgmode] [[https://orgmode.org/][org mode official site]]
 
 * DONE Golang Notes                                           :@notes:golang:
   CLOSED: [2021-11-25 Thu 00:30]
@@ -511,6 +538,7 @@ Some Markdown Contents
 :EXPORT_HUGO_BUNDLE: golang-notes
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: [2021-11-21 Sun 23:56]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :image "/images/icons/gopher001.png"
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "This is my notes on learning golang."
 :END:

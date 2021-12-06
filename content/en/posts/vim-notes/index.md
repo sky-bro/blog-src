@@ -1,0 +1,53 @@
++++
+title = "Vim Notes"
+date = 2021-12-06T20:56:00+08:00
+tags = ["vim", "editor"]
+categories = ["notes"]
+draft = false
+image = "/images/icons/vim-logo.png"
+libraries = ["mathjax"]
+description = "my notes/cheatsheet on using vim."
++++
+
+## my simple config {#my-simple-config}
+
+my simple config can be found here: [.dotfiles/.vimrc](https://github.com/sky-bro/.dotfiles/blob/master/.vimrc)
+
+
+## widows {#widows}
+
+_**C-w s**_
+: horizontal split window
+
+_**C-w v**_
+: vertical split window
+
+_**C-w q**_
+: quit a window
+
+_**C-w h/j/k/l**_
+: move between windows
+
+_**C-w H/J/K/L**_
+: make current master window
+
+_**C-w +/-**_
+: inc/dec height, can prepend with a number
+
+_**C-w >/<**_
+: inc/dec width, can prepend with a number
+
+
+## jump {#jump}
+
+_**C-o**_
+: jump back
+
+_**C-i**_
+: jump forward
+
+
+## References {#references}
+
+-   [Vim Cheat Sheet](https://vim.rtorr.com/)
+-   [vi / vim graphical cheat sheet](/images/posts/vim-notes/vim-cheatsheet.svg)

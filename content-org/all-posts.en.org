@@ -1834,45 +1834,37 @@ Some Markdown Contents
         },
       }
     #+end_src
-* TODO ox-hugo test                                         :@notes:hugo:org:
+* DONE Vim Notes                                          :@notes:vim:editor:
+  CLOSED: [2021-12-06 Mon 20:56]
 :PROPERTIES:
-:EXPORT_HUGO_BUNDLE: ox-hugo-test
+:EXPORT_HUGO_BUNDLE: vim-notes
 :EXPORT_FILE_NAME: index
-:EXPORT_DATE: [2021-11-22 Mon 00:27]
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/tortoise.png"
+:EXPORT_DATE: [2021-12-06 Mon 20:24]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/vim-logo.png"
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "this is a description"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "my notes/cheatsheet on using vim."
 :END:
 
-** Math Test
+** my simple config
 
-   $x^2 + y^2 = z^2 \frac{1}{2}$
+my simple config can be found here: [[https://github.com/sky-bro/.dotfiles/blob/master/.vimrc][.dotfiles/.vimrc]]
 
-   \begin{aligned}
-    x &= 1 + 1 \\
-    y &= 2 + 1
-   \end{aligned}
-   
-** Diagrams
+** widows
 
-*** Plantuml
- 
-   #+begin_src plantuml :file "images/first.svg"
-     title Authentication Sequence
-     
-     Alice->Bob: Authentication Request
-     note right of Bob: Bob thinks about it
-     Bob->Alice: Authentication Response
-   #+end_src
++ /*C-w s*/ :: horizontal split window
++ /*C-w v*/ :: vertical split window
++ /*C-w q*/ :: quit a window
++ /*C-w h/j/k/l*/ :: move between windows
++ /*C-w H/J/K/L*/ :: make current master window
++ /*C-w +\slash-*/ :: inc/dec height, can prepend with a number
++ /*C-w >/<*/ :: inc/dec width, can prepend with a number
 
-   #+RESULTS:
-   [[file:images/first.svg]]
- 
-*** Mermaid
- 
-** revealjs / presentation
- 
-** shortcodes
+** jump
 
-  {{< youtube ZJthWmvUzzc >}}
-   
++ /*C-o*/ :: jump back
++ /*C-i*/ :: jump forward
+
+** References
+
++ [[https://vim.rtorr.com/][Vim Cheat Sheet]]
++ [[../static/images/posts/vim-notes/vim-cheatsheet.svg][vi / vim graphical cheat sheet]]

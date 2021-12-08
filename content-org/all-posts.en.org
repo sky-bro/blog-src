@@ -3,6 +3,8 @@
 #+HUGO_SECTION: en/posts
 #+AUTHOR:
 #+HUGO_CUSTOM_FRONT_MATTER: :author "<a href='https://k4i.top' class='theme-link'>k4i</a>"
+#+LATEX_COMPILER: xelatex
+#+LATEX_CLASS: elegantpaper
 
 * DONE About
   CLOSED: [2021-11-23 Tue 16:16]
@@ -528,9 +530,26 @@ add this in your front matter
   ,#+OPTIONS: prop:t
 #+END_SRC
 
-** Footnotes
+*** fixed reference ids
 
-[fn:orgmode] [[https://orgmode.org/][org mode official site]]
+Org will set random ids for internal links, sometimes we want them to be fixed.
+
+There are two solutions, one is to seed the random number generater[fn:seed-random-generator].
+
+#+begin_src elisp
+  (defun seed-random-generator (_) (random "a fixed and unchanging string"))
+  (add-hook 'org-export-before-processing-hook #'seed-random-generator)
+#+end_src
+
+And another way is to override the ~org-export-new-reference~[fn:org-export-new-reference] function:
+
+#+begin_src elisp
+  (defun org-export-deterministic-reference (references)
+    (let ((new (length references)))
+      (while (rassq new references) (setq new (+ new 1)))
+      new))
+  (advice-add #'org-export-new-reference :override #'org-export-deterministic-reference)
+#+end_src
 
 * DONE Golang Notes                                           :@notes:golang:
   CLOSED: [2021-11-25 Thu 00:30]
@@ -546,10 +565,11 @@ add this in your front matter
 ** Basics
 *** Packages
 
-    every go programs is made up of packages, entry function: /func main()/
+    every go program is made up of packages, and it starts from: /package main/,
+    /func main()/
 
-    import statements could be grouped together using parenthesis ("factored"
-    import statements)
+    packages could be imported, and grouped together using parenthesis
+    ("factored" import statements)
 
     #+begin_src go
       import "fmt"
@@ -565,8 +585,8 @@ add this in your front matter
       )
     #+end_src
 
-    Capitalized names are exported, when importing a package, you can only refer
-    its exported names.
+    Only capitalized names are exported, therefore after importing a package, you
+    can only reference its exported names.
 
 *** Basic Types
 
@@ -611,66 +631,68 @@ add this in your front matter
 
 *** Variables
 
-    /var/ statement declares a list of variables, the type comes last. A /var/
-    statement can be at package or function level.
+Two ways to declare a variable:
++ /var/
+  + with or without initializer (implicitly initialized with zero value)
+  + package or function scope
++ ~:=~ short assignment statements
+  + only function scope
+  + must have initializers
 
-    A var declaration can include initializers, if an initializer is present, the
-    type can be omitted.
+With an explicit initializer, no need to provide the type of the variable.
 
-    inside a function, the ~:=~ short assignment statement can be used instead of
-    a ~var~ declaration with implicit type
+Apart from variables, there are constants, which:
++ can be declared in package or function level
++ must have explicit initializers (also constants, value known at compile time)
++ cannot be reassigned after initialization.
 
-    when the right hand side of the declaration is typed, the new variable is of
-    that same type.
+Multiple /var/ or /const/ statements could be grouped together like /imports/.
 
-    with ~const~ keyword, you declare constants. Constants cannot be declared
-    using the ~:=~ syntax.
+#+begin_src go
+  // with initializer
+  var i, j int = 1, 2
+  // omit type (type inference)
+  var i, j = 1, 2
+  // short variable declarations (also type inference)
+  a := 3 // int
+  b := 3.14 // float64
+  c := 0.1 + 0.2i
 
-    #+begin_src go
-      // with initializer
-      var i, j int = 1, 2
-      // omit type (type inference)
-      var i, j = 1, 2
-      // short variable declarations (also type inference)
-      a := 3 // int
-      b := 3.14 // float64
-      c := 0.1 + 0.2i
-
-      // constants
-      const Pi = 3.14
-      // numeric constants are high-precision values
-      const (
-        Big = 1 << 100    // 1 << 100
-        Small = Big >> 99 // 2
-      )
-    #+end_src
+  // constants
+  const Pi = 3.14
+  // numeric constants are high-precision values
+  const (
+    Big = 1 << 100    // 1 << 100
+    Small = Big >> 99 // 2
+  )
+#+end_src
 
 *** Functions
 
-    #+begin_src go
-      // type comes after variable name.
-      func add(x int, y int) int {
-        return x + y;
-      }
+#+begin_src go
+  // type comes after variable name.
+  func add(x int, y int) int {
+    return x + y;
+  }
 
-      // consecutive named function parameters share a type
-      func add(x, y int) int {
-        return x + y;
-      }
+  // consecutive named function parameters share a type
+  func add(x, y int) int {
+    return x + y;
+  }
 
-      // function can return any number of results
-      func swap(x, y string) (string, string) {
-        return y, x
-      }
+  // function can return any number of results
+  func swap(x, y string) (string, string) {
+    return y, x
+  }
 
-      // naked return: a return without arguments, can harm readability in longer
-      // functions
-      func split(sum int) (x, y int) {
-        x = sum * 4 / 9
-        y = sum - x
-        return
-      }
-    #+end_src
+  // naked return: a return without arguments, can harm readability in longer
+  // functions
+  func split(sum int) (x, y int) {
+    x = sum * 4 / 9
+    y = sum - x
+    return
+  }
+#+end_src
 
 **** Methods
 
@@ -736,129 +758,125 @@ add this in your front matter
 ** Control FLow
 *** For
 
-    Go only has for loop, no while loop, has three components:
-    + init statement
-    + condition statement
-    + post statement
+Go only has for loop, no while loop, each for loop has three basic
+components:
++ init statement
++ condition statement
++ post statement (execute after each iteration)
 
-    no parentheses, but curly braces ~{}~ are always required.
+no parentheses, but curly braces ~{}~ are always required.
 
-    #+begin_src go
-      package main
+#+begin_src go
+  package main
 
-      import "fmt"
+  import "fmt"
 
-      func main() {
-        sum := 0
-        for i := 0; i < 10; i++ {
-          sum += i
-        }
-        fmt.Println(sum)
-      }
-    #+end_src
+  func main() {
+    sum := 0
+    for i := 0; i < 10; i++ {
+      sum += i
+    }
+    fmt.Println(sum)
+  }
+#+end_src
 
-    any of the three components can be omitted, if you only have condition or
-    nothing left, semicolon can be omitted.
+any of the three components can be omitted, if you only have condition or
+nothing left, semicolon can be omitted.
 
-    #+begin_src go
-      sum := 0
-      // just like while loop
-      for sum < 1000 {
-        sum++
-      }
+#+begin_src go
+  sum := 0
+  // just like while loop
+  for sum < 1000 {
+    sum++
+  }
 
-      for {
-        // loop forever
-      }
-    #+end_src
+  for {
+    // loop forever
+  }
+#+end_src
 
-    you can ~continue~ or ~break~ inside a loop
+you can ~continue~ or ~break~ inside a loop
 
 *** If
 
-    like ~for~ loops, no parentheses ~()~, but curly braces ~{}~ are required
+like ~for~ loops, no parentheses ~()~, but curly braces ~{}~ are required
 
-    can have init statement
+can have init statement
 
-    #+begin_src go
-      if i := 0; i != 0 {
-        fmt.Println("what?")
-      } else if i == 0 {
-        fmt.Println("got 0")
-      } else {
-        fmt.Println("no way here")
-      }
-    #+end_src
+#+begin_src go
+  if i := 0; i != 0 {
+    fmt.Println("what?")
+  } else if i == 0 {
+    fmt.Println("got 0")
+  } else {
+    fmt.Println("no way here")
+  }
+#+end_src
 
 *** Switch
 
-    + shorter way to write a sequence of ~if-else~ statements.
++ shorter way to write a sequence of ~if-else~ statements.
++ no break or default fallthrough in switch
++ cases do need not to be constants or integers.
++ also support init statements like ~if~ and ~for~.
 
-    + no break or default fallthrough in switch
+#+begin_src go
+  package main
 
-    + cases need not be constants
+  import (
+    "fmt"
+    "runtime"
+  )
 
-    + values need not to be integers (but types must match)
+  func main() {
+    fmt.Print("Go runs on ")
+    switch os := runtime.GOOS; os {
+    case "darwin":
+      fmt.Println("OS X.")
+    case "linux":
+      fmt.Println("Linux.")
+    default:
+      // freebsd, openbsd,
+      // plan9, windows...
+      fmt.Printf("%s.\n", os)
+    }
+  }
+#+end_src
 
-    + also support init statements like ~if~ and ~for~.
++ you can use ~fallthrough~ keyword to fallthrough
++ mutiple statements in a single case:
++ omit condition is the same as ~switch true~ (clean way to write long
+  if-then-else chains)
 
-    #+begin_src go
-      package main
+#+begin_src go
+  package main
 
-      import (
-        "fmt"
-        "runtime"
-      )
+  import (
+    "fmt"
+    "time"
+  )
 
-      func main() {
-        fmt.Print("Go runs on ")
-        switch os := runtime.GOOS; os {
-        case "darwin":
-          fmt.Println("OS X.")
-        case "linux":
-          fmt.Println("Linux.")
-        default:
-          // freebsd, openbsd,
-          // plan9, windows...
-          fmt.Printf("%s.\n", os)
-        }
-      }
-    #+end_src
+  func main() {
+    t := time.Now()
 
-    + you can use ~fallthrough~ keyword to fallthrough
-    + mutiple statements in a single case:
-    + omit condition is the same as ~switch true~ (clean way to write long
-      if-then-else chains)
-
-    #+begin_src go
-      package main
-
-      import (
-        "fmt"
-        "time"
-      )
-
-      func main() {
-        t := time.Now()
-
-        // same as: switch true
-        switch {
-        // default will always be last evaluated
-        default:
-          fmt.Println("default")
-        case t.Hour() < 12:
-          fmt.Println("morning")
-        case t.Hour() < 17, true: // like useing '||', match any
-          fmt.Println("afternoon")
-          fallthrough
-        case false:
-          // even condition is false, fallthrough do fallthrough here
-          fmt.Println("Are you ok?")
-          // cannot put fallthrough in the last case or default
-          // fallthrough
-        }
-      }
-    #+end_src
+    // same as: switch true
+    switch {
+    // default will always be last evaluated
+    default:
+      fmt.Println("default")
+    case t.Hour() < 12:
+      fmt.Println("morning")
+    case t.Hour() < 17, true: // like useing '||', match any
+      fmt.Println("afternoon")
+      fallthrough
+    case false:
+      // even condition is false, fallthrough do fallthrough here
+      fmt.Println("Are you ok?")
+      // cannot put fallthrough in the last case or default
+      // fallthrough
+    }
+  }
+#+end_src
 
 *** Defer
 
@@ -1011,7 +1029,26 @@ add this in your front matter
 
     appending to a slice
 
-    if the backing array is to small to fit all the given values a bigger array
+    #+begin_src go
+      func printSlice(s []int) {
+        fmt.Printf("len=%d, cap=%d, addr=%p, %v\n", len(s), cap(s), &s, s)
+      }
+
+      func main() {
+        var s []int
+        printSlice(s) // len=0, cap=0
+        s = append(s, 0)
+        printSlice(s) // len=1, cap=1
+        s = append(s, 1)
+        printSlice(s) // len=2, cap=2
+        s = append(s, 1)
+        printSlice(s) // len=3, cap=4
+        s = append(s, 1, 2, 3)
+        printSlice(s) // len=6, cap=8
+      }
+    #+end_src
+
+    if the backing array is too small to fit all the given values a bigger array
     will be allocated. The returned slice will point to the newly allocated
     array.
 
@@ -1380,6 +1417,7 @@ add this in your front matter
    + "" (the empty string) for the strings
    + ~{<default field values>}~ for structs
    + nil for slice (len and cap of a nil slice is 0)
+   + nil for maps
    + nil for interfaces
    + nil for pointers
 
@@ -1896,6 +1934,21 @@ my simple config can be found here: [[https://github.com/sky-bro/.dotfiles/blob/
 
 + [[https://vim.rtorr.com/][Vim Cheat Sheet]]
 + [[../static/images/posts/vim-notes/vim-cheatsheet.svg][vi / vim graphical cheat sheet]]
+* TODO Shows & Movies                           :@entertainment:movies:shows:
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: shows-and-movies
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2021-12-07 Tue 18:53]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/movie.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "shows & and movies that I love."
+:END:
+
+旺角卡门
+国产玲玲发
+
+Men of Honor 怒海潜将
+
 * DONE Ranger Notes                                           :@notes:ranger:
   CLOSED: [2021-12-08 Wed 00:03]
 :PROPERTIES:
@@ -1910,6 +1963,17 @@ my simple config can be found here: [[https://github.com/sky-bro/.dotfiles/blob/
 I am planing on totally changing to the terminal based file manager: ranger.
 
 And this is my cheatsheet on using it, for more detailed guides you can go check the ranger official user guide[fn:ranger-official-user-guide].
+
+** launch
+
+I use ~$mod+Shift+Return~ to launch my ranger, and this keybinding is set in the i3 config file as below.
+
+#+begin_src shell
+  # ~/.config/i3/config
+  bindsym $mod+Shift+Return exec cd "$(xcwd)" && exec st -e "ranger"
+#+end_src
+
+Here I also use xcwd[fn:xcwd] to get my current working directory, so I can launch ranger from that directory.
 
 ** Key bindings and hints
 
@@ -1934,13 +1998,13 @@ under =~/.config/ranger/= folder, there are 4 main configuration files:
 + ~rfile.conf~: how to open a file
 + ~scope.sh~: how to preview a file
 + ~commands.py~: implement various commands (functions), you can add your custom commands here.
- 
+
 ** Bookmarks
 
 + ~m<key>~: bookmark current folder
 + ~'<key>~: go to a bookmark
 + ~um<key>~: remove a bookmark
- 
+
 ** Select/Mark files
 
 + ~SPC~: mark current file
@@ -1949,12 +2013,151 @@ under =~/.config/ranger/= folder, there are 4 main configuration files:
 + ~:mark REGEX~, ~:unmark REGEX~: to mark/unmark with regex expression.
 + ~uv~, ~:unmark~: unmark all files
 
+** Macros
+
++ ~%f~: the highlighted file
++ ~%d~: the path of the current directory
++ ~%s~: the selected files in the current directory
++ ~%t~: the tagged files in the current directory
++ ~%c~: the full pathes of the currently copied/cut files
++ ~%p~: the full pathes of selected files
+
 ** Rename, Create Files & Folders
 
 + ~cw~: to rename selected file or files (bulk rename, works great with ~:flat~)
 + ~:mkdir~: create directory
 + ~:touch~: create file
 
-** Footnotes
- 
+* DONE Terminal & Shell Setup (st & zsh)              :@notes:shell:terminal:
+  CLOSED: [2021-12-09 Thu 00:09]
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: terminal-and-shell-setup--st-and-zsh
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2021-12-08 Wed 17:07]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/terminal.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "show my terminal & shell setup."
+:END:
+
+My terminal emulator is st (simple terminal) from LukeSmith[fn:st-from-luke], and my shell is zsh (with ohmyzsh[fn:ohmyzsh]).
+
+** Dependencies
+
++ dmenu
++ fzf[fn:fzf]
++ pywal[fn:pywal]
+
+** ohmyzsh
+
+#+begin_src shell
+  # . start-proxy 1081 socks5h
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+#+end_src
+
+Then config or restore[fn:dotfiles] your ~~/.zshrc~ file.
+
+#+begin_src shell
+  dotfiles checkout ~/.zshrc
+#+end_src
+
+** colors and themes
+
+*** p10k
+
+I use powerlevel10k[fn:p10k] as my zsh theme.
+
+1. clone the repository:
+   #+begin_src shell
+     git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+     # for chinese users, recommend:
+     # git clone --depth=1 https://gitee.com/romkatv/powerlevel10k.git ${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/themes/powerlevel10k
+   #+end_src
+2. set ~ZSH_THEME="powerlevel10k/powerlevel10k"~ in ~~/.zshrc~.
+3. configure with ~p10k~
+
+*** Xresources and pywal
+
+you can define your color scheme in ~~/.Xresources~ file, and load it with ~xrdb ~/.Xresources~.
+
+Or you can let pywal generates and sets a colorscheme for you:
+
+#+begin_src shell
+  #!/bin/sh
+
+  # We grab the wallpaper location from wal's cache so
+  # that this works even when a directory is passed.
+  image_path="${1:-"$(< "${HOME}/.cache/wal/wal")"}"
+
+  # -n tells `wal` to skip setting the wallpaper.
+  wal -n -i "$image_path"
+  feh --no-fehbg --bg-fill "$image_path"
+#+end_src
+
+This is a script[fn:wal-feh] to set my wallpaper and color scheme from an image: ~wal-feh wallpaper.png~.
+
+And I put ~exec --no-startup-id ~/bin/wal-feh~ in my ~~/.config/i3/config~ to autostart it.
+
+** fzf
+
+Install fzf, then put this in your ~~/.zshrc~:
+
+#+begin_src shell
+  source /usr/share/fzf/key-bindings.zsh
+  source /usr/share/fzf/completion.zsh
+#+end_src
+
+** zsh-autosuggestions
+
+Fish-like fast/unobtrusive autosuggestions for zsh.
+
+1. clone the repository:
+
+   #+begin_src shell
+     git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+   #+end_src
+
+2. add the plugin to the ~plugins~ list inside the ~~/.zshrc~ file.
+
+   #+begin_src shell
+     plugins=(
+         # other plugins...
+         zsh-autosuggestions
+     )
+   #+end_src
+
+** keybindings
+
++ ~alt-l~: follow urls
++ ~alt-y~: copy urls
++ ~alt-o~: copy output of a command
++ ~alt-j/k/d/u~: scroll down/up/faster-down/faster-up
++ ~alt-c/v~: copy/paste
++ ~Ctrl+t~: list files+folders in current directory (e.g., type ~git add~, press ~Ctrl+t~, select a few files using ~Tab~, finally ~Enter~)
++ ~Ctrl+r~: search history commands
++ ~ESC+c~: fuzzy change directory
+
+* Footnotes
+
+[fn:orgmode] [[https://orgmode.org/][org mode official site]]
+
+[fn:seed-random-generator] [[https://emacs.stackexchange.com/questions/58285/orgmode-latex-export-how-to-create-repeatable-labels][org export: create repeatable labels]]
+
+[fn:org-export-new-reference] [[https://www.reddit.com/r/orgmode/comments/aagmfh/export_to_html_with_useful_nonrandom_ids_and/][Export to HTML with useful, non-random IDs and anchors]]
+
 [fn:ranger-official-user-guide] [[https://github.com/ranger/ranger/wiki/Official-User-Guide][ranger official user guide]]
+
+[fn:xcwd] [[https://github.com/schischi/xcwd][xcwd]] is a simple tool that prints the current working directory of the currently focused window.
+
+[fn:st-from-luke] [[https://github.com/LukeSmithxyz/st][st]] from Luke Smith
+
+[fn:ohmyzsh] [[https://ohmyz.sh/][Oh My Zsh]] is a delightful, open source, community-driven framework for managing your Zsh configuration
+
+[fn:fzf] [[https://github.com/junegunn/fzf][fzf]] is a general-purpose command-line fuzzy finder
+
+[fn:pywal] [[https://github.com/dylanaraps/pywal][Pywal]] is a tool that generates a color palette from the dominant colors in an image.
+
+[fn:dotfiles] use a bare git repository to manage [[https://github.com/sky-bro/.dotfiles][dotfiles]].
+
+[fn:p10k] [[https://github.com/romkatv/powerlevel10k][Powerlevel10k]] is a theme for Zsh. It emphasizes speed, flexibility and out-of-the-box experience.
+
+[fn:wal-feh] my [[https://github.com/sky-bro/.dotfiles/blob/master/bin/wal-feh][wal-feh]] script to set wallpaper and color scheme

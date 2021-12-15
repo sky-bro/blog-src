@@ -47,6 +47,13 @@ _**C-i**_
 : jump forward
 
 
+## Folding {#folding}
+
+-   `zc`: fold/close current tree
+-   `zo`: unfold/open current tree
+-   `za`: toggle fold
+
+
 ## References {#references}
 
 -   [Vim Cheat Sheet](https://vim.rtorr.com/)

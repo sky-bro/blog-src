@@ -360,7 +360,6 @@ Some Markdown Contents
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "My Notes on org writing."
 :END:
 
-
 ** Basic Editing
 *** Comments
 
@@ -392,6 +391,22 @@ will be rendered as:
 + =verbatim=
 + ~code~
 + +strike through+
+
+** Headings
+
+#+begin_src org
+  ,* H1
+  ,** H2
+  ,*** H3
+  ,**** H4
+#+end_src
+
++ ~C-RET~: new heading
++ ~M-RET~: new heading by spliting current heading
++ ~C-S-RET~: new heading, but with TODO
++ ~M-S-RET~: new heading by spliting current heading, but with TODO
++ ~M-LEFT/RIGHT~: Promote/Demote current subtree
++ ~M-UP/DOWN~: Move/swap subtree up/down
 
 ** Code
 
@@ -1930,6 +1945,12 @@ my simple config can be found here: [[https://github.com/sky-bro/.dotfiles/blob/
 + /*C-o*/ :: jump back
 + /*C-i*/ :: jump forward
 
+** Folding
+
++ ~zc~: fold/close current tree
++ ~zo~: unfold/open current tree
++ ~za~: toggle fold
+
 ** References
 
 + [[https://vim.rtorr.com/][Vim Cheat Sheet]]
@@ -2136,6 +2157,50 @@ Fish-like fast/unobtrusive autosuggestions for zsh.
 + ~Ctrl+r~: search history commands
 + ~ESC+c~: fuzzy change directory
 
+* DONE Clipboard Manager: CopyQ                            :@notes:clipboard:
+  CLOSED: [2021-12-15 Wed 15:20]
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: clipboard-manager-copyq
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2021-12-15 Wed 10:32]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/copyq-logo.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "CopyQ is a clipboard manager written in Qt/C++"
+:END:
+
+** Introduction
+
+CopyQ[fn:copyq] is a clipboard manager with many features.
+
++ manages clipboard history
++ history in different tabs
++ Store text, HTML, images or any other custom formats
++ Support custom commands[fn:copyq-commands], like saving clipboard items to file
++ vi style navigation
+
+** Basic Setup
+
++ Enable ~vi style navigation~ in ~Preferences -> General~
++ Enable ~Tab Tree~ and ~Show Item Count~ in ~Preferences -> Layout~
++ Custom shortcuts in ~Preferences -> Shortcuts~ or in ~File -> Commands/GlobalShortcuts (press F6 from main window)~
+
+** add commands
+
+you can get many useful commands from CopyQ-Commands[fn:copyq-commands], or you can create your own commands following the documentation.
+
+commands that I use:
+
++ [[https://github.com/hluk/copyq-commands/blob/master/Application/save-item-clipboard-to-file.ini][Save Item/Clipboard To a File]]: Opens dialog for saving selected item data to a file.
++ [[https://github.com/hluk/copyq-commands/blob/master/Automatic/image-tab.ini][Image Tab]]: Automatically store images copied to clipboard in a separate tab.
+
+** Key Bindings
+
++ ~Ctrl-Alt-h~: open main window, show clipboard history (my setting)
++ ~j/k~: next/previous item
++ ~Ctrl-h~: previous tab
++ ~l/Enter~: select item
++ ~ESC/Ctrl-[~: close window
+
 * Footnotes
 
 [fn:orgmode] [[https://orgmode.org/][org mode official site]]
@@ -2161,3 +2226,7 @@ Fish-like fast/unobtrusive autosuggestions for zsh.
 [fn:p10k] [[https://github.com/romkatv/powerlevel10k][Powerlevel10k]] is a theme for Zsh. It emphasizes speed, flexibility and out-of-the-box experience.
 
 [fn:wal-feh] my [[https://github.com/sky-bro/.dotfiles/blob/master/bin/wal-feh][wal-feh]] script to set wallpaper and color scheme
+
+[fn:copyq] [[https://github.com/hluk/CopyQ][CopyQ]], a clipboard manager with advanced features.
+
+[fn:copyq-commands] [[https://github.com/hluk/copyq-commands][copyq-commands]] is a repo which has many useful commands for CopyQ clipboard manager

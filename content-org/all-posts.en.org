@@ -2201,6 +2201,81 @@ commands that I use:
 + ~l/Enter~: select item
 + ~ESC/Ctrl-[~: close window
 
+* DONE Fix boot problem after updating packages           :@debug:linux:boot:
+CLOSED: [2022-01-12 Wed 13:02]
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: fix-boot-problem-after-updating-packages
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2022-01-12 Wed 11:46]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/how-tough-am-i-i-do-sudo-pacman-syu-everyday.jpg"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "pacman -Syu broke my linux again!!"
+:END:
+
+** Introduction
+
+Just the other day I updated all my packages through =yay -Syu= (like =pacman -Syu= but also updates aur packages).
+
+And after a reboot, it entered a boot loop...
+
+I believe this had happened to most arch users, and most of the time its just because we broke the dependencies of some packages after the upgrade.
+
+So here's how I saved boot failure after =yay -Syu=.
+
+#+html: {{< alert theme="info" dir="ltr" >}}
+You'll need a bootable usb stick (preferable the one you use for installing the system).
+#+html: {{< /alert >}}
+
+** Manually boot from grub (optional)
+
+follow this guide[fn:manually-boot-up-linux] to boot your linux from grub (generates log).
+
+The grub command line can also be entered from your bootable usb drive.
+
+#+begin_src shell
+  ls # list partitions
+  ls (hd1,gpt2)/ # see files in a partition
+  set root=(hd1,gpt2) # your linux root partition
+  linux /boot/vmlinuz-5.13-x86_64 ro root=/dev/nvme0n1p1
+  initrd /boot/initramfs-5.13-x86_64.img
+  boot
+#+end_src
+
+** chroot to your system
+
+manjaro-chroot is provide in =manjaro-tools-base= package, and is already installed in your live system.
+
+#+begin_src shell
+  # mount root
+  mount /dev/nvme0n1p2 /mnt
+  # mount boot
+  # mount /dev/xxx /mnt/boot
+  # mount efi
+  mount /dev/nvme0n1p1 /mnt/boot/efi/
+
+  manjaro-chroot /mnt
+#+end_src
+
+** check your boot log
+
+#+begin_src shell
+  # -b: show boot log
+  # -1: offset, last boot
+  journalctl -b -1
+#+end_src
+
+** fix any problems
+
+find any suspicious errors in the boot log, and search it on the web, see how to fix them.
+
+for me, a package from aur was causing the problem, and I tried to fix it, but no luck.
+
+So I just uninstalled it!
+
+** reboot
+
+success!
+
 * Footnotes
 
 [fn:orgmode] [[https://orgmode.org/][org mode official site]]
@@ -2230,3 +2305,5 @@ commands that I use:
 [fn:copyq] [[https://github.com/hluk/CopyQ][CopyQ]], a clipboard manager with advanced features.
 
 [fn:copyq-commands] [[https://github.com/hluk/copyq-commands][copyq-commands]] is a repo which has many useful commands for CopyQ clipboard manager
+
+[fn:manually-boot-up-linux] [[https://forums.justlinux.com/showthread.php?150600-How-to-manually-boot-up-a-Linux][How to manually boot up a Linux]]

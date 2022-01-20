@@ -2358,10 +2358,10 @@ Restoring dotfiles is very simple, just recreate the symbolic links.
   stow -vD .
 #+end_src
 
-* DONE Manage Dotfilese With A Bare Git Repo      :dotfiles:@workspace_setup:
+* DONE Manage Dotfiles With A Bare Git Repo      :dotfiles:@workspace_setup:
 CLOSED: [2022-01-20 Thu 15:33]
 :PROPERTIES:
-:EXPORT_HUGO_BUNDLE: manage-dotfilese-with-a-bare-git-repo
+:EXPORT_HUGO_BUNDLE: manage-dotfiles-with-a-bare-git-repo
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: [2022-01-20 Thu 14:48]
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/dotfiles-logo-icon.png"

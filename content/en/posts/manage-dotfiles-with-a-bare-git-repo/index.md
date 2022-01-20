@@ -1,9 +1,9 @@
 +++
-title = "Manage Dotfilese With A Bare Git Repo"
-date = 2022-01-20T14:48:00+08:00
+title = "Manage Dotfiles With A Bare Git Repo"
+date = 2022-01-20T15:33:00+08:00
 tags = ["dotfiles"]
 categories = ["workspace-setup"]
-draft = true
+draft = false
 image = "/images/icons/dotfiles-logo-icon.png"
 libraries = ["mathjax"]
 description = "manage dotfiles with a bare git repository"
@@ -11,7 +11,7 @@ description = "manage dotfiles with a bare git repository"
 
 ## Introduction {#introduction}
 
-Using a bare git repo to manage dotfiles[^fn:1] is simple (idea from [this post](https://www.atlassian.com/git/tutorials/dotfiles), it only requires `git`), but now I've switch to `stow`, which in my view, grouping dotfiles together in one folder in easier and cleaner for me to find.
+Using a bare git repo to manage dotfiles[^fn:1] is simple (idea from [this post](https://www.atlassian.com/git/tutorials/dotfiles), it only requires `git`), but now I've switch to stow[^fn:2], which in my view, grouping dotfiles together in one folder in easier and cleaner for me to find.
 
 
 ## Start {#start}
@@ -70,3 +70,4 @@ dotfiles config --local status.showUntrackedFiles no
 ```
 
 [^fn:1]: use ~~a bare git repository~~ stow  to manage [my dotfiles](https://github.com/sky-bro/.dotfiles).
+[^fn:2]: [GNU Stow](https://www.gnu.org/software/stow/) is a symlink farm manager.

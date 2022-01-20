@@ -1,9 +1,9 @@
 +++
 title = "Manage My Dotfiles With Stow"
-date = 2022-01-19T17:40:00+08:00
+date = 2022-01-20T15:33:00+08:00
 tags = ["dotfiles"]
 categories = ["workspace-setup"]
-draft = true
+draft = false
 image = "/images/icons/dotfiles-logo-icon.png"
 libraries = ["mathjax"]
 description = "manage dotfiles with stow."

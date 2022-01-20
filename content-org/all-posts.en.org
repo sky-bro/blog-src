@@ -2276,6 +2276,151 @@ So I just uninstalled it!
 
 success!
 
+* DONE Manage My Dotfiles With Stow               :@workspace_setup:dotfiles:
+CLOSED: [2022-01-20 Thu 15:33]
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: manage-my-dotfiles-with-stow
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2022-01-19 Wed 17:40]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/dotfiles-logo-icon.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "manage dotfiles with stow."
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2022-01-20 Thu 15:33]
+:END:
+
+** Introduction
+
+I used to manage my dotfiles[fn:dotfiles] with a bare git repository, its simple, but dotfiles are all over the place, it's hard for me to get a whole view of them.
+
+So now I've switched to stow[fn:gnu-stow], which is a symlink manager to help you put all files you want in one place and symlink them to where they belong (it creates symlink for files in one folder to another folder).
+
+** First Time Setup
+
+So the first time we use stow to manage our dotfiles, we just need to follow these steps.
+
+1. create dotfiles folder in your home directory (preferably)
+2. move files to that folder
+3. add =.stow-local-ignore= file ([[https://www.gnu.org/software/stow/manual/html_node/Types-And-Syntax-Of-Ignore-Lists.html][Types And Syntax Of Ignore Lists]])
+4. create symbolic links back to the files moved (stow the dotfiles directory)
+5. (optional) backup the folder (like pushing to github)
+
+And this is is an example of mine:
+
+#+begin_src shell
+  # step 1: create dotfiles folder in the home directory
+  cd ~
+  mkdir .dotfiles
+  # step 2: move files to the directory created
+  mv .vimrc .dotfiles/
+  # same folder structure inside .dotfiles as $HOME folder
+  mkdir .dotfiles/.config/i3 -p
+  mv .config/i3/config .dotfiles/.config/i3/
+  # ... more
+  cd .dotfiles
+  # step 3: add .stow-local-ignore file
+  vim .stow-local-ignore
+  # step 4: create symbolic links
+  stow .
+  # ls -al ~
+#+end_src
+
+The =.stow-local-ignore= file if for telling stow that you don't want to symlink some files, you want to ignore them, here's mine.
+
+#+begin_src conf
+  \.git
+  \.gitignore
+  .*\.org
+  ^/LICENSE.*
+  ^/COPYING
+#+end_src
+
+** restore from a dotfiles backup
+
+Restoring dotfiles is very simple, just recreate the symbolic links.
+
+1. restore the dotfiles directory (git clone)
+2. create symbolic links back
+
+** Other useful commands of stow
+
+#+begin_src shell
+  # unlink files (v for verbose)
+  stow -vD .
+#+end_src
+
+* DONE Manage Dotfilese With A Bare Git Repo      :dotfiles:@workspace_setup:
+CLOSED: [2022-01-20 Thu 15:33]
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: manage-dotfilese-with-a-bare-git-repo
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2022-01-20 Thu 14:48]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/dotfiles-logo-icon.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "manage dotfiles with a bare git repository"
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2022-01-20 Thu 15:33]
+:END:
+
+** Introduction
+
+Using a bare git repo to manage dotfiles[fn:dotfiles] is simple (idea from [[https://www.atlassian.com/git/tutorials/dotfiles][this post]], it only requires =git=), but now I've switch to stow[fn:gnu-stow], which in my view, grouping dotfiles together in one folder in easier and cleaner for me to find.
+
+** Start
+
+Create the repo
+
+#+begin_src shell
+  git init --bare $HOME/.dotfiles.git
+#+end_src
+
+Set git alias for the repo
+
+#+begin_src shell
+  echo "alias dotfiles='/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME'" >> $HOME/.zshrc # or .bashrc
+  . $HOME/.zshrc
+#+end_src
+
+Then use this command to not show untracked files on =dotfiles status=
+
+#+begin_src shell
+  dotfiles config --local status.showUntrackedFiles no
+#+end_src
+
+** Backup Files
+
+use =dotfiles= like your original =git= command
+
+#+begin_src shell
+  dotfiles status
+  dotfiles add .vimrc
+  dotfiles commit -m "backup .vimrc"
+  dotfiles remote add origin https://www.github.com/sky-bro/.dotfiles.git
+  dotfiles push origin master
+#+end_src
+
+** Restore Files
+
+On this computer
+
+#+begin_src shell
+  # rm .vimrc
+  dotfiles checkout
+#+end_src
+
+On another computer
+
+#+begin_src shell
+  echo 'alias dotfiles="/usr/bin/git --git-dir=$HOME/.dotfiles.git/ --work-tree=$HOME"' >> $HOME/.zshrc
+  source ~/.zshrc
+  echo ".dotfiles.git" >> .gitignore # prevent recursion issues
+  git clone --bare git@github.com:sky-bro/.dotfiles.git $HOME/.dotfiles.git
+  dotfiles checkout
+  dotfiles config --local status.showUntrackedFiles no
+#+end_src
+
 * Footnotes
 
 [fn:orgmode] [[https://orgmode.org/][org mode official site]]
@@ -2296,7 +2441,7 @@ success!
 
 [fn:pywal] [[https://github.com/dylanaraps/pywal][Pywal]] is a tool that generates a color palette from the dominant colors in an image.
 
-[fn:dotfiles] use a bare git repository to manage [[https://github.com/sky-bro/.dotfiles][dotfiles]].
+[fn:dotfiles] use +a bare git repository+ stow  to manage [[https://github.com/sky-bro/.dotfiles][my dotfiles]].
 
 [fn:p10k] [[https://github.com/romkatv/powerlevel10k][Powerlevel10k]] is a theme for Zsh. It emphasizes speed, flexibility and out-of-the-box experience.
 
@@ -2307,3 +2452,5 @@ success!
 [fn:copyq-commands] [[https://github.com/hluk/copyq-commands][copyq-commands]] is a repo which has many useful commands for CopyQ clipboard manager
 
 [fn:manually-boot-up-linux] [[https://forums.justlinux.com/showthread.php?150600-How-to-manually-boot-up-a-Linux][How to manually boot up a Linux]]
+
+[fn:gnu-stow] [[https://www.gnu.org/software/stow/][GNU Stow]] is a symlink farm manager.

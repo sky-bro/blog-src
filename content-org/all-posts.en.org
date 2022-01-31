@@ -2429,6 +2429,92 @@ On another computer
   dotfiles config --local status.showUntrackedFiles no
 #+end_src
 
+* DONE Flash Rom For My Android                               :twrp:@Android:
+CLOSED: [2022-01-31 Mon 23:04]
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: flash-rom-for-my-android
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2022-01-31 Mon 19:39]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/android-logo.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "Notes on tweaking my android (op6)"
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2022-01-31 Mon 23:04]
+:END:
+
+** flash twrp recovery
+
+Download TWRP[fn:twrp] recovery for your android device, and probably follow the installation guide there.
+
+Generally, there are two ways of installing the recovery: from a  =.img= file or a =.zip= file.
+
+*** backup your boot.img
+
+There's no recovery partition, recovery is now part of the boot partition.
+
+So in case we break our boot partition, backup it first.
+
+#+begin_src shell
+  # === On your android shell (adb shell) ===
+  # cd `find /dev/block/platform -type d -name by-name` # mine is /dev/block/platform/soc/1d84000.ufshc/by-name
+  # or just
+  cd /dev/block/bootdevice/by-name/boot
+  # store the boot partition to /sdcard/boot.img file
+  dd if=boot of=/sdcard/boot.img
+
+  # === On you computer shell ===
+  # copy the boot.img to your computer
+  adb pull /sdcard/boot.img
+#+end_src
+
+You can restore the boot partition with =fastboot=.
+
+#+begin_src shell
+  # === on your computer shell ===
+  fastboot flash boot boot.img
+#+end_src
+
+*** Install with the recovery.img file
+
+First temporarily boot into the new recovery.
+
+#+begin_src shell
+  adb reboot bootloader
+  fastboot boot recovery.img
+#+end_src
+
+Once booted, make this recovery permanent:
+- navigate to Advanced > Flash Current TWRP option (preferably), or
+- navigate to Advanced > Install Recovery Ramdisk > select the =recovery.img= file from your phone storage, or
+- as in the next section: install with the =recovery.zip= file.
+
+*** Install with the recovery.zip file
+
+If you already have a working recovery, you only need to have this file on you phone storage (no computer needed). And flash this zip file from your recovery.
+
+Navigate to Install > select the =recovery.zip= file.
+
+** flash rom
+
+You can get many useful resources for OnePlus from 大侠阿木云盘[fn:daxiaamu].
+
+*** Wipes
+
+- Dalvik Cache
+- Cache
+
+*** Install rom.zip
+
+put the =rom.zip= file on your phone storage.
+
+boot to recovery, navigate to Install > select the =rom.zip= file.
+
+*** Trouble Shooting
+
+- After flashing a offcial rom for my oneplus 6, my device keeps boots to recovery instead of the system.
+  - Solution: go to recovery, Wipe > Format Data.
+
 * Footnotes
 
 [fn:orgmode] [[https://orgmode.org/][org mode official site]]
@@ -2462,3 +2548,7 @@ On another computer
 [fn:manually-boot-up-linux] [[https://forums.justlinux.com/showthread.php?150600-How-to-manually-boot-up-a-Linux][How to manually boot up a Linux]]
 
 [fn:gnu-stow] [[https://www.gnu.org/software/stow/][GNU Stow]] is a symlink farm manager.
+
+[fn:twrp] [[https://twrp.me/][TWRP]] is the leading custom recovery for Android phones
+
+[fn:daxiaamu] I downloaded official ROM (many history versions) for my op6 from [[https://yun.daxiaamu.com/][大侠阿木云盘]]

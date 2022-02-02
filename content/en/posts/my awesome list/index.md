@@ -2,7 +2,7 @@
 title: "My Awesome List!"
 date: 2021-04-10T23:50:05+08:00
 description:
-draft: false
+draft: true
 enableToc: true
 enableTocContent: false
 tocLevels: ["h2", "h3", "h4"]
@@ -38,6 +38,10 @@ add my favorite resources here.
 * [linux tcp fastopen实现](http://www.cnhalo.net/2016/06/13/linux-tcp-fastopen/)
 * [TCP Fast Open](https://www.rfc-editor.org/rfc/pdfrfc/rfc7413.txt.pdf)
 
+## Database
+
+* [SQL 窗口函数的优化和执行](https://ericfu.me/sql-window-function/)
+
 ## E-Books
 
 * [Jiumo Search 鸠摩搜索 - 文档搜索引擎](https://www.jiumodiary.com/)
@@ -64,3 +68,7 @@ add my favorite resources here.
 
 * [acme.sh](https://github.com/acmesh-official/acme.sh): It's probably the easiest & smartest shell script to automatically issue & renew the free certificates from Let's Encrypt.
   * Supported CA: Letsencrypt.org CA(default), ZeroSSL.com CA, BuyPass.com CA, Pebble strict Mode, Any other RFC8555-compliant CA
+
+## Cheat Sheets
+
+* [GitHub: git cheat sheet](https://education.github.com/git-cheat-sheet-education.pdf)

@@ -1,7 +1,7 @@
 ---
 title: "Writing Guide"
 date: 2020-12-10T16:47:19+08:00
-description: Guides on how to wirte your contents using this theme (my cheetsheet).
+description: Guides on how to write your contents using this theme (my cheatsheet).
 draft: false
 enableToc: true
 enableTocContent: false
@@ -9,11 +9,11 @@ tocLevels: ["h2", "h3", "h4"]
 author: '<a href="https://sky-bro.github.io" class="theme-link">Kyle</a>'
 authorEmoji: 🦂
 tags:
--
+- blog
 series:
 -
 categories:
--
+- writing
 image: # images/icons/tortoise.png
 libraries:
 - mathjax
@@ -31,6 +31,24 @@ hugo new posts/writing-guide/index.zh.md # content/en/posts/writing-guide/index.
 ```
 
 I prefer to create a directory for each of my writings, so I can add extra stuff like images for that specific page more easily.
+
+## front matter
+
+hugo supports four front matter formats: yaml, toml, json and org. [hugo: Front Matter Formats](https://gohugo.io/content-management/front-matter/#front-matter-formats)
+
+I prefer using yaml, because I think it's easier to understand compared with the other three. I suggest you only use yaml or toml.
+
+```markdown
+---
+# yaml front matter
+---
+```
+
+```markdown
++++
+# toml front matter
++++
+```
 
 ## Code
 

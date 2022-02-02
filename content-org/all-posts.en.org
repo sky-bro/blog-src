@@ -22,11 +22,9 @@
 
 ** :triangular_flag_on_post: This Site
 
-Generated using [[https://gohugo.io/][Hugo]], source code here: [[https://github.com/sky-bro/blog-src][blog-src]], and the theme is forked ([[https://github.com/sky-bro/hugo-theme-zzo][my
-fork]]) from: [[https://github.com/zzossig/hugo-theme-zzo][hugo-theme-zzo]].
+Generated using [[https://gohugo.io/][Hugo]], source code here: [[https://github.com/sky-bro/blog-src][blog-src]], and the theme is forked ([[https://github.com/sky-bro/hugo-theme-zzo][my fork]]) from: [[https://github.com/zzossig/hugo-theme-zzo][hugo-theme-zzo]].
 
-BTW, instead of writing ~.md~ files, I keep all my blogs in ~.org~ files (stored
-inside [[https://github.com/sky-bro/blog-src/tree/master/content-org][blog-src/content-org]]), and export them to ~.md~ files with [[https://ox-hugo.scripter.co/][ox-hugo]].
+BTW, instead of writing ~.md~ files, I keep all my blogs in ~.org~ files (stored inside [[https://github.com/sky-bro/blog-src/tree/master/content-org][blog-src/content-org]]), and export them to ~.md~ files with [[https://ox-hugo.scripter.co/][ox-hugo]].
 
 ** :sunrise: Daily Life
 
@@ -49,8 +47,7 @@ inside [[https://github.com/sky-bro/blog-src/tree/master/content-org][blog-src/c
 
 ** :musical_score: Listening recently
 
-[[https://open.spotify.com/user/22sit26j5lamlvm3sgikxwuoq][<img src="https://spotify-readme-ky13.vercel.app/api/spotify" alt="Kyle
-Listening" />]]
+#+html: <a href="https://open.spotify.com/user/22sit26j5lamlvm3sgikxwuoq"> <img src="https://spotify-readme-ky13.vercel.app/api/spotify" /> </a>
 
 * DONE Writing Guide (org + ox-hugo)                        :@notes:hugo:org:
   CLOSED: [2021-12-05 Sun 20:58]
@@ -109,11 +106,13 @@ You can add caption and name (for referencing purpose: as in figure [[fig:gopher
 
 #+CAPTION: Gogpher
 #+NAME: fig:gopher
+#+ATTR_HTML: :width 30%
 [[../static/images/icons/gopher001.png]]
 
 #+begin_src org
   ,#+CAPTION: Gogpher
   ,#+NAME: fig:gopher
+  ,#+ATTR_HTML: :width 30%
   [[../static/images/icons/gopher001.png]]
 #+end_src
 
@@ -175,103 +174,111 @@ It seems that zzo theme does not support math equation referencing and numbering
 
 ** shortcodes
 
+# https://github.com/kaushalmodi/ox-hugo/issues/126
+
+to use shortcodes as you do in markdown, put it after =#+html:=. Like this:
+
+#+begin_src org
+  ,#+html: {{</* gallery dir="/image_dir/" /*/>}}
+#+end_src
+
 *** Alert
 
 You can have alert like this:
 
 #+begin_src org
-  {{</* alert theme="info" dir="ltr" */>}}
+  ,#+html: {{</* alert theme="info" dir="ltr" */>}}
   theme could be one of: success, info, warning, danger
-  {{</* /alert */>}}
+  ,#+html: {{</* /alert */>}}
 #+end_src
 
-{{< alert theme="success" >}}
+#+html: {{< alert theme="success" >}}
 this is a success.
-{{< /alert >}}
+#+html: {{< /alert >}}
 
-{{< alert theme="info" >}}
+#+html: {{< alert theme="info" >}}
 this is a info.
-{{< /alert >}}
+#+html: {{< /alert >}}
 
-{{< alert theme="warning" >}}
+#+html: {{< alert theme="warning" >}}
 this is a warning.
-{{< /alert >}}
+#+html: {{< /alert >}}
 
-{{< alert theme="danger" >}}
+#+html: {{< alert theme="danger" >}}
 this is a danger.
-{{< /alert >}}
+#+html: {{< /alert >}}
 
 *** Notice
 
 #+begin_src org
-  {{</* notice success "This is a success type of notice" */>}}
+  #+html: {{</* notice success "This is a success type of notice" */>}}
   notice could be success, info, warning, error.
-  {{</* /notice */>}}
+  #+html: {{</* /notice */>}}
 #+end_src
 
-{{< notice success "This is a success type of notice" >}}
+#+html: {{< notice success "This is a success type of notice" >}}
 success notice.
-{{< /notice >}}
+#+html: {{< /notice >}}
 
-{{< notice info "This is a info type of notice" >}}
+#+html: {{< notice info "This is a info type of notice" >}}
 info notice.
-{{< /notice >}}
+#+html: {{< /notice >}}
 
-{{< notice warning "This is a warning type of notice" >}}
+#+html: {{< notice warning "This is a warning type of notice" >}}
 warning notice.
-{{< /notice >}}
+#+html: {{< /notice >}}
 
-{{< notice error "This is a error type of notice" >}}
+#+html: {{< notice error "This is a error type of notice" >}}
 error notice.
-{{< /notice >}}
+#+html: {{< /notice >}}
 
 *** Simple box
 
 #+begin_src org
-  {{</* box */>}}
+  #+html: {{</* box */>}}
   Plain text
-  {{</* /box */>}}
+  #+html: {{</* /box */>}}
 #+end_src
 
-{{< box >}}
+#+html: {{< box >}}
 Plain text
-{{< /box >}}
+#+html: {{< /box >}}
 
 *** Code in multiple language
 
 #+begin_src org
-  {{</* codes java javascript */>}}
-    {{</* code */>}}
+  #+html: {{</* codes java javascript */>}}
+    #+html: {{</* code */>}}
     ,#+begin_src java
       System.out.Println("Hello World!");
     ,#+end_src
-    {{</* /code */>}}
-    {{</* code */>}}
+    #+html: {{</* /code */>}}
+    #+html: {{</* code */>}}
     ,#+begin_src javascript
       console.log('Hello World!');
     ,#+end_src
-    {{</* /code */>}}
-  {{</* /codes */>}}
+    #+html: {{</* /code */>}}
+  #+html: {{</* /codes */>}}
 #+end_src
 
-{{< codes java javascript >}}
-  {{< code >}}
+#+html: {{< codes java javascript >}}
+  #+html: {{< code >}}
   #+begin_src java
     System.out.Println("Hello World!");
   #+end_src
-  {{< /code >}}
-  {{< code >}}
+  #+html: {{< /code >}}
+  #+html: {{< code >}}
   #+begin_src javascript
     console.log('Hello World!');
   #+end_src
-  {{< /code >}}
-{{< /codes >}}
+  #+html: {{< /code >}}
+#+html: {{< /codes >}}
 
 *** Tab
 
 #+begin_src org
-  {{</* tabs Windows MacOS Ubuntu */>}}
-    {{</* tab */>}}
+  #+html: {{</* tabs Windows MacOS Ubuntu */>}}
+    #+html: {{</* tab */>}}
 
     ,*** Windows section
 
@@ -279,24 +286,24 @@ Plain text
       console.log('Hello World!');
     ,#+end_src
 
-    {{</* /tab */>}}
-    {{</* tab */>}}
+    #+html: {{</* /tab */>}}
+    #+html: {{</* tab */>}}
 
     ,*** MacOS section
 
     Hello world!
-    {{</* /tab */>}}
-    {{</* tab */>}}
+    #+html: {{</* /tab */>}}
+    #+html: {{</* tab */>}}
 
     ,*** Ubuntu section
 
     Great!
-    {{</* /tab */>}}
-  {{</* /tabs */>}}
+    #+html: {{</* /tab */>}}
+  #+html: {{</* /tabs */>}}
 #+end_src
 
-{{< tabs Windows MacOS Ubuntu >}}
-  {{< tab >}}
+#+html: {{< tabs Windows MacOS Ubuntu >}}
+  #+html: {{< tab >}}
 
   *** Windows section
 
@@ -304,29 +311,30 @@ Plain text
     console.log('Hello World!');
   #+end_src
 
-  {{< /tab >}}
-  {{< tab >}}
+  #+html: {{< /tab >}}
+  #+html: {{< tab >}}
 
   *** MacOS section
 
   Hello world!
-  {{< /tab >}}
-  {{< tab >}}
+  #+html: {{< /tab >}}
+  #+html: {{< tab >}}
 
   *** Ubuntu section
 
   Great!
-  {{< /tab >}}
-{{< /tabs >}}
+  #+html: {{< /tab >}}
+#+html: {{< /tabs >}}
+
 *** Expand
 
 #+begin_src org
-  {{</* expand "Expand me" */>}}
+  #+html: {{</* expand "Expand me" */>}}
   Some Markdown Contents
-  {{</* /expand */>}}
+  #+html: {{</* /expand */>}}
 #+end_src
 
-{{< expand "Expand me" >}}
+#+html: {{< expand "Expand me" >}}
 Some Markdown Contents
 #+begin_src go
   package main
@@ -337,11 +345,11 @@ Some Markdown Contents
     fmt.Println("hello sky!")
   }
 #+end_src
-{{< /expand >}}
+#+html: {{< /expand >}}
 
 *** video
 
-{{< youtube 2liXzaIIyuE >}}
+#+html: {{< youtube 2liXzaIIyuE >}}
 
 ** References
 
@@ -1932,24 +1940,36 @@ my simple config can be found here: [[https://github.com/sky-bro/.dotfiles/blob/
 
 ** widows
 
-+ /*C-w s*/ :: horizontal split window
-+ /*C-w v*/ :: vertical split window
-+ /*C-w q*/ :: quit a window
-+ /*C-w h/j/k/l*/ :: move between windows
-+ /*C-w H/J/K/L*/ :: make current master window
-+ /*C-w +\slash-*/ :: inc/dec height, can prepend with a number
-+ /*C-w >/<*/ :: inc/dec width, can prepend with a number
+- /*C-w s*/ :: horizontal split window
+- /*C-w v*/ :: vertical split window
+- /*C-w q*/ :: quit a window
+- /*C-w h/j/k/l*/ :: move between windows
+- /*C-w H/J/K/L*/ :: make current master window
+- /*C-w +\slash-*/ :: inc/dec height, can prepend with a number
+- /*C-w >/<*/ :: inc/dec width, can prepend with a number
 
 ** jump
 
-+ /*C-o*/ :: jump back
-+ /*C-i*/ :: jump forward
+- /*C-o*/ :: jump back
+- /*C-i*/ :: jump forward
 
 ** Folding
 
-+ ~zc~: fold/close current tree
-+ ~zo~: unfold/open current tree
-+ ~za~: toggle fold
+- ~zc~: fold/close current tree
+- ~zo~: unfold/open current tree
+- ~za~: toggle fold
+
+** Search and replace
+
+https://vim.fandom.com/wiki/Search_and_replace
+single buffer
+
+- =/pattern=
+- =?pattern=
+- =:%s/old/new/g=
+- =:%s/old/new/gc=
+
+multiple files
 
 ** References
 
@@ -2184,7 +2204,7 @@ CopyQ[fn:copyq] is a clipboard manager with many features.
 + Enable ~Tab Tree~ and ~Show Item Count~ in ~Preferences -> Layout~
 + Custom shortcuts in ~Preferences -> Shortcuts~ or in ~File -> Commands/GlobalShortcuts (press F6 from main window)~
 
-** add commands
+** Add Commands
 
 You can get many useful commands from CopyQ-Commands[fn:copyq-commands], or you can create your own commands following the documentation.
 
@@ -2206,7 +2226,8 @@ Commands that I use:
 + ~Ctrl-Alt-s~: save as (customized)
 + ~j/k~: next/previous item
 + ~Ctrl-h~: previous tab
-+ ~l/Enter~: select item
++ ~l/Enter~: copy & paste item
++ ~Ctrl-c~: copy item
 + ~ESC/Ctrl-[~: close window
 
 * DONE Fix boot problem after updating packages           :@debug:linux:boot:
@@ -2459,7 +2480,8 @@ So in case we break our boot partition, backup it first.
   # === On your android shell (adb shell) ===
   # cd `find /dev/block/platform -type d -name by-name` # mine is /dev/block/platform/soc/1d84000.ufshc/by-name
   # or just
-  cd /dev/block/bootdevice/by-name/boot
+  # cd /dev/block/by-name/
+  cd /dev/block/bootdevice/by-name/
   # store the boot partition to /sdcard/boot.img file
   dd if=boot of=/sdcard/boot.img
 
@@ -2515,6 +2537,91 @@ boot to recovery, navigate to Install > select the =rom.zip= file.
 - After flashing a offcial rom for my oneplus 6, my device keeps boots to recovery instead of the system.
   - Solution: go to recovery, Wipe > Format Data.
 
+* DONE Root Android with Magisk                        :root:magisk:@Android:
+CLOSED: [2022-02-02 Wed 19:05]
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: root-android-with-magisk
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2022-02-02 Wed 11:14]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/hash-symbol.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "notes on gaining root access on my android with Magisk"
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2022-02-02 Wed 19:05]
+:END:
+
+** Introduction
+
+Magisk[fn:magisk] is a suite of open source software for customizing Android, supporting devices higher than Android 5.0.
+
+Some highlight features:
+
+- MagiskSU: Provide root access for applications
+- Magisk Modules: Modify read-only partitions by installing modules
+- MagiskBoot: The most complete tool for unpacking and repacking Android boot images
+- Zygisk: Run code in every Android applications' processes
+
+This is my notes on installing it on my op6 following the [[https://topjohnwu.github.io/Magisk/install.html][official installation guide]].
+
+** Download and install Magisk app
+
+Download latest Magisk apk from [[https://github.com/topjohnwu/Magisk/releases/latest][github release]]. Install it:
+
+#+begin_src shell
+  adb insatll Magisk.apk
+#+end_src
+
+After launching the app, notice the Ramdisk value (mine is Yes), it means whether or not your device has boot ramdisk.
+
+- if Yes, patch boot partition (I'll choose this)
+- if No, patch recovery partition
+
+#+ATTR_HTML: :width 30%
+[[file:../static/images/posts/root-android-with-magisk/magisk-first-installed.png]]
+
+** backup images
+
+This will need root access, so reboot to twrp recovery first.
+
+#+begin_src shell
+  # go to twrp recovery to get root access to your image partition
+  # adb reboot recovery
+  adb shell # commands below are executed in the android shell
+  # get current slot (A/B)
+  /bin/getprop ro.boot.slot_suffix
+  # _a, so I will backup /dev/block/by-name/boot_a
+  dd if=/dev/block/by-name/boot_a of=/sdcard/boot.img
+  # optional, if you have vbmeta partition
+  # dd if=/dev/block/by-name/vbmeta_a of=/sdcard/vbmeta.img
+  # adb pull /sdcard/vbmeta.img
+#+end_src
+
+** patch image and install
+
+patch image inside magisk app.
+
+- press install button in the magisk card
+- select the image just extracted
+
+pull the patched image to your computer, reboot to bootloader, flash the new patched image to your android device.
+
+#+begin_src shell
+  adb pull /sdcard/Download/magisk_patched-xxx.img
+  adb reboot bootloader
+  fastboot flash boot magisk_patched-xxx.img
+  # if you patched the recovery partition
+  # fastboot flash recovery magisk_patched-xxx.img
+  # optional, patch and install the vbmeta partition
+  # fastboot flash vbmeta --disable-verity --disable-verification vbmeta.img
+  fastboot reboot
+#+end_src
+
+Now open Magisk app again, you can see it's installed.
+
+#+ATTR_HTML: :width 30%
+[[file:../static/images/posts/root-android-with-magisk/magisk-patch-installed.png]]
+
 * Footnotes
 
 [fn:orgmode] [[https://orgmode.org/][org mode official site]]
@@ -2552,3 +2659,5 @@ boot to recovery, navigate to Install > select the =rom.zip= file.
 [fn:twrp] [[https://twrp.me/][TWRP]] is the leading custom recovery for Android phones
 
 [fn:daxiaamu] I downloaded official ROM (many history versions) for my op6 from [[https://yun.daxiaamu.com/][大侠阿木云盘]]
+
+[fn:magisk] [[https://github.com/topjohnwu/Magisk][Magisk]] -- The Magic Mask for Android

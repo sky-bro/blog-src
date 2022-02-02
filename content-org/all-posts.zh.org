@@ -55,7 +55,7 @@ Listening" />]]
 :EXPORT_HUGO_BUNDLE: writing-guide--org-plus-ox-hugo
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: [2021-11-22 Mon 20:23]
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/tortoise.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/org-mode-unicorn.png"
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "Now I blog in org mode!"
 :END:

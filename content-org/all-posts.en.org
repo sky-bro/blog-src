@@ -2622,6 +2622,439 @@ Now open Magisk app again, you can see it's installed.
 #+ATTR_HTML: :width 30%
 [[file:../static/images/posts/root-android-with-magisk/magisk-patch-installed.png]]
 
+* DONE Tmux Notes                           :cheatsheet:terminal:tmux:@notes:
+CLOSED: [2022-03-26 Sat 19:19]
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: tmux-notes
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2022-03-26 Sat 17:11]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/tmux-logo.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "A portable & minimal tmux configuration"
+:END:
+
+** .tmux.conf
+
+My most up to date config file is at github: [[https://github.com/sky-bro/.dotfiles/blob/master/.tmux.conf][.dotfiles/.tmux.conf]], and for better experience, I strongly suggest you use =Capslock= as your =Ctrl= key (I set =C-a= as my prefix instead of =C-b=).
+
+#+begin_src conf
+  # chenge prefix from `C-b` to `C-a`
+  set -g prefix C-a
+  unbind C-b
+  bind C-a send-prefix
+
+  # better window split, with "-" and "|"
+  unbind '"'
+  bind - splitw -v -c '#{pane_current_path}'
+  unbind %
+  bind | splitw -h -c '#{pane_current_path}'
+
+  # enable mouse
+  set-option -g mouse on
+
+  # use hjkl to
+  # change focus
+  bind -r k select-pane -U
+  bind -r j select-pane -D
+  bind -r h select-pane -L
+  bind -r l select-pane -R
+  # resize pane
+  bind -r ^k resizep -U 2 # upward (prefix Ctrl+k)
+  bind -r ^j resizep -D 2 # downward (prefix Ctrl+j)
+  bind -r ^h resizep -L 2 # to the left (prefix Ctrl+h)
+  bind -r ^l resizep -R 2 # to the right (prefix Ctrl+l)
+
+  # enable vi motions
+  setw -g mode-keys vi
+  # select, copy with v, y
+  bind -T copy-mode-vi v send-keys -X begin-selection
+  bind -T copy-mode-vi y send-keys -X copy-selection-and-cancel
+
+  set -g base-index 1
+  set -g pane-base-index 1
+
+  set -g status-interval 1
+  set -g status-justify left
+  setw -g monitor-activity on
+
+  # Set default term to xterm
+  # https://github.com/zsh-users/zsh-autosuggestions/issues/229
+  # https://stackoverflow.com/questions/18600188/home-end-keys-do-not-work-in-tmux
+  set -g default-terminal screen-256color
+#+end_src
+
+** Key Bindings
+
+#+begin_quote
+=prefix= means =C-b= by default, or =C-a= for me.
+list all shortcust: =prefix ?=
+#+end_quote
+
+*** sessions
+
+- list session: =tmux ls=, =prefix s=
+- new session: =tmux new -s session_name= (attach now), =tmux new -ds session_name= (do not attach)
+- attach session: =tmux a -t session_name=
+- create or attach session: =tmux new -A -s session_name=
+- detach session: =prefix d=
+- rename session: =prefix $=
+- kill session: =tmux kill-session -t session_name=
+- previous/next session: =prefix (/)=
+
+*** windows
+
+- new window: =prefix c=
+- next/previous window: =prefix n/p=
+- rename window: =prefix ,=
+- kill window: =prefix &=
+
+*** panes
+
+- change focus between panes: =prefix h/j/k/l=
+- resize pane: =prefix C-h/j/k/l=
+- split pane: =prefix |=
+- vsplit pane: =prefix -=
+- toggle zoom: =prefix z=
+- kill pane: =prefix x=
+- scroll pane: use mouse wheel or =prefix [= then with vi motions
+- toggle between pane layouts: =prefix SPACE=
+- show pane numbers: =prefix q= (given a number, jump to that pane)
+
+*** copy & paste
+
+- within tmux
+  - select & copy with your mouse
+  - or first enter navigation: =prefix [=, then
+    - navigate with vi motions: =hjkl=, =C-f=, =C-b=, ...
+    - =v= or =shift+v= to start character/line level selection
+    - =o= to change active end of selection
+    - =y= to yank (copy) or =q= to quit navigation
+    - =prefix ]= to paste selection
+- bettwen tmux and your host
+  - hold shift and use mouse to select
+  - copy with =Ctrl+Shift+c= or =Ctrl+c= (depends on your system/terminal settings)
+  - paste with =Ctrl+Shift+v= or =Ctrl+v= (depends on your system/terminal settings)
+- command line
+  - =tmux save-buffer -= save paste buffer to file (here use =-= as a filename to mean stdin/stdout).
+  - =tmux paste-buffer=
+  - =tmux set-buffer=
+  - =tmux choose-buffer=
+
+#+begin_src shell
+  # copy to clipboard
+  tmux save-buffer - | xclip -i -sel clipboard
+  # paste from clipboard
+  tmux set-buffer "$(xclip -o -sel clipboard)"; tmux paste-buffer
+#+end_src
+
+* DONE Linux Hypervisor Setup          :qemu:kvm:hypervisor:@workspace_setup:
+CLOSED: [2022-04-10 Sun 23:43]
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: linux-hypervisor-setup
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2022-04-08 Fri 20:27]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/kvm.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "setup hypervisor with qemu and kvm, the best linux based open source virtualization solution"
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2022-04-10 Sun 23:43]
+:END:
+
+** Introduction
+
+KVM[fn:kvm] is part of linux kernel, and QEMU[fn:QEMU] (Quick EMUlator) is an emulator. KVM by itself cannot provide the complete virtualization solution, it needs QEMU to provide full hypervisor functionality. QEMU can emulate cpu on its own, but with KVM, QEMU can achieve near native performance by executing the guest code directly on the host CPU.
+
+So it's best for them to work together.
+
+#+CAPTION: architecture
+[[file:../static/images/posts/linux-hypervisor-setup/architecture.svg]]
+
+** tools you need
+
+Use your own package manager to install these tools:
+
+#+begin_src shell
+  # arch users
+  sudo pacman -Sy --needed \
+          qemu \
+          virt-viewer \
+          libvirt \
+          dnsmasq \
+          ebtables \
+          virt-install \
+          virt-manager \
+#+end_src
+
+- *kvm* (Kernel-based Virtual Machine): Kernel module that handles CPU and memory communication
+- *qemu* (Quick EMUlator): emulates many hardware resources -- dick, network, usb...
+- *libvirt*: an open-source API, daemon and management tool for managing platform virtualization. It can be used to manage KVM, Xen, VMware ESXi, QEMU and other virtualization technologies.
+- *virsh*: Command-line tools for communicating with libvirt
+- *virt-manager*: GUI alternative to virsh, albeit less capable.
+- *virt-viewer*: part of virt-manager project, create new VM guests
+- *virt-install*: part of virt-manager project, UI for interacting with VMs via VNC/SPICE
+- *dnsmasq*: light-weight DNS/DHCP server. Primarily used for allocating IPs to VMs.
+- *ebtables*: used for setting up NAT networking the host
+
+** some setup
+
+two problems
+
+1. by default, virt-manager talks to =qemu:///system=, and virsh talks to =qemu:///session= (unless run as sudo).
+2. when talking to qemu:///system, we need to input password every time, especially unpleasant experience when a cli tool like virsh.
+
+for the first problem, we can tell virsh to use =qemu:///system= by default
+
+#+begin_src shell
+  cp /etc/libvirt/libvirt.conf ~/.config/libvirt/libvirt.conf
+  vim ~/.config/libvirt/libvirt.conf # uncomment or add: uri_default = "qemu:///system"
+#+end_src
+
+To solve the second problem, we can add a rule to [[https://wiki.archlinux.org/index.php/Polkit][polkit]] to allow our group (=wheel= -- administrator group) to use virt-manager or vish without being asked for password.
+
+edit =/etc/polkit-1/rules.d/xxx.rules=, your path may be different, put this in.
+
+#+begin_src js
+  /* Allow users in wheel group to manage the libvirt daemon without authentication */
+  polkit.addRule(function (action, subject) {
+    if (action.id == "org.libvirt.unix.manage" && subject.isInGroup("wheel")) {
+      return polkit.Result.YES;
+    }
+  });
+#+end_src
+
+** start services
+
+#+begin_src shell
+  systemctl enable libvirtd # start on boot
+  systemctl enable virtstoraged # start on boot
+  systemctl enable virtnetworkd # start on boot
+  systemctl start libvirtd  # start libvirtd
+  systemctl start virtstoraged # start on boot
+  systemctl start virtnetworkd # start on boot
+  virsh net-autostart --network default
+  virsh net-start --network default # start the default network
+#+end_src
+
+** add shrarefolders
+
+Inside virtual machine manager, double click on one of your machine, then select =view->details->Add Hardware=, set something like below:
+
+#+CAPTION: add sharefolder
+[[file:../static/images/posts/linux-hypervisor-setup/add-sharefolder.png]]
+
+The above setting will add a new device =/ctf= in the virtual machine
+
+*** if in ubuntu
+
+=sudo vim /etc/rc.local=
+
+#+begin_src shell
+  #!/bin/sh -e
+  #
+  # rc.local
+  #
+  # This script is executed at the end of each multiuser runlevel.
+  # Make sure that the script will "exit 0" on success or any other
+  # value on error.
+  #
+  # In order to enable or disable this script just change the execution
+  # bits.
+  #
+  # By default this script does nothing.
+
+  mount -t 9p -o trans=virtio,version=9p2000.L /ctf /home/sky/ctf
+
+  exit 0
+#+end_src
+
+After restarting this server, =/ctf= will automatically be mounted on =/home/sky/ctf=
+
+To make the user (actually kvm) writing the share folder same as the user at host (vm host):
+=sudo vim /etc/libvirt/qemu.conf=, find two lines with =user="xxx"= and =group="xxx"=, change them to yourself (by default, xxx should be `root`), then uncomment the two lines. for me, they are:
+
+#+begin_src conf
+  user = "sky"
+  group = "sky"
+#+end_src
+
+You may need to restart the libvirtd.service for this to take effect.
+
+Also, you need to =chown= the disk to the above =user:group=: =sudo chown sky:sky /var/lib/libvirt/images/ubt16-server.qcow2=
+
+** create a VM
+
+- gui: virt-manager
+- cli: virt-install
+
+examples:
+- Windows 11 VM with QEMU/KVM
+
+** clone a VM
+
+- gui: virt-manager
+- cli: virt-clone
+
+** useful virsh commands
+
+#+begin_src shell
+  virsh list --all
+  virsh start ubuntu-server
+  virsh shutdown ubuntu-server
+  virsh reboot ubuntu-server
+#+end_src
+
+** Resources
+
+- [[https://octetz.com/docs/2020/2020-05-06-linux-hypervisor-setup/][Linux Hypervisor Setup (libvirt/qemu/kvm)]]
+- [[https://askubuntu.com/questions/548208/sharing-folder-with-vm-through-libvirt-9p-permission-denied][Sharing folder with VM through libvirt, 9p, permission denied]]
+- [[https://github.com/foxlet/macOS-Simple-KVM][macOS-Simple-KVM]]
+
+* DONE Windows 11 VM with QEMU/KVM         :virtual:machine:windows:kvm:qemu:
+CLOSED: [2022-04-10 Sun 23:43]
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: windows-11-vm-with-qemu-kvm
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2022-04-10 Sun 14:22]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/windows-logo.jpg"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "this is a description"
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2022-04-10 Sun 23:43]
+:END:
+
+** Get a windows iso
+
+[[https://www.microsoft.com/en-in/software-download/windows11][MS: Download Windows 11]]
+
+** Create new VM with virt-manager
+
+open virt-manager
+
+make sure you've connected to the QEMU/KVM (click the File option, then 'Add Connection', make sure hypervisor is selected to QEMU/KVM, and click connect)
+
+now QEMU/KVM will show up that you can add a vm to:
+
+#+CAPTION: create a new virtual machine with virt-manager
+[[file:../static/images/posts/windows-11-vm-with-qemu-kvm/virt-manager-create-a-new-virtual-machine.png]]
+
+*** walk through basic options
+
+**** select Local install media (ISO image or CDROM)
+
+#+CAPTION: select windows 11 iso
+[[file:../static/images/posts/windows-11-vm-with-qemu-kvm/virt-manager-select-windows-iso.png]]
+
+**** Configure Memory and CPU
+
+#+CAPTION: configure memory and cpu
+[[file:../static/images/posts/windows-11-vm-with-qemu-kvm/virt-manager-memory-and-cpu.png]]
+
+**** Create a virtual hard disk
+
+#+CAPTION: create a disk
+[[file:../static/images/posts/windows-11-vm-with-qemu-kvm/virt-manager-create-virtual-hard-disk.png]]
+
+**** Set VM name, Network, etc.
+
+and make sure you select the option: Customize configuration before install.
+
+#+CAPTION: Name, Network, Customize
+[[file:../static/images/posts/windows-11-vm-with-qemu-kvm/virt-manager-name-network-customize.png]]
+
+*** configure hardware
+
+if you've selected the "Customize configuration before install" option, you'll be lead to this hardware configuration prompt.
+
+**** hard disk bus type
+
+- Click on SATA Disk 1.
+- Choose the disk bus as VirtIO
+
+#+CAPTION: set disk bus tpe to VirtIO
+[[file:../static/images/posts/windows-11-vm-with-qemu-kvm/virt-manager-set-disk-bus-type-as-virtio.png]]
+
+**** network device model
+
+also set network device model to virtio
+
+#+CAPTION: set network device model to virtio
+[[file:../static/images/posts/windows-11-vm-with-qemu-kvm/virt-manager-network-device-model.png]]
+
+**** add virtio driver
+
+- click on Add Hardware
+- select storage, click on manage, and attach the virtio driver you've downloaded
+- choose device type as CDROM
+
+#+CAPTION: add virtio driver
+[[file:../static/images/posts/windows-11-vm-with-qemu-kvm/virt-manager-attach-virtio-driver-iso.png]]
+
+**** change boot order
+
+make sure CDROM 1 is checked and at top.
+
+#+CAPTION: change boot order
+[[file:../static/images/posts/windows-11-vm-with-qemu-kvm/virt-manager-change-boot-order.png]]
+
+**** (optional) enable TPM
+
+Click on Add  Hardware, Add the TPM as below.
+
+Model – You will see two models, choose TIS,
+Backend – select Backend as Emulated.
+Version – 2.0
+
+#+CAPTION: add TPM
+[[file:../static/images/posts/windows-11-vm-with-qemu-kvm/virt-manager-add-TPM.png]]
+
+****  (optional) enable Secure Boot
+
+you need to install ovmf and swtpm
+
+#+begin_src shell
+  sudo pacman -Sy swtpm ed2k-ovmf
+#+end_src
+
+#+CAPTION: enable secure boot
+[[file:../static/images/posts/windows-11-vm-with-qemu-kvm/virt-manager-enable-secure-boot.png]]
+
+** Begin installation
+
+*** bypass checks
+
+Click Begin Installation button on the top left corner to start the installation process, then install Windows like you would on a normal PC.
+
+If you haven't enabled TPM 2.0 and secure boot, you'll not meet the installation requirements of windows 11. But you can bypass these checks.
+
+open command prompt with =Shift+F10=
+
+#+begin_src bat
+  REG ADD HKLM\SYSTEM\Setup\Labconfig /v BypassTPMCheck /t REG_DWORD /d 1
+  REG ADD HKLM\SYSTEM\Setup\Labconfig /v BypassSecureBootCheck /t REG_DWORD /d 1
+#+end_src
+
+Similarly, you can disable other checks with: BypassSecureCPUCheck, BypassSecureRAMCheck, BypassSecureStorageCheck
+
+*** Load driver
+
+You won't be able to find the virtio hard disk that you have added, click on Load driver. In the prompt, choose windows 11 driver, and click on Next.
+
+*** Skip connecting to network
+
+we don't have the corresponding virtio driver yet, we'll install it in the next section.
+
+** After installation
+
+*** Install VirtIO Drivers
+
+- Open the Windows Explorer and navigate to the CD-ROM drive.
+- Simply execute (double-click on) virtio-win-gt-x64
+- (optional) Use the virtio-win-guest-tools wizard to install the QEMU Guest Agent and the SPICE agent for an improved remote-viewer experience.
+- (optional) Reboot VM
+
+*** remove CDROMs
+
 * Footnotes
 
 [fn:orgmode] [[https://orgmode.org/][org mode official site]]
@@ -2661,3 +3094,6 @@ Now open Magisk app again, you can see it's installed.
 [fn:daxiaamu] I downloaded official ROM (many history versions) for my op6 from [[https://yun.daxiaamu.com/][大侠阿木云盘]]
 
 [fn:magisk] [[https://github.com/topjohnwu/Magisk][Magisk]] -- The Magic Mask for Android
+[fn:kvm] [[https://wiki.archlinux.org/title/KVM][KVM]] is a hypervisor built into the linux kernel.
+
+[fn:QEMU] [[https://wiki.qemu.org/][QEMU]] is a generic and open source machine emulator and virtualizer.

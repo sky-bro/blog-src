@@ -2788,10 +2788,10 @@ Use your own package manager to install these tools:
 - *kvm* (Kernel-based Virtual Machine): Kernel module that handles CPU and memory communication
 - *qemu* (Quick EMUlator): emulates many hardware resources -- dick, network, usb...
 - *libvirt*: an open-source API, daemon and management tool for managing platform virtualization. It can be used to manage KVM, Xen, VMware ESXi, QEMU and other virtualization technologies.
-- *virsh*: Command-line tools for communicating with libvirt
+  - *virsh*: comes with libvirt, command-line tools for communicating with libvirt
 - *virt-manager*: GUI alternative to virsh, albeit less capable.
-- *virt-viewer*: part of virt-manager project, create new VM guests
-- *virt-install*: part of virt-manager project, UI for interacting with VMs via VNC/SPICE
+- *virt-install*: part of virt-manager project, create new VM guests
+- *virt-viewer*: part of virt-manager project, UI for interacting with VMs via VNC/SPICE
 - *dnsmasq*: light-weight DNS/DHCP server. Primarily used for allocating IPs to VMs.
 - *ebtables*: used for setting up NAT networking the host
 
@@ -2917,7 +2917,7 @@ CLOSED: [2022-04-10 Sun 23:43]
 :EXPORT_DATE: [2022-04-10 Sun 14:22]
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/windows-logo.jpg"
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "this is a description"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "Install windows VM in QEMU/KVM"
 :END:
 :LOGBOOK:
 - State "DONE"       from "TODO"       [2022-04-10 Sun 23:43]
@@ -3054,6 +3054,130 @@ we don't have the corresponding virtio driver yet, we'll install it in the next 
 - (optional) Reboot VM
 
 *** remove CDROMs
+
+- Remove the windows installer iso after intallation.
+- Keep the virtio iso.
+
+*** file sharing
+
+recommend sharing files between host and windows guest with samba.
+
+** resources
+
+- [[https://askubuntu.com/questions/1146441/how-to-properly-configure-virt-manager-qemu-kvm-with-windows-guest][How to properly configure Virt-Manager (QEMU/KVM) with Windows guest]]
+
+* DONE File Sharing with Samba                       :@workspace_setup:samba:
+CLOSED: [2022-04-12 Tue 19:28]
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: file-sharing-with-samba
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2022-04-12 Tue 12:20]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/samba-logo.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "use samba to share files across linux and windows."
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2022-04-12 Tue 19:28]
+:END:
+
+** Introduction
+
+You should use NFS for dedicated Linux Client to Linux Server connections.
+
+For mixed Windows/Linux environments use Samba.
+
+** Server (linux)
+
+*** install
+
+#+begin_src shell
+  sudo pacman -Sy samba
+#+end_src
+
+*** configure
+
+**** configuration file
+
+Need to create =/etc/samba/smb.conf= before starting the service =systemctl start nmb.conf=
+
+You can get an example configuration file from [[https://git.samba.org/samba.git/?p=samba.git;a=blob_plain;f=examples/smb.conf.default;hb=HEAD][Samba Git Repository]].
+
+Get help about writing the configuration file with =man smb.conf=.
+
+Here's mine:
+
+#+begin_src toml
+  [global]
+    workgroup = k4i.top
+    map to guest = Bad Password
+    server string = Samba Server
+    passdb backend = tdbsam
+
+  [homes]
+     comment = Home Directories
+     browseable = no
+     writable = yes
+
+  [tmp]
+    comment = Temporary file space
+    path = /tmp
+    public = yes
+    writable = yes
+    printable = no
+#+end_src
+
+**** user management
+
+we need to have a user to access linux files.
+
+1. For anonymous access, we use the guest account (by default, it's user =nobody=)
+2. If you want to access files in a home directory, you should login as that user.
+
+We need to specifically add a user (an existing linux user, or a non-existing one -- samba will create the user for you) to samba, then set a password for that user (can be different from your linux login password)
+
+#+begin_src shell
+  sudo smbpasswd -a sky
+#+end_src
+
+And by default, when you access a samba server with a user, you can browser that user's home directory (if it has one).
+
+*** start
+
+#+begin_src shell
+  systemctl start smb.service
+#+end_src
+
+** Client
+
+*** windows
+
+In the file manager location bar, input: =\\servername\[share]=, then you may remap any folder to a drive.
+
+tips: to clean user credentials (or with the control panel GUI)
+
+#+begin_src bat
+  net use /delete *.
+#+end_src
+
+*** linux
+
+1. With a file manager:
+
+https://wiki.archlinux.org/title/samba#File_manager_configuration
+
+In the location bar, input: =smb://servername/share=
+
+2. With a command line tool: =smbclient=
+
+#+begin_src shell
+  smbclient //xyz/public -U nobody
+  smbclient //xyz/sky -U sky
+#+end_src
+
+** Resources
+
+- [[https://jeffshee.github.io/2021-01-29-samba-fedora33-kvm-windows-10/][File transfer between Linux and KVM Guest Windows 10]]
+- [[https://wiki.archlinux.org/title/samba][Arch Wiki: samba]]
 
 * Footnotes
 

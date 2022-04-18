@@ -1,11 +1,11 @@
 * Welcome!
 
-This is the source my blog: [[https://k4i.top][k4i.top]].
+This is the source of my blog: [[https://k4i.top][k4i.top]].
 
 * Pipeline
 
-1. Write all my blogs in org mode, stored under [[blog-src/content-org][./blog-src/content-org]]
-2. Export them to markdown files ([[blog-src/content][./blog-src/content]]) with [[https://github.com/kaushalmodi/ox-hugo][ox-hugo]]
+1. Write all my blogs in org mode, stored under [[./content-org][./content-org]]
+2. Export them to markdown files ([[./content][./content]]) with [[https://github.com/kaushalmodi/ox-hugo][ox-hugo]]
 3. Generate html files with [[https://gohugo.io/][hugo]] ([[https://github.com/sky-bro/blog-src/blob/master/.github/workflows/gh-pages.yml][github action]])
 
 * Writing Guide

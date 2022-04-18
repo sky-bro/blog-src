@@ -50,22 +50,6 @@
 [[https://open.spotify.com/user/22sit26j5lamlvm3sgikxwuoq][<img src="https://spotify-readme-ky13.vercel.app/api/spotify" alt="Kyle
 Listening" />]]
 
-* TODO 写作指南 (org + ox-hugo)                             :@notes:hugo:org:
-:PROPERTIES:
-:EXPORT_HUGO_BUNDLE: writing-guide--org-plus-ox-hugo
-:EXPORT_FILE_NAME: index
-:EXPORT_DATE: [2021-11-22 Mon 20:23]
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/org-mode-unicorn.png"
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "Now I blog in org mode!"
-:END:
-
-我最近开始采用[[https://orgmode.org/][org mode]]来写作, 我所有的博客都将使用org mode进行编辑
-([[https://github.com/sky-bro/blog-src/blob/master/content-org/][blog-src/content-org/]]), 然后利用ox-hugo将他们导出为 ~.md~ 文件
-([[https://github.com/sky-bro/blog-src/blob/master/content/][blog-src/content/]]).
-
-所以就是将原来编辑 ~content~ 目录下的 ~.md~ 文件改为了编辑 ~content-org~ 目录下
-的 ~.org~ 文件.
 * DONE Tiling WM (i3)                                             :@notes:wm:
   CLOSED: [2021-12-04 Sat 22:36]
 :PROPERTIES:
@@ -98,22 +82,22 @@ Listening" />]]
 
 *** Tiling WM的优势
 
-+ 自动放置窗口, 不重叠, 空间利用率高
-+ 多种布局方式切换, 适应各种需求 (基本所有tiling wm都不止Tiling一种布局, 比如i3wm还有Tabbed, Stacked, 还可以选择让某窗口全屏或是悬浮)
-+ 基本全靠键盘控制, 快速方便
+- 自动放置窗口, 不重叠, 空间利用率高
+- 多种布局方式切换, 适应各种需求 (基本所有tiling wm都不止Tiling一种布局, 比如i3wm还有Tabbed, Stacked, 还可以选择让某窗口全屏或是悬浮)
+- 基本全靠键盘控制, 快速方便
 
 ** container与tree
 
-{{< alert theme="warning" >}}
+#+html: {{< alert theme="warning" >}}
 我这里并没有严格去看源码这个树到底是怎么构建的(尤其是很多特殊情况), 不过就简单理解下树和窗口之间的关系是可以的.
-{{< /alert >}}
+#+html: {{< /alert >}}
 
 大多窗口管理器采用树结构来保存窗口, i3也是如此.
 
 每个workspace的所有窗口保存在一个tree数据结构里面, 这个tree的每个节点都是一个 container (window算特殊的container, 是没有孩子的叶子节点), 一个container里面又可以包含多个container.
 
 *** container属性
- 
+
 每个container有两个比较重要的属性:
 
 1. 布局方式: split (分splith, splitv), tabbed 或者 stacked
@@ -141,7 +125,7 @@ Listening" />]]
 2. split方向对应占多少百分比
 
 因为我们通常还会控制每个窗口/容器的宽度/高度, 所以还应该为每个容器增加split方向的空间占比, 如图 [[fig:tiling-wm-percentage]] 所示.
- 
+
 #+CAPTION: tree with container percentage
 #+NAME: fig:tiling-wm-percentage
 [[../static/images/posts/Tiling WM/tiling-wm-percentage.svg]]
@@ -178,62 +162,62 @@ Listening" />]]
 ** 快捷键设置
 
 这里仅列出了比较重要的快捷键, 我详细的配置放在了github的[[https://github.com/sky-bro/.dotfiles][.dotfiles]]仓库.
-   
+
 #+begin_src sh
   # some configs from my ~/.config/i3/config
   set $mod Mod4
-  
+
   set $up k
   set $down j
   set $left h
   set $right l
-  
+
   # change focus
   bindsym $mod+$left focus left
   bindsym $mod+$down focus down
   bindsym $mod+$up focus up
   bindsym $mod+$right focus right
-  
+
   # move focused window
   bindsym $mod+Shift+$left move left
   bindsym $mod+Shift+$down move down
   bindsym $mod+Shift+$up move up
   bindsym $mod+Shift+$right move right
-  
+
   # split in horizontal orientation
   bindsym $mod+Shift+v split h
-  
+
   # split in vertical orientation
   bindsym $mod+v split v
-  
+
   # enter fullscreen mode for the focused container
   bindsym $mod+f fullscreen toggle
-  
+
   # change container layout (stacked, tabbed, toggle split)
   bindsym $mod+s layout stacking
   bindsym $mod+w layout tabbed
   bindsym $mod+e layout toggle split
-  
+
   # toggle tiling / floating
   bindsym $mod+Shift+space floating toggle
-  
+
   # change focus between tiling / floating windows
   bindsym $mod+space focus mode_toggle
-  
+
   # focus the parent container
   bindsym $mod+p focus parent
-  
+
   # focus the child container
   bindsym $mod+c focus child
-  
+
   # resize window (you can also use the mouse for that)
   set $resize_step 5
-  
+
   bindsym $mod+y resize shrink width $resize_step px or $resize_step ppt
   bindsym $mod+i resize grow height $resize_step px or $resize_step ppt
   bindsym $mod+u resize shrink height $resize_step px or $resize_step ppt
   bindsym $mod+o resize grow width $resize_step px or $resize_step ppt
-  
+
 #+end_src
 
 + /*Mod-h/j/k/l*/ :: 切换到左/上/下/右边窗口
@@ -244,7 +228,7 @@ Listening" />]]
 + /*Mod-e/w/s*/ :: 设置 *所在container* 的布局为Split(会在splith, splitv间循环), Tabbed, Stacked
 + /*Mod-p*/ :: Focus parent
 + /*Mod-c*/ :: Focus child
- 
+
 多练习增加container与改变所在container布局的操作, 理解他们之间的区别(前者影响当前所选择的节点, 后者影响父亲节点).
 
 ** 参考
@@ -252,5 +236,3 @@ Listening" />]]
 + [[https://i3wm.org/docs/userguide.html#_tree][i3wm 用户手册 >> tree]]
 + [[https://www.youtube.com/watch?v=Api6dFMlxAA][youtube: TheAlternative.ch - LinuxDays FS16 - Linux for Experts course]]
 + [[https://en.wikipedia.org/wiki/Window_manager#Types][wiki: window manager types]]
-
-

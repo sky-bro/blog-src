@@ -28,24 +28,25 @@ BTW, instead of writing ~.md~ files, I keep all my blogs in ~.org~ files (stored
 
 ** :sunrise: Daily Life
 
-   + [[http://www.hit.edu.cn/][@HIT]]
-   + C/C++, Golang, Python, ASM
-   + Arch, Emacs, VSCode
-   + CTF, ACM
+   - [[http://www.hit.edu.cn/][@HIT]]
+   - C/C++, Golang, Python, ASM
+   - Arch, Emacs, VSCode
+   - CTF, ACM
 
 ** :love_letter: Contact Me
 
-   + Email: [[mailto:sky_io@outlook.com][sky_io@outlook.com]]
-   + WeChat: sky_bro
-   + Facebook: [[https://www.facebook.com/profile.php?id=100005027239118][Kaiyu Shi]]
-   + Twitter: [[https://twitter.com/KaiyuShi][KaiyuShi]]
-   + GPG Pub: [[/Kyle.asc][Kyle.asc]] (F4CD 0E4A 3661 65D1 62E6  B6CE 7D36 AE60 55B0 60A6)
+   - Email: [[mailto:sky_io@outlook.com][sky_io@outlook.com]]
+   - WeChat: sky_bro
+   - Facebook: [[https://www.facebook.com/profile.php?id=100005027239118][Kaiyu Shi]]
+   - Twitter: [[https://twitter.com/KaiyuShi][KaiyuShi]]
+   - GPG Pub: [[https://keybase.io/skybro/pgp_keys.asc][Kyle.asc]] (Key ID: F4CD0E4A366165D162E6B6CE7D36AE6055B060A6)
+   - keybase: [[https://keybase.io/skybro][skybro]]
 
 ** :chicken: My Friends
 
 [[https://thesong96.github.io/][TheSong]], [[https://lurenxiao1998.github.io/][路人枭]], [[https://pullp.github.io][wxk]]
 
-** :musical_score: Listening recently
+** COMMENT :musical_score: Listening recently
 
 #+html: <a href="https://open.spotify.com/user/22sit26j5lamlvm3sgikxwuoq"> <img src="https://spotify-readme-ky13.vercel.app/api/spotify" /> </a>
 
@@ -399,6 +400,16 @@ will be rendered as:
 + =verbatim=
 + ~code~
 + +strike through+
+
+*** Org Entities
+
+for entering special characters, we can use org entities:
+
+https://stackoverflow.com/questions/16443386/how-to-escape-double-quote/31207746#31207746
+
+#+begin_src org
+  =\equal=
+#+end_src
 
 ** Headings
 
@@ -1975,21 +1986,6 @@ multiple files
 
 + [[https://vim.rtorr.com/][Vim Cheat Sheet]]
 + [[../static/images/posts/vim-notes/vim-cheatsheet.svg][vi / vim graphical cheat sheet]]
-* TODO Shows & Movies                           :@entertainment:movies:shows:
-:PROPERTIES:
-:EXPORT_HUGO_BUNDLE: shows-and-movies
-:EXPORT_FILE_NAME: index
-:EXPORT_DATE: [2021-12-07 Tue 18:53]
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/movie.png"
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "shows & and movies that I love."
-:END:
-
-旺角卡门
-国产玲玲发
-
-Men of Honor 怒海潜将
-
 * DONE Ranger Notes                                           :@notes:ranger:
   CLOSED: [2021-12-08 Wed 00:03]
 :PROPERTIES:
@@ -2069,6 +2065,10 @@ under =~/.config/ranger/= folder, there are 4 main configuration files:
 + ~:mkdir~: create directory
 + ~:touch~: create file
 
+** TODO drag and drop
+
+https://github.com/ranger/ranger/wiki/Drag-and-Drop
+
 * DONE Terminal & Shell Setup (st & zsh)              :@notes:shell:terminal:
   CLOSED: [2021-12-09 Thu 00:09]
 :PROPERTIES:
@@ -2129,7 +2129,7 @@ Or you can let pywal generates and sets a colorscheme for you:
   # that this works even when a directory is passed.
   image_path="${1:-"$(< "${HOME}/.cache/wal/wal")"}"
 
-  # -n tells `wal` to skip setting the wallpaper.
+  # -n tells =wal= to skip setting the wallpaper.
   wal -n -i "$image_path"
   feh --no-fehbg --bg-fill "$image_path"
 #+end_src
@@ -2622,6 +2622,76 @@ Now open Magisk app again, you can see it's installed.
 #+ATTR_HTML: :width 30%
 [[file:../static/images/posts/root-android-with-magisk/magisk-patch-installed.png]]
 
+* DONE Activate Windows With Your KMS Own Server :@workspace_setup:kms:windows:
+CLOSED: [2022-04-17 Sun 09:15]
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: activate-windows-with-your-own-kms-server
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2022-02-25 Fri 16:11]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/windows-volume-licensing.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "Activate windows and office with a KMS emulator (for volume license editions)"
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2022-04-17 Sun 09:15]
+:END:
+
+** Introduction
+
+KMS[fn:key-management-service] uses a client-server model, to use it, you need to have a KMS host (server) available on your network.
+
+Computers that activate with a KMS host need to have a specific product key (KMS client key, or formally as Microsoft Generic Volume License Key - GVLK).
+
+Volume licensing editions are, by default, KMS clients with no extra configuration needed as the relevant GVLK is already there.
+
+** Get a product key
+
+Get a product key from [[https://docs.microsoft.com/en-us/windows-server/get-started/kms-client-activation-keys][kms client activation product keys]] for you running windows edition.
+
+To check your current windows version: run =winver=
+
+** Start KMS server
+
+There are several KMS emulators, choose any:
+- [[https://github.com/SystemRage/py-kms][py-kms]]
+- [[https://github.com/Wind4/vlmcsd][vlmcsd]]
+
+I recommend using py-kms with docker:
+
+#+begin_src shell
+  docker run -d --name py-kms --restart always -p 1688:1688 pykmsorg/py-kms
+#+end_src
+
+arguments explained:
+- =-d= run in the background
+- =-name py-kms= container name is =py-kms= (name whatever you want)
+- =--restart always= always restart the container if it's not running (unless manually stopped, but will still restart if docker daemon restarts)
+- =-p 1688:1688= map host port 1688 (left) to the port 1688 (right) in the container
+- =pykmsorg/py-kms= the docker image to run
+
+** activate with slmgr
+
+In your administrator powershell (=win + r=, =powershell=, =Ctrl+Shift+Enter=):
+
+#+begin_src shell
+  # uninstall product key
+  # slmgr.vbs /upk
+  # set/change the product key
+  slmgr /ipk W269N-WFGWX-YVC9B-4J6C9-T83GX
+  # set the kms server address, 1688 is the default port (can be omitted)
+  slmgr /skms 192.168.122.1:1688
+  # activate windows
+  slmgr /ato
+  # activation status
+  slmgr /dli
+  # activation status (verbose)
+  # slmgr /dlv
+#+end_src
+
+** Resources
+
+- To install office, choose volume licensing edition, after setting KMS server, it will be activated automatically: [[https://otp.landian.vip/zh-cn/][Office Tool Plus]]
+
 * DONE Tmux Notes                           :cheatsheet:terminal:tmux:@notes:
 CLOSED: [2022-03-26 Sat 19:19]
 :PROPERTIES:
@@ -2637,7 +2707,7 @@ CLOSED: [2022-03-26 Sat 19:19]
 My most up to date config file is at github: [[https://github.com/sky-bro/.dotfiles/blob/master/.tmux.conf][.dotfiles/.tmux.conf]], and for better experience, I strongly suggest you use =Capslock= as your =Ctrl= key (I set =C-a= as my prefix instead of =C-b=).
 
 #+begin_src conf
-  # chenge prefix from `C-b` to `C-a`
+  # chenge prefix from =C-b= to =C-a=
   set -g prefix C-a
   unbind C-b
   bind C-a send-prefix
@@ -2717,7 +2787,8 @@ list all shortcust: =prefix ?=
 - kill pane: =prefix x=
 - scroll pane: use mouse wheel or =prefix [= then with vi motions
 - toggle between pane layouts: =prefix SPACE=
-- show pane numbers: =prefix q= (given a number, jump to that pane)
+- display panes /   show pane numbers: =prefix q= (given a number, jump to that pane)
+- swap with previous/next pane: =prefix {/}=
 
 *** copy & paste
 
@@ -2745,6 +2816,123 @@ list all shortcust: =prefix ?=
   # paste from clipboard
   tmux set-buffer "$(xclip -o -sel clipboard)"; tmux paste-buffer
 #+end_src
+
+* DONE Manage Passwords with Pass            :password:pass:@workspace_setup:
+CLOSED: [2022-04-18 Mon 11:39]
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: manage-passwords-with-pass
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2022-04-05 Tue 20:28]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/password-store.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "manage passwords on all your devices (add, generate, edit, delete, sync)."
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2022-04-18 Mon 11:39]
+:END:
+
+** introduction
+
+Pass[fn:pass] is a command line tool that manages (adding, editing, generating, retrieving) your passwords, but with many useful font-ends and ported clients for different platforms. Its very handy to use it for managing all your passwords on all your devices.
+
+Each password lives in a gpg encrypted file.
+
+** init
+
+Before everything, we need to initialize the password store with a GPG key ([[https://www.linode.com/docs/guides/gpg-keys-to-send-encrypted-messages/][How to generate a gpg key]]):
+
+#+begin_src shell
+  # "Kyle Shi" is the user id (maybe email is better?) for my GPG key
+  # this will create a directory: $HOME\.password-store
+  # with a file .gpg-id in it (which stores this id)
+  pass init "Kyle Shi"
+#+end_src
+
+Passwords that you add will be stored in the =.password-store= directory, named =xxx.gpg=, which is encrypted with your gpg public key, which only you can decrypt with your private key (=gpg --output doc --decrypt doc.gpg=).
+
+** manage with pass command
+
+*** add
+
+#+begin_src shell
+  pass insert Email/sky_io@outlook.com
+#+end_src
+
+*** generate
+
+#+begin_src shell
+  # generate password for an entry with length of 15
+  # if -n (--no-symbols) is passed: will not use non alphanumeric characters
+  pass generate Email/sky_io@outlook.com 15
+#+end_src
+
+*** edit
+
+#+begin_src shell
+  # edit an entry with your default editor
+  pass edit Email/sky_io@outlook.com
+#+end_src
+
+*** remove
+
+#+begin_src shell
+  pass rm Email/sky_io@outlook.com
+#+end_src
+
+*** retrieve
+
+#+begin_src shell
+  # list password entries
+  pass
+  # show password for an entry
+  pass Email/sky_io@outlook.com
+  # copy password of an entry to the clipboard
+  pass -c Email/sky_io@outlook.com
+#+end_src
+
+history problem with clipboard manager: [[https://github.com/hluk/CopyQ/issues/1031][How to clear the history in CopyQ?]]
+
+** manage with other pass front ends
+
+We barely use =pass= command, instead we use other more user friendly front ends.
+
+*** unix/unix like: [[https://github.com/carnager/rofi-pass][rofi-pass]]
+
+- =Alt+n=: add new password
+- =Alt+a=: action menu of current password
+- =Alt+h=: help
+
+*** windows
+
+- [[https://github.com/geluk/pass-winmenu][pass-winmenu]]
+
+*** android
+
+- [[https://github.com/android-password-store/Android-Password-Store][Android-Password-Store]]
+
+*** ios
+
+- [[https://mssun.github.io/passforios/][passforios]]
+
+** Sync
+
+*** git(hub)
+
+#+begin_src shell
+  cd $HOME\.password-store
+  git init
+  git branch -M main
+  git add -A
+  git commit -m "init pass store"
+  git remote add origin git@github.com:sky-bro/password-store.git
+  git push -u origin main
+#+end_src
+
+Adding and removing passwords will automatically create git commits.
+
+** browser settings
+
+switch off =Offer to save passwords= in chrome settings
 
 * DONE Linux Hypervisor Setup          :qemu:kvm:hypervisor:@workspace_setup:
 CLOSED: [2022-04-10 Sun 23:43]
@@ -2870,7 +3058,7 @@ The above setting will add a new device =/ctf= in the virtual machine
 After restarting this server, =/ctf= will automatically be mounted on =/home/sky/ctf=
 
 To make the user (actually kvm) writing the share folder same as the user at host (vm host):
-=sudo vim /etc/libvirt/qemu.conf=, find two lines with =user="xxx"= and =group="xxx"=, change them to yourself (by default, xxx should be `root`), then uncomment the two lines. for me, they are:
+=sudo vim /etc/libvirt/qemu.conf=, find two lines with =user=xxx= and =group=xxx=, change them to yourself (by default, xxx should be =root=), then uncomment the two lines. for me, they are:
 
 #+begin_src conf
   user = "sky"
@@ -3098,7 +3286,7 @@ For mixed Windows/Linux environments use Samba.
 
 **** configuration file
 
-Need to create =/etc/samba/smb.conf= before starting the service =systemctl start nmb.conf=
+Need to create =/etc/samba/smb.conf= before starting the service =systemctl start smb=
 
 You can get an example configuration file from [[https://git.samba.org/samba.git/?p=samba.git;a=blob_plain;f=examples/smb.conf.default;hb=HEAD][Samba Git Repository]].
 
@@ -3145,6 +3333,8 @@ And by default, when you access a samba server with a user, you can browser that
 
 #+begin_src shell
   systemctl start smb.service
+  # if you want to access service with host names, start this service
+  systemctl start nmb.service
 #+end_src
 
 ** Client
@@ -3178,6 +3368,66 @@ In the location bar, input: =smb://servername/share=
 
 - [[https://jeffshee.github.io/2021-01-29-samba-fedora33-kvm-windows-10/][File transfer between Linux and KVM Guest Windows 10]]
 - [[https://wiki.archlinux.org/title/samba][Arch Wiki: samba]]
+
+* DONE Use Random in C++                        :@Crypto:@C:STL:Random:C:RNG:
+CLOSED: [2022-04-18 Mon 15:47]
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: use-random-in-c-plus-plus
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2022-04-18 Mon 15:42]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "images/icons/dice-white.svg"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "introduce randomness into your C++ programs, the right way."
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2022-04-18 Mon 15:47]
+:END:
+
+** Old way
+
+use =rand()=, usually pair with a random initialization of the seed:
+
+#+begin_src c
+  srand(int(time(0))); // initialize the seed
+  rand(); // get a random int, [0, RAND_MAX]
+#+end_src
+
+get random int in =[0,x)=: =rand()%x=
+get random real in =[0, 1]=: =rand()/double(RAND_MAX)=
+
+** Modern way
+
+*** Generators
+
+**** random_device
+
+random_device is a uniformly-distributed integer random number generator that produces non-deterministic random numbers.
+A good implementation should has its randomness come from a non-deterministic source (e.g. a hardware device).
+We can just use this to get our random numbers, but it might come with a light performance price. A PRNG is much better
+
+**** pseudo RNG
+
+So, we usually use random_device to get our first random number, then use it to initialize other PRNGs, then we can more quickly get many more random numbers.
+The STL implements several PRNGs (see [[https://en.cppreference.com/w/cpp/numeric/random][cppref: Predefined random number generators]]), not just the *Mersenne Twister* shown above, you can check
+
+*** Distributions
+
+#+begin_src c++
+  // ...
+  #include <random>
+
+  std::random_device rd; // get a seed
+  std::mt19937 g(rd());
+#+end_src
+
+** Use cases of PRNG
+
+TODO...
+
+** Refs
+
+- [cppref: std::random_device](https://en.cppreference.com/w/cpp/numeric/random/random_device)
+- [cppref: Predefined random number generators](https://en.cppreference.com/w/cpp/numeric/random)
+- [std::random_shuffle is deprecated in C++14](https://meetingcpp.com/blog/items/stdrandom_shuffle-is-deprecated.html)
 
 * Footnotes
 
@@ -3218,6 +3468,13 @@ In the location bar, input: =smb://servername/share=
 [fn:daxiaamu] I downloaded official ROM (many history versions) for my op6 from [[https://yun.daxiaamu.com/][大侠阿木云盘]]
 
 [fn:magisk] [[https://github.com/topjohnwu/Magisk][Magisk]] -- The Magic Mask for Android
+
+[fn:key-management-service] KMS (Key Management Service) activates Microsoft products on a local network.
+
+[fn:pass] [[https://www.passwordstore.org/][pass]] is the standard unix password manager.
+
 [fn:kvm] [[https://wiki.archlinux.org/title/KVM][KVM]] is a hypervisor built into the linux kernel.
 
 [fn:QEMU] [[https://wiki.qemu.org/][QEMU]] is a generic and open source machine emulator and virtualizer.
+
+[fn:rfc2818] [[https://datatracker.ietf.org/doc/html/rfc2818][HTTP Over TLS]]

@@ -163,6 +163,8 @@ It seems that zzo theme does not support math equation referencing and numbering
 
 *** Plantuml
 
+use plantuml[fn:plantuml] to draw...
+
 #+begin_src plantuml :file "../static/images/posts/Writing-Guide-Org/first.svg"
   title Authentication Sequence
 
@@ -171,13 +173,17 @@ It seems that zzo theme does not support math equation referencing and numbering
   Bob->Alice: Authentication Response
 #+end_src
 
-** revealjs / presentation
+** Presentation
 
-** shortcodes
+** Shortcodes
 
 # https://github.com/kaushalmodi/ox-hugo/issues/126
+#+begin_quote
+zoo-docs[fn:zzo-docs] on short codes
+#+end_quote
 
 to use shortcodes as you do in markdown, put it after =#+html:=. Like this:
+
 
 #+begin_src org
   ,#+html: {{</* gallery dir="/image_dir/" /*/>}}
@@ -354,9 +360,7 @@ Some Markdown Contents
 
 ** References
 
-+ [[https://ox-hugo.scripter.co/][ox-hugo official site]]
-+ [[https://plantuml.com/][plantuml official site]]
-+ [[https://zzo-docs.vercel.app/zzo/shortcodes/][zzo-docs on shortcodes]]
+You can refer to something in the footnote like ox-hugo[fn:ox-hugo].
 
 * DONE Org Notes                                                 :@notes:org:
   CLOSED: [2021-12-06 Mon 21:37]
@@ -3429,7 +3433,84 @@ TODO...
 - [cppref: Predefined random number generators](https://en.cppreference.com/w/cpp/numeric/random)
 - [std::random_shuffle is deprecated in C++14](https://meetingcpp.com/blog/items/stdrandom_shuffle-is-deprecated.html)
 
+* DONE Public, Private and Hybrid Cloud                    :@Cloud_Computing:
+CLOSED: [2022-10-21 Fri 08:57]
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: public-private-and-hybrid-cloud
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2022-10-20 Thu 23:09]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/tortoise.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "this is a description"
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2022-10-21 Fri 08:57]
+:END:
+
+** Introduction
+
+- Public Cloud :: delivered via the internet and shared across organizations
+- Private Cloud :: dedicated solely to your organization
+- Hybrid Cloud :: any environment that uses both public and private clouds
+
+** Public Cloud
+
+*** Service Features
+
+- Pros
+  - No investments required to deploy and maintain the IT infrastructure (cloud vendor's responsibility)
+  - High scalability and flexibility (to meet unpredictable workload demands)
+  - Flexible pricing options
+- Cons
+  - total cost of ownership (TCO) can rise exponentially for large scale usage
+  - lease secure
+  - low visibility and control into the infrastructure
+
+*** Vendor Responsibility
+
+responsible for developing, managing, and maintaining the pool of computing resources shared between multiple tenants from across the network.
+
+** Private Cloud
+
+*** Service Features
+
+- Pros
+  - Dedicated and secure environments
+  - Customizable & Flexible
+  - high performance
+- Cons
+  - high price for short-term use cases
+  - may not offer high scalability
+
+*** Vendor Responsibility
+
+** Hybrid Cloud
+
+*** Service Features
+
+- Pros
+  - Flexible policy to deploy workloads on public or private infrastructure (based on security, performance and cost)
+  - scale with security (public cloud resources to accommodate occasional spikes)
+  - reliable (multiple data centers -- public and private)
+  - cost control (sensitive workloads on private clouds, regular workloads on public cloud)
+- Cons
+  - toggling between public and private (how to track, what's the cost)
+  - public cloud resource management (different locations and categories)
+  - complexity of managing an evolving mix of private and public cloud architecture
+
+*** Vendor Responsibility
+
+** References
+
+- [[https://www.bmc.com/blogs/public-private-hybrid-cloud/#:~:text=Public%20cloud%20is%20cloud%20computing,both%20public%20and%20private%20clouds.][Public vs Private vs Hybrid: Cloud Differences Explained]]
+
 * Footnotes
+
+[fn:plantuml] [[https://plantuml.com/][plantuml official site]]
+
+[fn:zzo-docs] [[https://zzo-docs.vercel.app/zzo/shortcodes/][zzo-docs on shortcodes]]
+
+[fn:ox-hugo] [[https://ox-hugo.scripter.co/][ox-hugo official site]]
 
 [fn:orgmode] [[https://orgmode.org/][org mode official site]]
 

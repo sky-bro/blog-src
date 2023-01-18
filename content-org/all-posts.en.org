@@ -67,7 +67,7 @@ So instead of editing ~.md~ files under ~content~ folder, now I write ~.org~ fil
 
 ** Create new post
 
-Invoking org-capture-templates function, and choose hugo post template, as shown in Figure [[fig:org-capture-template-ox-hugo]]
+Invoking org-capture-templates (=SPC o c=) function, and choose hugo post template, as shown in Figure [[fig:org-capture-template-ox-hugo]]
 
 #+CAPTION: creating new post with org-capture-template
 #+NAME: fig:org-capture-template-ox-hugo
@@ -83,6 +83,46 @@ As in [[https://ox-hugo.scripter.co/doc/custom-front-matter/][ox-hugo: Custom Fr
   :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :key3 value3
   :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :key4 value4
   :END:
+#+end_src
+
+some important front matters can be stored in your org capture template, here's my template:
+
+#+begin_src emacs-lisp
+  (defun org-hugo-new-subtree-post-capture-template ()
+    "Returns `org-capture' template string for new Hugo post.
+   See `org-capture-templates' for more information."
+    (let* (;; http://www.holgerschurig.de/en/emacs-blog-from-org-to-hugo/
+           (date (format-time-string (org-time-stamp-format :long :inactive) (org-current-time)))
+           (title (read-from-minibuffer "Post Title: ")) ;Prompt to enter the post title
+           (fname (org-hugo-slug title)))
+      (mapconcat #'identity
+                 `(
+                   ,(concat "\n* TODO " title "  :@cat:tag:")
+                   ":PROPERTIES:"
+                   ,(concat ":EXPORT_HUGO_BUNDLE: " fname)
+                   ":EXPORT_FILE_NAME: index"
+                   ,(concat ":EXPORT_DATE: " date) ;Enter current date and time
+                   ":EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image \"/images/icons/tortoise.png\""
+                   ":EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)"
+                   ":EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description \"this is a description\""
+                   ":END:"
+                   "%?\n")
+                 "\n")))
+  (with-eval-after-load 'org-capture
+    (setq hugo-content-org-dir "~/git-repo/blog/blog-src/content-org")
+    (add-to-list 'org-capture-templates
+                 `("pe"
+                   "Hugo Post (en)"
+                   entry
+                   (file ,(expand-file-name "all-posts.en.org" hugo-content-org-dir))
+                   (function org-hugo-new-subtree-post-capture-template)))
+    (add-to-list 'org-capture-templates
+                 `("pz"
+                   "Hugo Post (zh)"
+                   entry
+                   (file ,(expand-file-name "all-posts.zh.org" hugo-content-org-dir))
+                   (function org-hugo-new-subtree-post-capture-template)))
+    (add-to-list 'org-capture-templates '("p" "Hugo Post")))
 #+end_src
 
 ** Code
@@ -115,6 +155,16 @@ You can add caption and name (for referencing purpose: as in figure [[fig:gopher
   ,#+NAME: fig:gopher
   ,#+ATTR_HTML: :width 30%
   [[../static/images/icons/gopher001.png]]
+#+end_src
+
+You can also paste images from clipboard with org-download[fn:org-download]. I've bind =C-M-y= to paste images, and the pasted image will be stored under path =../static/images/posts/<Level-0-Header-Name>=.
+
+You can customize with the =.dir-locals.el= file:
+
+#+begin_src emacs-lisp
+  ((org-mode . ((org-download-timestamp . "")
+                (org-download-heading-lvl . 0)
+                (org-download-image-dir . "../static/images/posts"))))
 #+end_src
 
 ** Math Support (with MathJax)
@@ -163,7 +213,7 @@ It seems that zzo theme does not support math equation referencing and numbering
 
 *** Plantuml
 
-use plantuml[fn:plantuml] to draw...
+use plantuml[fn:plantuml] to draw,  then =C-c C-c= to tangle the image manually (or just org export if you don't need to customize any attributes), then you can add some attributes to the result (width, name, caption, etc.).
 
 #+begin_src plantuml :file "../static/images/posts/Writing-Guide-Org/first.svg"
   title Authentication Sequence
@@ -172,6 +222,11 @@ use plantuml[fn:plantuml] to draw...
   note right of Bob: Bob thinks about it
   Bob->Alice: Authentication Response
 #+end_src
+
+#+CAPTION: this is first.svg
+#+NAME: first-svg
+#+RESULTS:
+[[file:../static/images/posts/Writing-Guide-Org/first.svg]]
 
 ** Presentation
 
@@ -360,7 +415,13 @@ Some Markdown Contents
 
 ** References
 
-You can refer to something in the footnote like ox-hugo[fn:ox-hugo].
+#+begin_src org
+  You can refer to something in the footnote like ox-hugo[fn:ox-hugo]
+  ,* Footnotes
+  [fn:ox-hugo] [[https://ox-hugo.scripter.co/][ox-hugo official site]]
+#+end_src
+
+You can refer to something in the footnote like ox-hugo[fn:ox-hugo]
 
 * DONE Org Notes                                                 :@notes:org:
   CLOSED: [2021-12-06 Mon 21:37]
@@ -3698,6 +3759,8 @@ Here's a snippet of my i3 configuration. Complete configuration is stored at my 
 - [[https://en.wikipedia.org/wiki/Window_manager#Types][wiki: window manager types]]
 
 * Footnotes
+
+[fn:org-download] [[https://github.com/abo-abo/org-download][org-download]] facilitates moving images from point A to B.
 
 [fn:plantuml] [[https://plantuml.com/][plantuml official site]]
 

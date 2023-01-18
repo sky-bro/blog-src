@@ -373,37 +373,47 @@ You can refer to something in the footnote like ox-hugo[fn:ox-hugo].
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "My Notes on org writing."
 :END:
 
+** Introduction
+
+This notes is on how to use org-mode to write things. Org provides with many functionalities and is highly customizable and extensible. Every writing feature encompasses some handy tricks listed like below:
+
+- =KEYS PRESSED= (function called - optional): explanation  on  what it does
+
 ** Basic Editing
+
 *** Comments
 
-+ /*C-c ;*/ :: toggle comment of an entry
+- /*C-c ;*/ :: toggle comment of an entry
 
-#+BEGIN_COMMENT
-this is comment line 01,
-this is comment line 02.
-#+END_COMMENT
+#+begin_src org
+  ,* COMMENT Comment an entry
 
-# comment a line / line comment
+  # comment a line
+
+  ,#+begin_comment
+  block of coment
+  ,#+end_comment
+#+end_src
 
 *** Font types
 
 #+begin_src org
-  + /italic/
-  + *bold*
-  + _underlined_
-  + =verbatim=
-  + ~code~
-  + +strike-through+
+  - /italic/
+  - *bold*
+  - _underlined_
+  - =verbatim=
+  - ~code~
+  - +strike-through+
 #+end_src
 
 will be rendered as:
 
-+ /italic/
-+ *bold*
-+ _underlined_
-+ =verbatim=
-+ ~code~
-+ +strike through+
+- /italic/
+- *bold*
+- _underlined_
+- =verbatim=
+- ~code~
+- +strike through+
 
 *** Org Entities
 
@@ -2717,7 +2727,7 @@ My most up to date config file is at github: [[https://github.com/sky-bro/.dotfi
   bind C-a send-prefix
 
   # better window split, with "-" and "|"
-  unbind '"'
+  unbind '"' # "
   bind - splitw -v -c '#{pane_current_path}'
   unbind %
   bind | splitw -h -c '#{pane_current_path}'
@@ -3439,9 +3449,9 @@ CLOSED: [2022-10-21 Fri 08:57]
 :EXPORT_HUGO_BUNDLE: public-private-and-hybrid-cloud
 :EXPORT_FILE_NAME: index
 :EXPORT_DATE: [2022-10-20 Thu 23:09]
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/tortoise.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/cute-cloud-bw.svg"
 :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
-:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "this is a description"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "Pros and cons of different types of cloud."
 :END:
 :LOGBOOK:
 - State "DONE"       from "TODO"       [2022-10-21 Fri 08:57]
@@ -3503,6 +3513,189 @@ responsible for developing, managing, and maintaining the pool of computing reso
 ** References
 
 - [[https://www.bmc.com/blogs/public-private-hybrid-cloud/#:~:text=Public%20cloud%20is%20cloud%20computing,both%20public%20and%20private%20clouds.][Public vs Private vs Hybrid: Cloud Differences Explained]]
+
+* DONE Tiling WM (i3)                    :window_manager:i3:@workspace_setup:
+CLOSED: [2023-01-18 Wed 17:05]
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: tiling-wm--i3
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2023-01-18 Wed 09:00]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/i3wm-logo.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "this is my i3 window manager configuration"
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2023-01-18 Wed 17:05]
+:END:
+
+** What is a window manager
+
+
+i3 is a tiling window manager, which
+
+*** Stacking WM
+
+- mostly mouse driven, slow
+- windows overlap with each other, space inefficient
+
+[[../static/images/posts/Tiling WM/stacking-wm-example.jpeg]]
+
+*** Tiling WM
+
+- automatically layout windows like tiles, high space efficiency
+- mostly keyboard driven, fast
+- multiple layout mode: tabbed, stacked, horizontal/vertical split, float
+
+[[../static/images/posts/Tiling WM/tiling-wm-example.jpeg]]
+
+** Understand Container & Tree
+
+#+html: {{< alert theme="warning" >}}
+The actual implementation of window managers may differ. But most tiling window managers use tree structure to manager their windows.
+#+html: {{< /alert >}}
+
+In i3,  windows are stored as leaf nodes of a tree, each workspace has a tree. Non leaf nodes of the tree are called containers, whose children are other containers or windows.
+
+*** Attributes of a container
+
+**** layout mode
+
+i3 has layout mode like:
+
+   - split (horizontally or vertically)
+   - tabbed
+   - stacked
+
+Why we need a layout mode attribute, to give you an example, imagine we have a tree structure like this, managing 3 windows.
+
+#+CAPTION: tree of ambiguous layout
+#+NAME: fig:tiling-wm-ambiguous-layout
+[[../static/images/posts/Tiling WM/tiling-wm-ambiguous-layout.svg]]
+
+Since we do not know how to place windows inside a container, figure [[fig:tiling-wm-ambiguous-layout]] may represents windows like figure [[fig:possible-window-status-01]], or figure [[fig:possible-window-status-02]] or something else. Therefore, containers must have a layout mode.
+
+#+CAPTION: possible window status 01
+#+NAME: fig:possible-window-status-01
+[[../static/images/posts/Tiling WM/possible-window-status-01.svg]]
+
+#+CAPTION: possible window status 02
+#+NAME: fig:possible-window-status-02
+[[../static/images/posts/Tiling WM/possible-window-status-02.svg]]
+
+To only represents windows in figure [[fig:possible-window-status-01]], we add layout attribute to each container, as in figure [[fig:tiling-wm-unambiguous-layout]].
+
+#+CAPTION: tree of unambiguous layout
+#+NAME: fig:tiling-wm-unambiguous-layout
+[[../static/images/posts/Tiling WM/tiling-wm-unambiguous-layout.svg]]
+
+**** percentage of width or height in split direction
+
+To control the width or height of windows, we need to add percentage of width or height in split direction. as in figure [[fig:tiling-wm-percentage]]
+
+#+CAPTION: tree with container percentage
+#+NAME: fig:tiling-wm-percentage
+[[../static/images/posts/Tiling WM/tiling-wm-percentage.svg]]
+
+*** Practice
+
+#+NAME: understand tree structure through container title
+[[file:../static/images/posts/tiling-wm--i3/tree-structure-through-container-title.png]]
+
+To better understand the tree structure, we can put our windows or containers inside a tabbed/stacked container, and get the tree structure through the container title.
+
+
+Here's how you can get the container title:
+1. switch to an empty workspace: =$Mod+3=.
+2. toggle root container layout mode as split(horizontal or vertical): =$Mod+e= (usually we do not set root container layout mode as stacked or tabbed)
+3. open the first window in this workspace: =$Mod+ENTER= (opens my st terminal)
+4. set container (of this window) layout as tabbed or stacked: =$Mod+w/s=
+5. create a new vertical/horizontal split container: =$Mod+v/V=
+   - when container of the focused node(container or window) contains only a single node, and the container layout is set to split, =$Mod+v/V= only changes the split direction
+   - when container of the focused node contains more than one node, or container layout is set to tabbed/stacked, =$Mod+v/V= will create a new vertical/horizontal split container encapsulating current focused node
+6. now you can see a container title showing =V[st]= (V means horizontal split layout), create more containers or change container layout to see the title change: open one more st window with =$Mod+ENTER= changes the title to =V[st st]=
+
+#+html: {{< alert theme="info" >}}
+Tips:
+use =$Mod+c= or =$Mod+p= to select child or parent of a node, then operate on that node:
+- create a sibling window
+- close window of node (all window under that node will be closed)
+- move  window of node
+- resize window of node
+#+html: {{< /alert >}}
+
+** some of my i3 shortcuts
+
+Here's a snippet of my i3 configuration. Complete configuration is stored at my  [[https://github.com/sky-bro/.dotfiles/blob/master/.config/i3/config][.dotfiles]] repository.
+
+#+begin_src sh
+  # some configs from my ~/.config/i3/config
+  set $mod Mod4
+
+  set $up k
+  set $down j
+  set $left h
+  set $right l
+
+  # change focus
+  bindsym $mod+$left focus left
+  bindsym $mod+$down focus down
+  bindsym $mod+$up focus up
+  bindsym $mod+$right focus right
+
+  # move focused window
+  bindsym $mod+Shift+$left move left
+  bindsym $mod+Shift+$down move down
+  bindsym $mod+Shift+$up move up
+  bindsym $mod+Shift+$right move right
+
+  # split in horizontal orientation
+  bindsym $mod+Shift+v split h
+
+  # split in vertical orientation
+  bindsym $mod+v split v
+
+  # enter fullscreen mode for the focused container
+  bindsym $mod+f fullscreen toggle
+
+  # change container layout (stacked, tabbed, toggle split)
+  bindsym $mod+s layout stacking
+  bindsym $mod+w layout tabbed
+  bindsym $mod+e layout toggle split
+
+  # toggle tiling / floating
+  bindsym $mod+Shift+space floating toggle
+
+  # change focus between tiling / floating windows
+  bindsym $mod+space focus mode_toggle
+
+  # focus the parent container
+  bindsym $mod+p focus parent
+
+  # focus the child container
+  bindsym $mod+c focus child
+
+  # resize window (you can also use the mouse for that)
+  set $resize_step 5
+
+  bindsym $mod+y resize shrink width $resize_step px or $resize_step ppt
+  bindsym $mod+i resize grow height $resize_step px or $resize_step ppt
+  bindsym $mod+u resize shrink height $resize_step px or $resize_step ppt
+  bindsym $mod+o resize grow width $resize_step px or $resize_step ppt
+#+end_src
+
+- /*Mod-h/j/k/l*/ :: change focus to the left/upper/lower/right window
+- /*Mod-S-h/j/k/l*/ :: move focused window/container
+- /*Mod-y/u/i/o*/ :: change size of focused window/container
+- /*Mod-v/V*/ :: add a container for current window, set layout to vertical/horizontal split
+- /*Mod-e/w/s*/ :: set layout of container of focused window to split(toggles between splith, splitv)/tabbed/stacked
+- /*Mod-p*/ :: focus parent
+- /*Mod-c*/ :: focus child
+
+** References
+
+- [[https://i3wm.org/docs/userguide.html#_tree][i3wm user's guide >> tree]]
+- [[https://www.youtube.com/watch?v=Api6dFMlxAA][youtube: TheAlternative.ch - LinuxDays FS16 - Linux for Experts course]]
+- [[https://en.wikipedia.org/wiki/Window_manager#Types][wiki: window manager types]]
 
 * Footnotes
 

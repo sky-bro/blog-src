@@ -3,9 +3,9 @@ title = "Public, Private and Hybrid Cloud"
 date = 2022-10-21T08:57:00+08:00
 categories = ["Cloud-Computing"]
 draft = false
-image = "/images/icons/tortoise.png"
+image = "/images/icons/cute-cloud-bw.svg"
 libraries = ["mathjax"]
-description = "this is a description"
+description = "Pros and cons of different types of cloud."
 +++
 
 ## Introduction {#introduction}

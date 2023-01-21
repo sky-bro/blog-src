@@ -3758,6 +3758,89 @@ Here's a snippet of my i3 configuration. Complete configuration is stored at my 
 - [[https://www.youtube.com/watch?v=Api6dFMlxAA][youtube: TheAlternative.ch - LinuxDays FS16 - Linux for Experts course]]
 - [[https://en.wikipedia.org/wiki/Window_manager#Types][wiki: window manager types]]
 
+* DONE Connect to your android wirelessly               :@Android:adb:@notes:
+CLOSED: [2023-01-21 Sat 11:31]
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: connect-to-your-android-wirelessly
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2023-01-21 Sat 10:28]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/android-debug-bridge.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "connect to android via TCP/IP"
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2023-01-21 Sat 11:31]
+:END:
+
+** Introduction
+
+This artical will show you how to connect to your android, so you can play with your android via adb[fn:android-debug-bridge].
+
+** Setup your environment
+
+*** get Android SDK Platform Tools
+
+download [[https://developer.android.com/studio/releases/platform-tools][platform-tools]] directly or install it with your package manager:
+
+#+begin_src shell
+  # arch
+  sudo pacman -Sy android-tools
+#+end_src
+
+*** enable debugging
+
+first enable developer mode, for my op6, clicking the build number a bunch of times enables developer mode
+
+#+ATTR_HTML: :width 30%
+#+CAPTION: enable developer mode for my op6
+[[file:../static/images/posts/connect-to-your-android-wirelessly/android-enable-developer-mode.png]]
+
+after that, go to "System > Developer Options", enable USB debugging and Wireless ADB debugging
+
+#+ATTR_HTML: :width 30%
+#+CAPTION: enable debugging
+[[file:../static/images/posts/connect-to-your-android-wirelessly/android-enable-USB-debugging.png]]
+
+
+** Connect to your phone with USB
+
+now if you have a USB cable, you can directly connect your android to your computer with that.
+
+You can tell if device is connected via =adb devices=
+
+#+CAPTION: adb list connected devices
+[[file:../static/images/posts/connect-to-your-phone-with-usb/adb-devices.png]]
+
+** Connect Wirelessly (no root required)
+
+After connecting with usb, you can enable tcpip on your phone, then connect with that wirelessly:
+
+#+begin_src shell
+  # enable tcpip
+  adb -s <device-serial> tcpip 5555
+  # get device ipv4 address
+  adb -s <device-serial> shell ip -f inet addr
+  # connect to it
+  adb connect <device-ip>:5555
+#+end_src
+
+
+#+CAPTION: enable tcpip on the computer
+[[file:../static/images/posts/connect-to-your-android-wirelessly/enable-tcpip-on-computer.png]]
+
+** Connect Wirelessly (require root, no usb)
+
+If you have root access to you android, you can enable tcpip directly on your phone, then connect to it on the computer.
+I use termux[fn:termux] to do these:
+#+begin_src shell
+  su
+  setprop service.adb.tcp.port 5555
+  stop adbd && start adbd
+  ip -f inet addr show wlan0
+#+end_src
+
+#+CAPTION: enable tcpip on the phone
+[[file:../static/images/posts/connect-to-your-android-wirelessly/enable-tcpip-on-android.png]]
+
 * Footnotes
 
 [fn:org-download] [[https://github.com/abo-abo/org-download][org-download]] facilitates moving images from point A to B.
@@ -3813,5 +3896,9 @@ Here's a snippet of my i3 configuration. Complete configuration is stored at my 
 [fn:kvm] [[https://wiki.archlinux.org/title/KVM][KVM]] is a hypervisor built into the linux kernel.
 
 [fn:QEMU] [[https://wiki.qemu.org/][QEMU]] is a generic and open source machine emulator and virtualizer.
+
+[fn:android-debug-bridge] [[https://developer.android.com/studio/command-line/adb][Android Debug Bridge]] (adb) is a versatile command-line tool that lets you communicate with a device
+
+[fn:termux] [[https://termux.dev/en/][Termux]] is an Android terminal emulator and Linux environment app
 
 [fn:rfc2818] [[https://datatracker.ietf.org/doc/html/rfc2818][HTTP Over TLS]]

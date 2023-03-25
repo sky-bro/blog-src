@@ -413,6 +413,19 @@ Some Markdown Contents
 
 #+html: {{< youtube 2liXzaIIyuE >}}
 
+*** netease music
+
+need to allow third party cookies
+
+#+begin_src shell
+  neteasemusic id="1455273374"
+  neteasemusic id="8003580862" isList="true"
+#+end_src
+
+#+html: {{< neteasemusic id="1455273374" isList="false" >}}
+
+#+html: {{< neteasemusic id="8003580862" isList="true" >}}
+
 ** References
 
 #+begin_src org
@@ -2984,6 +2997,7 @@ We barely use =pass= command, instead we use other more user friendly front ends
 *** android
 
 - [[https://github.com/android-password-store/Android-Password-Store][Android-Password-Store]]
+  - https://docs.passwordstore.app/docs/users/background-killing-bugs/
 
 *** ios
 

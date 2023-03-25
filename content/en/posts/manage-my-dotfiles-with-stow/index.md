@@ -48,7 +48,7 @@ stow .
 
 The `.stow-local-ignore` file if for telling stow that you don't want to symlink some files, you want to ignore them, here's mine.
 
-```conf
+```cfg
 \.git
 \.gitignore
 .*\.org

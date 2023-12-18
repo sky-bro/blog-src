@@ -3944,6 +3944,40 @@ I use termux[fn:termux] to do these:
 #+CAPTION: enable tcpip on the phone
 [[file:../static/images/posts/connect-to-your-android-wirelessly/enable-tcpip-on-android.png]]
 
+* DONE Cycle Finding Algorithms :cycle_finding:@Data_Structure_and_Algorithm:
+CLOSED: [2023-12-19 Tue 00:27]
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: cycle-finding-algorithms
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2023-12-17 Sun 23:24]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/TortoiseHare.jpg"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "this is a description"
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2023-12-19 Tue 00:27]
+:END:
+
+** Floyd's tortoise and hare
+
+
+#+CAPTION: tortoise and hare
+[[../static/images/posts/cycle-finding/tortoise-and-hare.svg]]
+
+hare and tortoise both starts from point *Start*, at speed of $2$ and $1$ respectively. They'll meet at some point in the cycle.
+
+ when they meet, hare traveled $S_2 - S_{1}$ more points than tortoise. We have: ($\lambda$ is the cycle length)
+
+$$
+S_{2} - S_{1} = 0  = S_{1} = x + m \pmod{\lambda}
+$$
+
+after they meet, one starts over from Start point, the other starts from Meet point, at speed of $1$, they'll meet again at *Cycle Start* point. because:
+
+   $$
+   x = x + m + x \pmod{\lambda}
+   $$
+
 * Footnotes
 
 [fn:org-download] [[https://github.com/abo-abo/org-download][org-download]] facilitates moving images from point A to B.

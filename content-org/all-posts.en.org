@@ -299,7 +299,7 @@ to use shortcodes as you do in markdown, put it after =#+html:=. Like this:
 
 
 #+begin_src org
-  ,#+html: {{</* gallery dir="/image_dir/" /*/>}}
+  ,#+html: {{< gallery dir="/image_dir/" >}}
 #+end_src
 
 *** Alert
@@ -307,9 +307,9 @@ to use shortcodes as you do in markdown, put it after =#+html:=. Like this:
 You can have alert like this:
 
 #+begin_src org
-  ,#+html: {{</* alert theme="info" dir="ltr" */>}}
+  ,#+html: {{< alert theme="info" dir="ltr" >}}
   theme could be one of: success, info, warning, danger
-  ,#+html: {{</* /alert */>}}
+  ,#+html: {{< /alert >}}
 #+end_src
 
 #+html: {{< alert theme="success" >}}
@@ -331,9 +331,9 @@ this is a danger.
 *** Notice
 
 #+begin_src org
-  #+html: {{</* notice success "This is a success type of notice" */>}}
+  #+html: {{< notice success "This is a success type of notice" >}}
   notice could be success, info, warning, error.
-  #+html: {{</* /notice */>}}
+  #+html: {{< /notice >}}
 #+end_src
 
 #+html: {{< notice success "This is a success type of notice" >}}
@@ -355,9 +355,9 @@ error notice.
 *** Simple box
 
 #+begin_src org
-  #+html: {{</* box */>}}
+  #+html: {{< box >}}
   Plain text
-  #+html: {{</* /box */>}}
+  #+html: {{< /box >}}
 #+end_src
 
 #+html: {{< box >}}
@@ -367,18 +367,18 @@ Plain text
 *** Code in multiple language
 
 #+begin_src org
-  #+html: {{</* codes java javascript */>}}
-    #+html: {{</* code */>}}
+  #+html: {{< codes java javascript >}}
+    #+html: {{< code >}}
     ,#+begin_src java
       System.out.Println("Hello World!");
     ,#+end_src
-    #+html: {{</* /code */>}}
-    #+html: {{</* code */>}}
+    #+html: {{< /code >}}
+    #+html: {{< code >}}
     ,#+begin_src javascript
       console.log('Hello World!');
     ,#+end_src
-    #+html: {{</* /code */>}}
-  #+html: {{</* /codes */>}}
+    #+html: {{< /code >}}
+  #+html: {{< /codes >}}
 #+end_src
 
 #+html: {{< codes java javascript >}}
@@ -397,8 +397,8 @@ Plain text
 *** Tab
 
 #+begin_src org
-  #+html: {{</* tabs Windows MacOS Ubuntu */>}}
-    #+html: {{</* tab */>}}
+  #+html: {{< tabs Windows MacOS Ubuntu >}}
+    #+html: {{< tab >}}
 
     ,*** Windows section
 
@@ -406,20 +406,20 @@ Plain text
       console.log('Hello World!');
     ,#+end_src
 
-    #+html: {{</* /tab */>}}
-    #+html: {{</* tab */>}}
+    #+html: {{< /tab >}}
+    #+html: {{< tab >}}
 
     ,*** MacOS section
 
     Hello world!
-    #+html: {{</* /tab */>}}
-    #+html: {{</* tab */>}}
+    #+html: {{< /tab >}}
+    #+html: {{< tab >}}
 
     ,*** Ubuntu section
 
     Great!
-    #+html: {{</* /tab */>}}
-  #+html: {{</* /tabs */>}}
+    #+html: {{< /tab >}}
+  #+html: {{< /tabs >}}
 #+end_src
 
 #+html: {{< tabs Windows MacOS Ubuntu >}}
@@ -449,9 +449,9 @@ Plain text
 *** Expand
 
 #+begin_src org
-  #+html: {{</* expand "Expand me" */>}}
+  ,#+html: {{< expand "Expand me" >}}
   Some Markdown Contents
-  #+html: {{</* /expand */>}}
+  ,#+html: {{< /expand >}}
 #+end_src
 
 #+html: {{< expand "Expand me" >}}
@@ -3519,9 +3519,10 @@ In the location bar, input: =smb://servername/share=
      # prepare mount entry
      sudo vim /etc/fstab
      # add smbshare like:
-     # //192.168.31.248/Dev /home/sky/share/Dev cifs credentials=/home/sky/.smbcredentials,user,uid=sky,gid=sky 0 0
+     # //192.168.31.248/Dev /home/sky/share/Dev cifs credentials=/home/sky/.smbcredentials,user,exec,uid=sky,gid=sky 0 0
      # user: allow any user to mount the drive
      # noauto: the dirve is not mounted during startup, do not add this if you want to mount at startup
+     # exec: all execute permission
 
      systemctl daemon-reload # make /etc/fstab change effective
 
@@ -3943,6 +3944,248 @@ I use termux[fn:termux] to do these:
 
 #+CAPTION: enable tcpip on the phone
 [[file:../static/images/posts/connect-to-your-android-wirelessly/enable-tcpip-on-android.png]]
+
+* DONE Shortest Paths Algorithms :shortest_path:@Data_Structure_and_Algorithm:
+CLOSED: [2024-02-10 Sat 18:04]
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: shortest-paths-algorithms
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2023-12-15 Fri 10:18]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/bellman-ford-example.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "compare shortest path algorithms: dijkstra, floyd, bellman-ford"
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2024-02-10 Sat 18:04]
+:END:
+
+** Dijkstra's algorithm
+
+for a given node, find the shortest path between that node and every other.
+
+#+html: {{< alert theme="info" dir="ltr" >}}
+idea: use *best first search* to explore (visit adjacent nodes of some node) the unexplored node with shortest/best distance.
+#+html: {{< /alert >}}
+
+*** shortest path
+
+code example: from [[https://github.com/sky-bro/AC/tree/master/Algorithms/Dijkstra][AC/Algorithms/Dijkstra]]
+
+#+begin_src cpp
+  #include <iostream>
+  #include <queue>
+  #include <unordered_map>
+  #include <vector>
+
+  using namespace std;
+
+  /**
+   ,* compute shortest distance from src to all other nodes
+   ,*/
+  void dijkstra(const vector<unordered_map<int, int>>& G, int src,
+                vector<int>& dist) {
+    int n = G.size();
+    dist.clear();
+    dist.resize(n, -1);
+    vector<bool> vis(n);
+    priority_queue<pair<int, int>> pq;  // {-weight, label}
+    pq.emplace(0, src);
+    dist[src] = 0;
+    while (!pq.empty()) {
+      auto p = pq.top();
+      pq.pop();
+      vis[p.second] = true;
+      for (auto neighbor : G[p.second]) {
+        int v = neighbor.first;
+        int d = neighbor.second - p.first;
+        if (vis[neighbor.first]) continue;
+        if (dist[v] == -1 || dist[v] > d) {
+          pq.emplace(-d, v);
+          dist[v] = d;
+        }
+      }
+    }
+  }
+
+  template <typename T>
+  void printArr(const vector<T>& arr) {
+    for (const T& t : arr) cout << t << " ";
+    cout << endl;
+  }
+
+  int main(int argc, char const* argv[]) {
+    vector<vector<int>> edges = {
+        {0, 1, 100}, {1, 2, 100}, {0, 2, 500}};  // {src, dst, weight}, ...
+    int N = 3;
+    vector<unordered_map<int, int>> G(N);
+    for (const auto& edge : edges) {
+      G[edge[0]][edge[1]] = edge[2];
+    }
+    vector<int> dist;
+    int src = 0;
+    dijkstra(G, src, dist);
+    printArr(dist);
+    return 0;
+  }
+#+end_src
+
+*** path reconstruction
+
+every time a shorter dist for a node is found (relaxation), record the source node to this node of current edge.
+
+*** negative cycle detection
+
+do not allow negative weight edges, cannot detect negative cycle
+
+** Bellman-Ford/SPFA algorithm
+
+like Dijkstra's algorithm, finds the shortest path between a source node to all other nodes but allows negative weights and negative cycles.
+
+refer to:
+- https://en.wikipedia.org/wiki/Bellman%E2%80%93Ford_algorithm
+- https://github.com/sky-bro/AC/tree/master/Algorithms/bellman-ford
+- https://www.luogu.com.cn/blog/tale365/bellman-ford-suan-fa
+
+#+html: {{< alert theme="info" dir="ltr" >}}
+Dijkstra's algorithm uses a priority queue to greedily select the closest vertex that has not yet been processed, and performs this relaxation process on all of its outgoing edges;
+
+by contrast, the Bellman–Ford algorithm simply relaxes all the edges, and does this V-1 times
+#+html: {{< /alert >}}
+
+*** shortest path
+
+#+begin_src cpp
+  bool solve() {
+    int n, m, START = 1;
+    cin >> n >> m;
+    // read graph
+    vector<unordered_map<int, int>> graph(n + 1);
+    for (int i = 0; i < m; ++i) {
+      int s, t, w;
+      cin >> s >> t >> w;
+      graph[s][t] = graph[s].count(t) ? min(w, graph[s][t]) : w;
+      if (w >= 0) {
+        graph[t][s] = graph[t].count(s) ? min(w, graph[t][s]) : w;
+      }
+    }
+
+    // the order (0 indexed) of a shortest path, if >= n, then negative cycle detected
+    vector<int> cnt(n + 1);
+    vector<int> dist(n + 1, INT32_MAX);
+    dist[START] = 0;
+
+    priority_queue<int> q;
+    q.push(START);
+    vector<bool> in_queue(n);
+    while (!q.empty()) {
+      int source = q.top();
+      q.pop();
+      in_queue[source] = false;
+      // iterate through all neighbors
+      for (auto neighborWeight: graph[source]) {
+        // relaxation
+        if (neighborWeight.second + dist[source] < dist[neighborWeight.first]) {
+          dist[neighborWeight.first] = neighborWeight.second + dist[source];
+          cnt[neighborWeight.first] = cnt[source] + 1;
+          if (cnt[neighborWeight.first] >= n) {
+            // loop detected
+            return true;
+          }
+          if (!in_queue[neighborWeight.first]) {
+            in_queue[neighborWeight.first] = true;
+            q.push(neighborWeight.first);
+          }
+        }
+      }
+    }
+    return false;
+  }
+#+end_src
+
+*** path reconstruction
+
+as in Dijkstra's algorithm, in each relaxation of an edge, record the source node of the edge.
+
+*** negative cycle detection
+
+- Bellman-Ford: after relaxing edges $V-1$ iterations, in the $V$-th relaxation, if more shorter distances can be found, then there's a cycle.
+- SPFA: in each relaxation, record the shortest path length, if path length >= number of nodes, meaning some nodes have appeared twice on this path, i.e. a negative cycle.
+
+*** code practices
+
+- [[https://www.luogu.com.cn/problem/P2136][P2136 拉近距离]]
+- [[https://leetcode.com/problems/cheapest-flights-within-k-stops/][787. Cheapest Flights Within K Stops]]: variant of SPFA, path at most of length K
+- [[https://www.luogu.com.cn/problem/P3385][P3385 【模板】负环]]
+
+** Floyd's algorithm
+
+find shortest paths in  a directed weighted graph (positive or negative edge weights, no negative cycles)
+
+*** shortest path
+
+#+begin_src cpp
+  // https://www.luogu.com.cn/problem/B3647
+  void solve() {
+    // number of nodes and edges
+    int n, m;
+    cin >> n >> m;
+
+    // all positive weights, use -1 to indicate no edge
+    vector<vector<int>> G(n, vector<int>(n, NO_EDGE));
+    vector<vector<int>> prev(n, vector<int>(n));
+
+    for (int i = 0; i < n; ++i) {
+      G[i][i] = 0;
+    }
+    for (int i = 0; i < m; ++i) {
+      int from, to, weight;
+      cin >> from >> to >> weight;
+      --from;
+      --to;
+      G[from][to] = min(weight, G[from][to]);
+      prev[from][to] = from;
+      // non directed
+      G[to][from] = min(weight, G[to][from]);
+      prev[to][from] = to;
+    }
+
+    // floyd
+    for (int k = 0; k < n; ++k) {
+      for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+          if (G[i][k] != NO_EDGE && G[k][j] != NO_EDGE &&
+              (G[i][j] == NO_EDGE || G[i][j] > G[i][k] + G[k][j])) {
+            G[i][j] = G[i][k] + G[k][j];
+            prev[i][j] = prev[k][j];
+          }
+        }
+      }
+    }
+
+    for (int i = 0; i < n; ++i) {
+      for (int j = 0; j < n; ++j) {
+        cout << G[i][j] << " ";
+      }
+      cout << endl;
+    }
+  }
+#+end_src
+
+*** path reconstruction
+
+every time a shorter path between i and j is found by adding node k, update the previous node of j on the shortest path between i and j to that of k and j.
+
+*** detect negative cycle
+
+when a negative cycle exists, the shortest path between a node and itself will be negative. So, in each iteration, we detect if the shortest distance matrix's diagonal contains any negative value.
+
+** SUMMARY
+
+| Algorithm    | Use cases                                                        | Time Complexity          | Space Complexity |
+|--------------+------------------------------------------------------------------+--------------------------+------------------|
+| Dijkstra     | single source shortest path, positive weight                     | $O(\vert{}E\vert{} + \vert{}V\vert{}*\log{\vert{}V\vert})$ | $O(\vert{}V\vert)$         |
+| Bellman-Ford | single source shortest path, negative weight, negative cycle     | $O(\vert{}V\vert{}*\vert{}E\vert)$             | $O(\vert{}V\vert)$         |
+| floyd        | shortest path between all nodes, negative weight, negative cycle | $O(\vert{}V\vert{}^{3})$                | $O(\vert{}V\vert^{2})$        |
 
 * DONE Cycle Finding Algorithms :cycle_finding:@Data_Structure_and_Algorithm:
 CLOSED: [2023-12-19 Tue 00:27]

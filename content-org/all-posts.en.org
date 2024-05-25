@@ -3218,11 +3218,10 @@ Also, you need to =chown= the disk to the above =user:group=: =sudo chown sky:sk
 
 ** create a VM
 
-- gui: virt-manager
-- cli: virt-install
+You can create VMs through virt-manager (gui) or virt-install.
 
-examples:
-- Windows 11 VM with QEMU/KVM
+#+caption: create new virtual machine with virt-manager
+[[file:../static/images/posts/linux-hypervisor-setup/create-new-virtual-machine.png]]
 
 ** clone a VM
 
@@ -3237,6 +3236,14 @@ examples:
   virsh shutdown ubuntu-server
   virsh reboot ubuntu-server
 #+end_src
+
+** rofi-vmrun.sh
+
+[[https://github.com/sky-bro/.dotfiles/blob/master/bin/rofi-vmrun.sh][rofi-vmrun.sh]] is a script that I use to quickly manage my virtual machines.
+
+- alt+o :: open selected vm in virt-manager
+- alt+r :: run/stop (toggle) selected vm
+- enter :: run selected vm and open it in virt-manager
 
 ** Resources
 

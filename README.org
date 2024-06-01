@@ -6,7 +6,8 @@ This is the source of my blog: [[https://k4i.top][k4i.top]].
 
 1. Write all my blogs in org mode, stored under [[./content-org][./content-org]]
 2. Export them to markdown files ([[./content][./content]]) with [[https://github.com/kaushalmodi/ox-hugo][ox-hugo]]
-3. Generate html files with [[https://gohugo.io/][hugo]] ([[https://github.com/sky-bro/blog-src/blob/master/.github/workflows/gh-pages.yml][github action]])
+3. Generate html files with [[https://gohugo.io/][hugo]] ([[https://github.com/sky-bro/blog-src/blob/master/.github/workflows/gh-pages.yml][github action]]), and push to [[https://github.com/sky-bro/sky-bro.github.io][sky-bro.github.io]]
+4. Also build & deploy with vercel's hugo [[https://vercel.com/docs/deployments/configure-a-build#framework-preset][framework preset]], and publish to my domain: [[https://k4i.top][k4i.top]]
 
 * Writing Guide
 

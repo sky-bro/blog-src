@@ -426,3 +426,64 @@ sweep bling lp需要使用凯华的矮轴轴座 + 键轴 + 键帽. 矮轴个人�
 ** 打个广告
 
 兄弟姐妹们如果不想自己组装也可以移步咸鱼, 搜索 =k4i_top= 找我直接购买, 备注博客或者b站: [[https://space.bilibili.com/356650397/channel/collectiondetail?sid=2323692&ctype=0][分体键盘视频合集]]来的可以优惠 :)
+
+
+
+* DONE 婚礼音乐                                              :wedding:@music:
+CLOSED: [2025-01-25 Sat 02:19]
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: wedding-music
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2025-01-25 Sat 01:38]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/i-do-911.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "一些好听的适合婚礼的音乐"
+:END:
+:LOGBOOK:
+- State "DONE"       from "TODO"       [2025-01-25 Sat 02:19]
+:END:
+
+** 网易云歌单
+
+#+html: {{< neteasemusic id="13131939809" isList="true" >}}
+
+** 音乐列表
+
+| 歌名                                   | 歌手                             | 语言        | 备注             |
+|---------------------------------------+---------------------------------+------------+-----------------|
+| [[https://music.163.com/#/song?id=327736][梁山伯与茱丽叶]]                          | 卓文萱 / 曹格                     | 中文        | 流行             |
+| [[https://music.163.com/#/song?id=1870469768][老人と海]]                                | ヨルシカ                          | 日语        | 欢快、乐观、斗志   |
+| [[https://music.163.com/#/song?id=863046037][Way Back Home]]                         | SHAUN                           | 韩语        | 欢快             |
+| [[https://music.163.com/#/song?id=3950792][As Long as You Love Me]]                | Backstreet Boys                 | 英语        | 流行、经典        |
+| [[https://music.163.com/#/song?id=2081313][Swear It Again]]                        | Westlife                        | 英语        | 流行             |
+| [[https://music.163.com/#/song?id=19163659][Anywhere But Here]]                     | Safetysuit                      | 英语        | 流行             |
+| [[https://music.163.com/#/song?id=1837732899][Low Key In Love]]                       | The Struts / Paris Jackson      | 英语        | 流行、欢快        |
+| [[https://music.163.com/#/song?id=2277660][I Believe (Video / Radio Mix)]]         | Bro'Sis                         | 英语        | 欢快             |
+| [[https://music.163.com/#/song?id=5162474][Yellow]]                                | Coldplay                        | 英语        | 流行             |
+| [[https://music.163.com/#/song?id=28256115][I Do]]                                  | 911                             | 英语        | 流行             |
+| [[https://music.163.com/#/song?id=507795651][Steady Me (feat. Aaron Cole)]]          | Hollyn / Aaron Cole             | 英语        | 流行             |
+| [[https://music.163.com/#/song?id=2117024][One And Only]]                          | Adele                           | 英语        | 安静            |
+| [[https://music.163.com/#/song?id=1329894143][Goldmine]]                              | PALASTIC                        | 英语        | 流行、欢快        |
+| [[https://music.163.com/#/song?id=451703096][Shape of You]]                          | Ed Sheeran                      | 英语        | 流行、欢快        |
+| [[https://music.163.com/#/song?id=1312528250][Honey Take My Hand]]                    | Cody Francis                    | 英语        | 流行、舒缓        |
+| [[https://music.163.com/#/song?id=439122515][Tidal Wave]]                            | Kiso / Rossy                    | 英语        | 流行、欢快        |
+| [[https://music.163.com/#/song?id=447079449][Must Be Dreaming]]                      | Biên                            | 英语        | 流行             |
+| [[https://music.163.com/#/song?id=1311826926][Stand by Me]]                           | Camishe / Max Oazo              | 英语        | 节奏             |
+| [[https://music.163.com/#/song?id=17085365][Theme for a Dream]]                     | Cliff Richard & the Shadows     | 英语        | 安静、欢快        |
+| [[https://music.163.com/#/song?id=2080139][Beautiful In White (Demo)]]             | Shane Filan                     | 英语        | 安静、舒缓        |
+| [[https://music.163.com/#/song?id=4388051][Angel of Mine]]                         | The Icarus Account              | 英语        | 安静、舒缓        |
+| [[https://music.163.com/#/song?id=2411634][A Thousand Years]]                      | Christina Perri                 | 英语        | 安静、舒缓        |
+| [[https://music.163.com/#/song?id=17950509][Romeo's Tune]]                          | Pajaro Sunrise                  | 英语        | 安静、轻快        |
+| [[https://music.163.com/#/song?id=486068399][All My Life]]                           | WILD                            | 英语        | 安静、舒缓        |
+| [[https://music.163.com/#/song?id=27810037][How Long Will I Love You]]              | Ellie Goulding                  | 英语        | 安静、舒缓        |
+| [[https://music.163.com/#/song?id=16439857][When You Say Nothing At All]]           | Alison Krauss                   | 英语        | 安静             |
+| [[https://music.163.com/#/song?id=5043107][Look At Me]]                            | Alan Jackson                    | 英语        | 安静             |
+| [[https://music.163.com/#/song?id=491757270][I Will Spend My Whole Life Loving You]] | Kina Grannis / Imaginary Future | 英语        | 舒缓、安静        |
+| [[https://music.163.com/#/song?id=480769623][Anchor]]                                | Novo Amor                       | 英语        | 舒缓、爱情        |
+| [[https://music.163.com/#/song?id=3404715][I Knew I Loved You]]                    | Savage Garden                   | 英语        | 舒缓             |
+| [[https://music.163.com/#/song?id=446512687][Loving you/Yêu anh]]                    | park / B Double O               | 英语、越南语 | 安静、舒缓        |
+| [[https://music.163.com/#/song?id=443860][いつも何度でも]]                          | 木村弓                           | 日语        | 安静、舒缓        |
+| [[https://music.163.com/#/song?id=5264856][夜色]]                                   | 玉置浩二                          | 日语        | 安静、舒缓        |
+| [[https://music.163.com/#/song?id=26518682][Небо-самолеты]]                         | Макsим                          | 俄语        | 安静             |
+| [[https://music.163.com/#/song?id=1459849658][First Love]]                            | Jurrivh                         | 纯音乐      | 安静             |
+| [[https://music.163.com/#/song?id=26237342][River Flows in You]]                    | Yiruma                          | 纯音乐      | 钢琴曲、安静、好听 |
+| [[https://music.163.com/#/song?id=1455273374][风的小径]]                                | 万能日记                          | 纯音乐      | 舒缓、安静        |

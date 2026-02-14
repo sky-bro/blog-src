@@ -4736,7 +4736,39 @@ follow instructions in work with git.
 ** Work with Pass
 
 Please refer to [[/posts/manage-passwords-with-pass/][Manage Passwords with Pass]].
+
+* TODO minimum spanning tree :@Data_Structure_and_Algorithm:minimum_spanning_tree:
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: minimum-spanning-tree
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2024-02-11 Sun 16:49]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/tortoise.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "this is a description"
+:END:
+
+** Prim's algorithm
+
+** Kruskal's algorithm
+
+** summary
+
+* TODO DSU on tree (Sack)            :Sack:DSU:@Data_Structure_and_Algorithm:
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: dsu-on-tree
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2024-02-16 Fri 19:05]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/tortoise.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "this is a description"
+:END:
+
+** Introduction
+
+this algorithm is used for answering queries like: how many vertices in the subtree of vertex v has some property in $O(n\log {n})$
+
 * Footnotes
+[fn:GnuPG] GNU Privacy Guard is a complete and free implementation of the OpenPGP standard as defined by [[https://www.ietf.org/rfc/rfc4880.txt][RFC4880]].
 
 [fn:org-download] [[https://github.com/abo-abo/org-download][org-download]] facilitates moving images from point A to B.
 

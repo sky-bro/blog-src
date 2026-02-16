@@ -22,6 +22,8 @@ Invoking org-capture-templates (`SPC o c`) function, and choose hugo post templa
 
 {{< figure src="/images/posts/Writing-Guide-Org/org-capture-template-ox-hugo.gif" caption="<span class=\"figure-number\">Figure 1: </span>creating new post with org-capture-template" >}}
 
+After creating the new post, you can export it to markdown files under `content` folder with `M-x org-export-dispatch`.
+
 
 ## Front matter {#front-matter}
 
@@ -91,6 +93,23 @@ Code block with
 ```
 
 
+## Tables {#tables}
+
+create tables[^fn:1] as you would in normal org mode.
+
+| Name  | Phone | Age |
+|-------|-------|-----|
+| Peter | 1234  | 27  |
+| Anna  | 4321  | 18  |
+
+```org
+| Name  | Phone | Age |
+|-------+-------+-----|
+| Peter |  1234 |  27 |
+| Anna  |  4321 |  18 |
+```
+
+
 ## Images {#images}
 
 Store all the images under `$HUGO_BASE_DIR/static/` folder (except some generated images), so just include them using relative path from the org file.
@@ -108,7 +127,7 @@ You can add caption and name (for referencing purpose: as in figure [2](#figure-
 [[../static/images/icons/gopher001.png]]
 ```
 
-You can also paste images from clipboard with org-download[^fn:1]. I've bind `C-M-y` to paste images, and the pasted image will be stored under path `../static/images/posts/<Level-0-Header-Name>`.
+You can also paste images from clipboard with org-download[^fn:2]. I've bind `C-M-y` to paste images, and the pasted image will be stored under path `../static/images/posts/<Level-0-Header-Name>`.
 
 You can customize with the `.dir-locals.el` file:
 
@@ -131,7 +150,7 @@ We need to have MathJax library in our front matter.
 
 Inline formulas with `\$..\$`. This is inline math: \\(x^2 + y^2 = z^2 \frac{1}{2}\\).
 
-Displayed equations with `\$\$..\$\$` or \\(\LaTeX\\) encironments. This is displayed math:
+Displayed equations with `\$\$..\$\$` or \\(\LaTeX\\) environments. This is displayed math:
 
 The code:
 
@@ -157,9 +176,13 @@ will be rendered as:
   \end{split}
 \end{equation}
 
-{{&lt; alert theme="warning" &gt;}}
+you can use cdlatex[^fn:3] to simplify your math typing.
+
+{{< alert theme="warning" >}}
+
 It seems that zzo theme does not support math equation referencing and numbering yet?
-{{&lt; /alert &gt;}}
+
+{{< /alert >}}
 
 
 ## Diagrams {#diagrams}
@@ -167,7 +190,7 @@ It seems that zzo theme does not support math equation referencing and numbering
 
 ### Plantuml {#plantuml}
 
-use plantuml[^fn:2] to draw,  then `C-c C-c` to tangle the image manually (or just org export if you don't need to customize any attributes), then you can add some attributes to the result (width, name, caption, etc.).
+use plantuml[^fn:4] to draw,  then `C-c C-c` to tangle the image manually (or just org export if you don't need to customize any attributes), then you can add some attributes to the result (width, name, caption, etc.).
 
 ```org
 #+begin_src plantuml :file "../static/images/posts/Writing-Guide-Org/first.svg"
@@ -224,7 +247,7 @@ you can export ASCII diagrams by changing file extension to `.txt` (this will ex
 
 ## Shortcodes {#shortcodes}
 
-> zoo-docs[^fn:3] on short codes
+> zoo-docs[^fn:5] on short codes
 
 to use shortcodes as you do in markdown, put it after `#+html:`. Like this:
 
@@ -468,9 +491,11 @@ You can refer to something in the footnote like ox-hugo[fn:ox-hugo]
 [fn:ox-hugo] [[https://ox-hugo.scripter.co/][ox-hugo official site]]
 ```
 
-You can refer to something in the footnote like ox-hugo[^fn:4]
+You can refer to something in the footnote like ox-hugo[^fn:6]
 
-[^fn:1]: [org-download](https://github.com/abo-abo/org-download) facilitates moving images from point A to B.
-[^fn:2]: [plantuml official site](https://plantuml.com/)
-[^fn:3]: [zzo-docs on shortcodes](https://zzo-docs.vercel.app/zzo/shortcodes/)
-[^fn:4]: [ox-hugo official site](https://ox-hugo.scripter.co/)
+[^fn:1]: [org mode manual on tables](https://orgmode.org/manual/Tables.html)
+[^fn:2]: [org-download](https://github.com/abo-abo/org-download) facilitates moving images from point A to B.
+[^fn:3]: use [CDLaTex mode](https://orgmode.org/manual/CDLaTeX-mode.html) to simplify math typing in latex
+[^fn:4]: [plantuml official site](https://plantuml.com/)
+[^fn:5]: [zzo-docs on shortcodes](https://zzo-docs.vercel.app/zzo/shortcodes/)
+[^fn:6]: [ox-hugo official site](https://ox-hugo.scripter.co/)

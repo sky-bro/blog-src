@@ -11,7 +11,7 @@ description = "understand how backward propagation works in gradient descent."
 
 ## Deep Neural Network {#deep-neural-network}
 
-TODO: from drawio
+{{< figure src="/images/posts/forward-backward-propagation/neural_network_example.svg" caption="<span class=\"figure-number\">Figure 1: </span>neural network example" width="70%" >}}
 
 each layer can be described mathematically as below, the process to compute through the layers to the final layer is what we call **forward propagation**:
 
@@ -32,34 +32,47 @@ for example, computation of layer 2 can be described as:
 \label{eq:4}
   z^{(2)} &= W^{(2)}x + b^{(2)} \\\\
           &= \begin{bmatrix}
-               w\_{1,1}^{(2)} & w\_{1,2}^{(2)} \\\\
-               w\_{2,1}^{(2)} & w\_{2,2}^{(2)}
+               w\_{1,1}^{(2)} & w\_{1,2}^{(2)} & w\_{1,3}^{(2)} \\\\
+               w\_{2,1}^{(2)} & w\_{2,2}^{(2)} & w\_{2,3}^{(2)} \\\\
+               w\_{3,1}^{(2)} & w\_{3,2}^{(2)} & w\_{3,3}^{(2)} \\\\
+               w\_{4,1}^{(2)} & w\_{4,2}^{(2)} & w\_{4,3}^{(2)} \\\\
              \end{bmatrix}
              \begin{bmatrix}
                x\_1 \\\\
-               x\_2
+               x\_2 \\\\
+               x\_3
              \end{bmatrix}
              +
              \begin{bmatrix}
                b\_1^{(2)} \\\\
-               b\_2^{(2)}
+               b\_2^{(2)} \\\\
+               b\_3^{(2)} \\\\
+               b\_4^{(2)}
              \end{bmatrix} \\\\
   \begin{bmatrix}
     z\_{1}^{(2)} \\\\
-    z\_{2}^{(2)}
+    z\_{2}^{(2)} \\\\
+    z\_{3}^{(2)} \\\\
+    z\_{4}^{(2)}
   \end{bmatrix}
   &= \begin{bmatrix}
-       w\_{1,1}^{(2)} x\_1 + w\_{1,2}^{(2)} x\_2 + b\_1^{(2)} \\\\
-       w\_{2,1}^{(2)} x\_1 + w\_{2,2}^{(2)} x\_2 + b\_2^{(2)}
+       w\_{1,1}^{(2)} x\_1 + w\_{1,2}^{(2)} x\_2 + w\_{1,3}^{(2)} x\_3 + b\_1^{(2)} \\\\
+       w\_{2,1}^{(2)} x\_1 + w\_{2,2}^{(2)} x\_2 + w\_{2,3}^{(2)} x\_3 + b\_2^{(2)} \\\\
+       w\_{3,1}^{(2)} x\_1 + w\_{3,2}^{(2)} x\_2 + w\_{3,3}^{(2)} x\_3 + b\_3^{(2)} \\\\
+       w\_{4,1}^{(2)} x\_1 + w\_{4,2}^{(2)} x\_2 + w\_{4,3}^{(2)} x\_3 + b\_4^{(2)} \\\\
      \end{bmatrix} \\\\
 a^{(2)} &= \sigma(z^{(2)}) \\\\
        &= \begin{bmatrix}
        \sigma(z\_{1}^{(2)}) \\\\
        \sigma(z\_{2}^{(2)}) \\\\
+       \sigma(z\_{3}^{(2)}) \\\\
+       \sigma(z\_{4}^{(2)})
        \end{bmatrix} \\\\
       &= \begin{bmatrix}
 \frac{1}{1 + e^{-z\_{1}^{(2)}}} \\\\
 \frac{1}{1 + e^{-z\_{2}^{(2)}}} \\\\
+\frac{1}{1 + e^{-z\_{3}^{(2)}}} \\\\
+\frac{1}{1 + e^{-z\_{4}^{(2)}}}
        \end{bmatrix}
 \end{align}
 
@@ -153,7 +166,8 @@ take the neural network (where \\(L = 3\\)) as an example:
     (\begin{bmatrix}
       w\_{1,1}^{(3)} & w\_{2,1}^{(3)} \\\\
       w\_{1,2}^{(3)} & w\_{2,2}^{(3)} \\\\
-      w\_{1,3}^{(3)} & w\_{2,3}^{(3)}
+      w\_{1,3}^{(3)} & w\_{2,3}^{(3)} \\\\
+      w\_{1,4}^{(3)} & w\_{2,4}^{(3)}
 \end{bmatrix}
 \begin{bmatrix}
   \delta\_{1}^{(3)} \\\\
@@ -162,7 +176,8 @@ take the neural network (where \\(L = 3\\)) as an example:
 ) \odot \begin{bmatrix}
   \sigma'(z\_{1}^{(2)}) \\\\
   \sigma'(z\_{2}^{(2)}) \\\\
-  \sigma'(z\_{3}^{(2)})
+  \sigma'(z\_{3}^{(2)}) \\\\
+  \sigma'(z\_{4}^{(2)})
 \end{bmatrix} & \text{if } l = 2 \\\\
 \end{cases} \\\\
   \frac{\partial C}{\partial W^{(l)}} &= \delta^{(l)} (a^{(l-1)})^{T} \\\\
@@ -176,7 +191,8 @@ take the neural network (where \\(L = 3\\)) as an example:
           \begin{bmatrix}
             \delta\_{1}^{(2)} \\\\
             \delta\_{2}^{(2)} \\\\
-            \delta\_{3}^{(2)}
+            \delta\_{3}^{(2)} \\\\
+            \delta\_{4}^{(2)}
           \end{bmatrix} \begin{bmatrix}
             x\_{1} & x\_{2} &x\_{3}
           \end{bmatrix} & \text{if } l = 2
@@ -190,7 +206,8 @@ take the neural network (where \\(L = 3\\)) as an example:
           \begin{bmatrix}
             \delta\_{1}^{(2)} \\\\
             \delta\_{2}^{(2)} \\\\
-            \delta\_{3}^{(2)}
+            \delta\_{3}^{(2)} \\\\
+            \delta\_{4}^{(2)}
           \end{bmatrix} & \text{if } l = 2
         \end{cases}
 \end{align}

@@ -112,6 +112,9 @@ create tables[^fn:1] as you would in normal org mode.
 
 ## Images {#images}
 
+
+### include existing images {#include-existing-images}
+
 Store all the images under `$HUGO_BASE_DIR/static/` folder (except some generated images), so just include them using relative path from the org file.
 
 You can add caption and name (for referencing purpose: as in figure [2](#figure--fig:gopher)) to an image.
@@ -127,6 +130,9 @@ You can add caption and name (for referencing purpose: as in figure [2](#figure-
 [[../static/images/icons/gopher001.png]]
 ```
 
+
+### paste image from clipboard {#paste-image-from-clipboard}
+
 You can also paste images from clipboard with org-download[^fn:2]. I've bind `C-M-y` to paste images, and the pasted image will be stored under path `../static/images/posts/<Level-0-Header-Name>`.
 
 You can customize with the `.dir-locals.el` file:
@@ -136,6 +142,86 @@ You can customize with the `.dir-locals.el` file:
               (org-download-heading-lvl . 0)
               (org-download-image-dir . "../static/images/posts"))))
 ```
+
+
+### generate images {#generate-images}
+
+You can use org babel to evaluate (tangle) `C-c C-c` source block to multiple results. One of them being images. then you can add some attributes to the result (width, name, caption, etc.).
+
+The source block could be latex or plantuml[^fn:3], etc.
+
+{{< tabs tikz plantuml >}}
+
+{{< tab >}}
+
+{{< figure src="/images/posts/Writing-Guide-Org/tikz_example.svg" caption="<span class=\"figure-number\">Figure 3: </span>tikz example" width="30%" >}}
+
+```org
+#+begin_src latex :file ../static/images/posts/Writing-Guide-Org/tikz_example.svg :exports results :results file graphics
+  \begin{tikzpicture}
+    \draw[gray, thick] (-1,2) -- (2,-4);
+    \draw[gray, thick] (-1,-1) -- (2,2);
+    \filldraw[black] (0,0) circle (2pt) node[anchor=west]{Intersection point};
+  \end{tikzpicture}
+#+end_src
+```
+
+{{< /tab >}}
+
+{{< tab >}}
+
+```org
+#+begin_src plantuml :file "../static/images/posts/Writing-Guide-Org/first.svg"
+  @startuml
+  title Authentication Sequence
+
+  Alice->Bob: Authentication Request
+  note right of Bob: Bob thinks about it
+  Bob->Alice: Authentication Response
+  @enduml
+#+end_src
+```
+
+<a id="figure--first-svg"></a>
+
+{{< figure src="/images/posts/Writing-Guide-Org/first.svg" caption="<span class=\"figure-number\">Figure 4: </span>this is first.svg" >}}
+
+you can export ASCII diagrams by changing file extension to `.txt` (this will export diagram to a text file) or if you want to just include the ASCII diagram itself, set `:results` to `verbatim`.
+
+```org
+#+begin_src plantuml :results verbatim
+  @startuml
+  title Authentication Sequence
+
+  Alice->Bob: Authentication Request
+  note right of Bob: Bob thinks about it
+  Bob->Alice: Authentication Response
+  @enduml
+#+end_src
+```
+
+```text
+             Authentication Sequence
+
+,-----.                   ,---.
+|Alice|                   |Bob|
+`--+--'                   `-+-'
+   |Authentication Request  |
+   |----------------------->|
+   |                        |
+   |                        | ,-------------------!.
+   |                        | |Bob thinks about it|_\
+   |                        | `---------------------'
+   |Authentication Response |
+   |<-----------------------|
+,--+--.                   ,-+-.
+|Alice|                   |Bob|
+`-----'                   `---'
+```
+
+{{< /tab >}}
+
+{{< /tabs >}}
 
 
 ## Math Support (with MathJax) {#math-support--with-mathjax}
@@ -176,70 +262,13 @@ will be rendered as:
   \end{split}
 \end{equation}
 
-you can use cdlatex[^fn:3] to simplify your math typing.
+you can use cdlatex[^fn:4] to simplify your math typing.
 
 {{< alert theme="warning" >}}
 
 It seems that zzo theme does not support math equation referencing and numbering yet?
 
 {{< /alert >}}
-
-
-## Diagrams {#diagrams}
-
-
-### Plantuml {#plantuml}
-
-use plantuml[^fn:4] to draw,  then `C-c C-c` to tangle the image manually (or just org export if you don't need to customize any attributes), then you can add some attributes to the result (width, name, caption, etc.).
-
-```org
-#+begin_src plantuml :file "../static/images/posts/Writing-Guide-Org/first.svg"
-  @startuml
-  title Authentication Sequence
-
-  Alice->Bob: Authentication Request
-  note right of Bob: Bob thinks about it
-  Bob->Alice: Authentication Response
-  @enduml
-#+end_src
-```
-
-<a id="figure--first-svg"></a>
-
-{{< figure src="/images/posts/Writing-Guide-Org/first.svg" caption="<span class=\"figure-number\">Figure 3: </span>this is first.svg" >}}
-
-you can export ASCII diagrams by changing file extension to `.txt` (this will export diagram to a text file) or if you want to just include the ASCII diagram itself, set `:results` to `verbatim`.
-
-```org
-#+begin_src plantuml :results verbatim
-  @startuml
-  title Authentication Sequence
-
-  Alice->Bob: Authentication Request
-  note right of Bob: Bob thinks about it
-  Bob->Alice: Authentication Response
-  @enduml
-#+end_src
-```
-
-```text
-             Authentication Sequence
-
-,-----.                   ,---.
-|Alice|                   |Bob|
-`--+--'                   `-+-'
-   |Authentication Request  |
-   |----------------------->|
-   |                        |
-   |                        | ,-------------------!.
-   |                        | |Bob thinks about it|_\
-   |                        | `---------------------'
-   |Authentication Response |
-   |<-----------------------|
-,--+--.                   ,-+-.
-|Alice|                   |Bob|
-`-----'                   `---'
-```
 
 
 ## Presentation {#presentation}
@@ -495,7 +524,7 @@ You can refer to something in the footnote like ox-hugo[^fn:6]
 
 [^fn:1]: [org mode manual on tables](https://orgmode.org/manual/Tables.html)
 [^fn:2]: [org-download](https://github.com/abo-abo/org-download) facilitates moving images from point A to B.
-[^fn:3]: use [CDLaTex mode](https://orgmode.org/manual/CDLaTeX-mode.html) to simplify math typing in latex
-[^fn:4]: [plantuml official site](https://plantuml.com/)
+[^fn:3]: [plantuml official site](https://plantuml.com/)
+[^fn:4]: use [CDLaTex mode](https://orgmode.org/manual/CDLaTeX-mode.html) to simplify math typing in latex
 [^fn:5]: [zzo-docs on shortcodes](https://zzo-docs.vercel.app/zzo/shortcodes/)
 [^fn:6]: [ox-hugo official site](https://ox-hugo.scripter.co/)

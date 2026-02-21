@@ -159,6 +159,8 @@ create tables[fn:orgmode-table-manual] as you would in normal org mode.
 
 ** Images
 
+*** include existing images
+
 Store all the images under =$HUGO_BASE_DIR/static/= folder (except some generated images), so just include them using relative path from the org file.
 
 You can add caption and name (for referencing purpose: as in figure [[fig:gopher]]) to an image.
@@ -175,6 +177,8 @@ You can add caption and name (for referencing purpose: as in figure [[fig:gopher
   [[../static/images/icons/gopher001.png]]
 #+end_src
 
+*** paste image from clipboard
+
 You can also paste images from clipboard with org-download[fn:org-download]. I've bind =C-M-y= to paste images, and the pasted image will be stored under path =../static/images/posts/<Level-0-Header-Name>=.
 
 You can customize with the =.dir-locals.el= file:
@@ -185,55 +189,41 @@ You can customize with the =.dir-locals.el= file:
                 (org-download-image-dir . "../static/images/posts"))))
 #+end_src
 
-** Math Support (with MathJax)
+*** generate images
 
-We need to have MathJax library in our front matter.
+You can use org babel to evaluate (tangle) =C-c C-c= source block to multiple results. One of them being images. then you can add some attributes to the result (width, name, caption, etc.).
+
+The source block could be latex or plantuml[fn:plantuml], etc.
+
+#+html: {{< tabs tikz plantuml >}}
+  #+html: {{< tab >}}
+
+#+begin_src latex :file ../static/images/posts/Writing-Guide-Org/tikz_example.svg :exports results :results file graphics
+  \begin{tikzpicture}
+    \draw[gray, thick] (-1,2) -- (2,-4);
+    \draw[gray, thick] (-1,-1) -- (2,2);
+    \filldraw[black] (0,0) circle (2pt) node[anchor=west]{Intersection point};
+  \end{tikzpicture}
+#+end_src
+
+#+CAPTION: tikz example
+#+ATTR_HTML: :width 30%
+#+RESULTS:
+[[file:../static/images/posts/Writing-Guide-Org/tikz_example.svg]]
 
 #+begin_src org
-  :PROPERTIES:
-  :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
-  :END:
+  ,#+begin_src latex :file ../static/images/posts/Writing-Guide-Org/tikz_example.svg :exports results :results file graphics
+    \begin{tikzpicture}
+      \draw[gray, thick] (-1,2) -- (2,-4);
+      \draw[gray, thick] (-1,-1) -- (2,2);
+      \filldraw[black] (0,0) circle (2pt) node[anchor=west]{Intersection point};
+    \end{tikzpicture}
+  ,#+end_src
 #+end_src
 
-Inline formulas with =\$..\$=. This is inline math: $x^2 + y^2 = z^2 \frac{1}{2}$.
+  #+html: {{< /tab >}}
 
-Displayed equations with =\$\$..\$\$= or $\LaTeX$ environments. This is displayed math:
-
-The code:
-
-#+begin_src tex
-  \begin{equation}\label{eq:1}
-    \begin{split}
-      a &= b+c-d\\
-        &\quad +e-f\\
-        &= g+h\\
-        &= i
-    \end{split}
-  \end{equation}
-#+end_src
-
-will be rendered as:
-
-\begin{equation}\label{eq:1}
-  \begin{split}
-    a &= b+c-d\\
-      &\quad +e-f\\
-      &= g+h\\
-      &= i
-  \end{split}
-\end{equation}
-
-you can use cdlatex[fn:cdlatex] to simplify your math typing.
-
-#+html: {{< alert theme="warning" >}}
-It seems that zzo theme does not support math equation referencing and numbering yet?
-#+html: {{< /alert >}}
-
-** Diagrams
-
-*** Plantuml
-
-use plantuml[fn:plantuml] to draw,  then =C-c C-c= to tangle the image manually (or just org export if you don't need to customize any attributes), then you can add some attributes to the result (width, name, caption, etc.).
+  #+html: {{< tab >}}
 
 #+begin_src org
   ,#+begin_src plantuml :file "../static/images/posts/Writing-Guide-Org/first.svg"
@@ -305,6 +295,52 @@ you can export ASCII diagrams by changing file extension to =.txt= (this will ex
      |Alice|                   |Bob|
      `-----'                   `---'
 #+end_example
+  #+html: {{< /tab >}}
+#+html: {{< /tabs >}}
+
+** Math Support (with MathJax)
+
+We need to have MathJax library in our front matter.
+
+#+begin_src org
+  :PROPERTIES:
+  :EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+  :END:
+#+end_src
+
+Inline formulas with =\$..\$=. This is inline math: $x^2 + y^2 = z^2 \frac{1}{2}$.
+
+Displayed equations with =\$\$..\$\$= or $\LaTeX$ environments. This is displayed math:
+
+The code:
+
+#+begin_src tex
+  \begin{equation}\label{eq:1}
+    \begin{split}
+      a &= b+c-d\\
+        &\quad +e-f\\
+        &= g+h\\
+        &= i
+    \end{split}
+  \end{equation}
+#+end_src
+
+will be rendered as:
+
+\begin{equation}\label{eq:1}
+  \begin{split}
+    a &= b+c-d\\
+      &\quad +e-f\\
+      &= g+h\\
+      &= i
+  \end{split}
+\end{equation}
+
+you can use cdlatex[fn:cdlatex] to simplify your math typing.
+
+#+html: {{< alert theme="warning" >}}
+It seems that zzo theme does not support math equation referencing and numbering yet?
+#+html: {{< /alert >}}
 
 ** Presentation
 
@@ -4773,7 +4809,61 @@ CLOSED: [2026-02-16 Mon 23:26]
 
 ** Deep Neural Network
 
-TODO: from drawio
+#+begin_src latex :file ../static/images/posts/forward-backward-propagation/neural_network_example.svg :exports results :results file graphics
+  \begin{tikzpicture}[
+    >=Stealth,
+    neuron/.style={circle, draw, thick, minimum size=1.1cm,
+      inner sep=0pt},
+    neuron split/.style={neuron, path picture={
+          % Draws a vertical line from the top to the bottom of the node
+          \draw (path picture bounding box.north) -- (path picture bounding box.south);
+      }},
+    bias/.style={circle, draw, thick,
+      minimum size=1.1cm, inner sep=0pt},
+    label style/.style={font=\scriptsize, pos=0.2, fill=none, inner sep=0pt} ]
+
+    % --- LAYER 1: INPUT (3 Neurons + 1 Bias at bottom) ---
+    \foreach \i in {1,2,3} { \node[neuron] (L1-\i) at (0, -\i * 2 - 1)
+      {$x_\i$}; } \node[bias] (L1-b) at (0, -9) {+1};
+
+    % --- LAYER 2: HIDDEN (3 Neurons + 1 Bias at bottom) ---
+    \foreach \j in {1,2,3,4} {
+      \node[neuron split] (L2-\j) at (5, -\j * 2) {};
+      \node[anchor=east, xshift=0.1cm, font=\scriptsize] at (L2-\j.center) {$z^{(2)}_\j$};
+      \node[anchor=west, xshift=-0.1cm, font=\scriptsize] at (L2-\j.center) {$a^{(2)}_\j$};
+    }
+    \node[bias] (L2-b) at (5, -10) {+1};
+
+    % % --- LAYER 3: OUTPUT (2 Neurons) ---
+    \foreach \k in {1,2} {
+      \node[neuron split] (L3-\k) at (10, -\k * 2 -
+      3) {};
+      \node[anchor=east, xshift=0.1cm, font=\scriptsize] at (L3-\k.center) {$z^{(3)}_\k$};
+      \node[anchor=west, xshift=-0.1cm, font=\scriptsize] at (L3-\k.center) {$a^{(3)}_\k$};
+    }
+
+    % % --- CONNECTIONS: INPUT TO HIDDEN ---
+    \foreach \i in {1,2,3} { \foreach \j [evaluate=\j as \mypos using
+        {0.17 - 0.11*mod(\j,2)}] in {1,2,3,4} { \draw[->] (L1-\i) --
+        (L2-\j) node[label style, pos=\mypos] {$w_{\j,\i}^{(2)}$}; } }
+    % % Bias connections to Hidden
+    \foreach \j in {1,2,3,4} { \draw[->, dashed] (L1-b) -- (L2-\j)
+      node[label style, pos=0.15] {$b_{\j}^{(2)}$}; }
+
+    % % --- CONNECTIONS: HIDDEN TO OUTPUT ---
+    \foreach \j in {1,2,3,4} { \foreach \k in {1,2} { \draw[->] (L2-\j)
+        -- (L3-\k) node[label style] {$w_{\k,\j}^{(3)}$}; } }
+    % % Bias connections to Output
+    \foreach \k in {1,2} { \draw[->, dashed] (L2-b) -- (L3-\k) node[label
+        style] {$b^{(3)}_\k$}; }
+
+  \end{tikzpicture}
+#+end_src
+
+#+CAPTION: neural network example
+#+ATTR_HTML: :width 70%
+#+RESULTS:
+[[file:../static/images/posts/forward-backward-propagation/neural_network_example.svg]]
 
 each layer can be described mathematically as below, the process to compute through the layers to the final layer is what we call *forward propagation*:
 
@@ -4794,34 +4884,47 @@ for example, computation of layer 2 can be described as:
 \label{eq:4}
   z^{(2)} &= W^{(2)}x + b^{(2)} \\
           &= \begin{bmatrix}
-               w_{1,1}^{(2)} & w_{1,2}^{(2)} \\
-               w_{2,1}^{(2)} & w_{2,2}^{(2)}
+               w_{1,1}^{(2)} & w_{1,2}^{(2)} & w_{1,3}^{(2)} \\
+               w_{2,1}^{(2)} & w_{2,2}^{(2)} & w_{2,3}^{(2)} \\
+               w_{3,1}^{(2)} & w_{3,2}^{(2)} & w_{3,3}^{(2)} \\
+               w_{4,1}^{(2)} & w_{4,2}^{(2)} & w_{4,3}^{(2)} \\
              \end{bmatrix}
              \begin{bmatrix}
                x_1 \\
-               x_2
+               x_2 \\
+               x_3
              \end{bmatrix}
              +
              \begin{bmatrix}
                b_1^{(2)} \\
-               b_2^{(2)}
+               b_2^{(2)} \\
+               b_3^{(2)} \\
+               b_4^{(2)}
              \end{bmatrix} \\
   \begin{bmatrix}
     z_{1}^{(2)} \\
-    z_{2}^{(2)}
+    z_{2}^{(2)} \\
+    z_{3}^{(2)} \\
+    z_{4}^{(2)}
   \end{bmatrix}
   &= \begin{bmatrix}
-       w_{1,1}^{(2)} x_1 + w_{1,2}^{(2)} x_2 + b_1^{(2)} \\
-       w_{2,1}^{(2)} x_1 + w_{2,2}^{(2)} x_2 + b_2^{(2)}
+       w_{1,1}^{(2)} x_1 + w_{1,2}^{(2)} x_2 + w_{1,3}^{(2)} x_3 + b_1^{(2)} \\
+       w_{2,1}^{(2)} x_1 + w_{2,2}^{(2)} x_2 + w_{2,3}^{(2)} x_3 + b_2^{(2)} \\
+       w_{3,1}^{(2)} x_1 + w_{3,2}^{(2)} x_2 + w_{3,3}^{(2)} x_3 + b_3^{(2)} \\
+       w_{4,1}^{(2)} x_1 + w_{4,2}^{(2)} x_2 + w_{4,3}^{(2)} x_3 + b_4^{(2)} \\
      \end{bmatrix} \\
 a^{(2)} &= \sigma(z^{(2)}) \\
        &= \begin{bmatrix}
        \sigma(z_{1}^{(2)}) \\
        \sigma(z_{2}^{(2)}) \\
+       \sigma(z_{3}^{(2)}) \\
+       \sigma(z_{4}^{(2)})
        \end{bmatrix} \\
       &= \begin{bmatrix}
 \frac{1}{1 + e^{-z_{1}^{(2)}}} \\
 \frac{1}{1 + e^{-z_{2}^{(2)}}} \\
+\frac{1}{1 + e^{-z_{3}^{(2)}}} \\
+\frac{1}{1 + e^{-z_{4}^{(2)}}}
        \end{bmatrix}
 \end{align}
 
@@ -4911,7 +5014,8 @@ take the neural network (where $L = 3$) as an example:
       (\begin{bmatrix}
         w_{1,1}^{(3)} & w_{2,1}^{(3)} \\
         w_{1,2}^{(3)} & w_{2,2}^{(3)} \\
-        w_{1,3}^{(3)} & w_{2,3}^{(3)}
+        w_{1,3}^{(3)} & w_{2,3}^{(3)} \\
+        w_{1,4}^{(3)} & w_{2,4}^{(3)}
   \end{bmatrix}
   \begin{bmatrix}
     \delta_{1}^{(3)} \\
@@ -4920,7 +5024,8 @@ take the neural network (where $L = 3$) as an example:
   ) \odot \begin{bmatrix}
     \sigma'(z_{1}^{(2)}) \\
     \sigma'(z_{2}^{(2)}) \\
-    \sigma'(z_{3}^{(2)})
+    \sigma'(z_{3}^{(2)}) \\
+    \sigma'(z_{4}^{(2)})
   \end{bmatrix} & \text{if } l = 2 \\
   \end{cases} \\
     \frac{\partial C}{\partial W^{(l)}} &= \delta^{(l)} (a^{(l-1)})^{T} \\
@@ -4934,7 +5039,8 @@ take the neural network (where $L = 3$) as an example:
             \begin{bmatrix}
               \delta_{1}^{(2)} \\
               \delta_{2}^{(2)} \\
-              \delta_{3}^{(2)}
+              \delta_{3}^{(2)} \\
+              \delta_{4}^{(2)}
             \end{bmatrix} \begin{bmatrix}
               x_{1} & x_{2} &x_{3}
             \end{bmatrix} & \text{if } l = 2
@@ -4948,7 +5054,8 @@ take the neural network (where $L = 3$) as an example:
             \begin{bmatrix}
               \delta_{1}^{(2)} \\
               \delta_{2}^{(2)} \\
-              \delta_{3}^{(2)}
+              \delta_{3}^{(2)} \\
+              \delta_{4}^{(2)}
             \end{bmatrix} & \text{if } l = 2
           \end{cases}
   \end{align}

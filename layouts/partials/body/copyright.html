@@ -3,7 +3,7 @@
   <hr class="hr-slash whoami-hr"/>
   <p class="copyright-item">
     <span class="item-title">{{ T "author" }}</span>
-    <span class="item-content">{{ if .Params.author }}{{ .Params.author | safeHTML }}{{ else if .Site.Author.name }}{{ .Site.Author.name | safeHTML }}{{ else if $.Param "myname" }}{{ $.Param "myname" }}{{ end }}</span>
+    <span class="item-content">{{ if .Params.author }}{{ .Params.author | safeHTML }}{{ else if .Site.Params.author }}{{ .Site.Params.author | safeHTML }}{{ else if $.Param "myname" }}{{ $.Param "myname" }}{{ end }}</span>
   </p>
   <p class="copyright-item">
     <span class="item-title">{{ T "lastMod" }}</span>

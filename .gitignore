@@ -4,3 +4,4 @@
 /content-org/images/
 /drawio/
 *.aria2
+/.agent-shell/

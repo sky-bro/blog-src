@@ -1,19 +1,19 @@
 +++
-title = "Forward & Backward Propagation"
+title = "前向传播与反向传播"
 date = 2026-02-16T23:26:00+08:00
 tags = ["gradient-descent"]
 categories = ["AI"]
 draft = false
 image = "/images/icons/gradient-descent.png"
 libraries = ["mathjax"]
-description = "understand how backward propagation works in gradient descent."
+description = "理解梯度下降中的反向传播机制。"
 +++
 
-## Deep Neural Network {#deep-neural-network}
+## 深度神经网络 {#deep-neural-network}
 
-{{< figure src="/images/posts/forward-backward-propagation/neural_network_example.svg" caption="<span class=\"figure-number\">Figure 1: </span>neural network example" width="70%" >}}
+{{< figure src="/images/posts/forward-backward-propagation/neural_network_example.svg" caption="<span class=\"figure-number\">图 1： </span>神经网络示例" width="70%" >}}
 
-each layer can be described mathematically as below, the process to compute through the layers to the final layer is what we call **forward propagation**:
+每个层可以用数学形式描述如下，从输入层逐层计算到最终输出层的过程称为**前向传播（forward propagation）**：
 
 \begin{align}
 \label{eq:3}
@@ -24,9 +24,9 @@ a^{(l)} &= \begin{cases}
 \end{cases}
 \end{align}
 
-which is composed of a linear part \\(z^{(l)}\\) and an activation part \\(a^{(l)}\\), if use sigmoid as the activation function: \\(\sigma(z^{(l)}) = \frac{1}{1 + e^{-z^{(l)}}} \\)
+其中包含线性部分 \\(z^{(l)}\\) 和激活部分 \\(a^{(l)}\\)。若使用 sigmoid 作为激活函数：\\(\sigma(z^{(l)}) = \frac{1}{1 + e^{-z^{(l)}}} \\)
 
-for example, computation of layer 2 can be described as:
+以第 2 层为例，计算过程如下：
 
 \begin{align}
 \label{eq:4}
@@ -76,20 +76,20 @@ a^{(2)} &= \sigma(z^{(2)}) \\\\
        \end{bmatrix}
 \end{align}
 
-### loss (cost) function {#loss--cost--function}
+### loss（cost）函数 {#loss--cost--function}
 
-choose a loss (cost) function, for example MSE (mean square error)
+选择损失函数，例如 MSE（均方误差）：
 
 \begin{align}
 \label{eq:5}
 C &= \frac{1}{2} \\| a^{(L)} - y \\|\_{2}^2
 \end{align}
 
-### gradient descent {#gradient-descent}
+### gradient descent（梯度下降） {#gradient-descent}
 
 {{< alert theme="info" dir="ltr" >}}
 
-we use gradient descent to find the optimum parameters \\(\theta\\) (weights \\(w\\) and bias \\(b\\) are both part of \\(\theta\\)), so that the loss is minimized .
+使用梯度下降找到最优参数 \\(\theta\\)（权重 \\(w\\) 和偏置 \\(b\\) 都是 \\(\theta\\) 的一部分），使损失最小化。
 
 \\[
 \theta^{\*} = arg \min\_{\theta} C(\theta)
@@ -97,13 +97,13 @@ we use gradient descent to find the optimum parameters \\(\theta\\) (weights \\(
 
 {{< /alert >}}
 
-To make \\(C\\) decrease, we apply the formula below in each iteration (each iteration we accumulate some delta of \\(C\\): \\(\Delta C\\)):
+为了使 \\(C\\) 减小，在每次迭代中应用以下公式（每次迭代累积 \\(C\\) 的变化量 \\(\Delta C\\)）：
 
 \\[
 \Delta C = \nabla C \Delta \theta
 \\]
 
-update \\(\theta\\) in the opposite direction of \\(\nabla C\\) (the gradient of \\(C\\), a constant, the **fastest direction** to increase \\(C\\)), and with a learning rate \\(\eta\\)
+沿 \\(\nabla C\\)（\\(C\\) 的梯度，即**增长最快的方向**）的反方向更新 \\(\theta\\)，学习率为 \\(\eta\\)：
 
 \begin{align}
 \label{eq:10}
@@ -111,33 +111,33 @@ update \\(\theta\\) in the opposite direction of \\(\nabla C\\) (the gradient of
    &= \theta -\eta \nabla C \\\\
 \end{align}
 
-Computing \\(\nabla C\\) is all we need, and we use **backward propagation** to do it.
+计算 \\(\nabla C\\) 是我们需要的一切，而**反向传播**正是为此而生。
 
-## Forward Propagation {#forward-propagation}
+## Forward Propagation（前向传播） {#forward-propagation}
 
-forward propagation computes \\(z^{(l)}\\) and \\(a^{(l)}\\) for each layer sequentially from layer 1 to layer \\(L\\):
+前向传播从第 1 层到第 \\(L\\) 层，逐层计算 \\(z^{(l)}\\) 和 \\(a^{(l)}\\)：
 
-1. start with the input: \\(a^{(1)} = x\\)
-2. for each layer \\(l = 2, 3, \ldots, L\\):
-   1. compute the linear combination: \\(z^{(l)} = W^{(l)}a^{(l-1)} + b^{(l)}\\)
-   2. apply the activation: \\(a^{(l)} = \sigma(z^{(l)})\\)
-3. the final output is \\(a^{(L)}\\), then compute the loss \\(C = \frac{1}{2} \| a^{(L)} - y \|_2^2\\)
+1. 从输入开始：\\(a^{(1)} = x\\)
+2. 对于每一层 \\(l = 2, 3, \ldots, L\\)：
+   1. 计算线性组合：\\(z^{(l)} = W^{(l)}a^{(l-1)} + b^{(l)}\\)
+   2. 应用激活函数：\\(a^{(l)} = \sigma(z^{(l)})\\)
+3. 最终输出为 \\(a^{(L)}\\)，然后计算损失 \\(C = \frac{1}{2} \| a^{(L)} - y \|_2^2\\)
 
-in other words, forward propagation is the process of evaluating the composite function that represents the neural network, feeding input data through the network layer by layer until a prediction is produced.
+换句话说，前向传播就是评估神经网络所表示的复合函数的过程：将输入数据逐层送入网络，直到产生预测结果。
 
-{{< figure src="/images/posts/forward-backward-propagation/forward-propagation.svg" caption="<span class=\"figure-number\">Figure 2: </span>forward propagation: data flows from input to output, each layer applies a linear transform followed by an activation function" >}}
+{{< figure src="/images/posts/forward-backward-propagation/forward-propagation.svg" caption="<span class=\"figure-number\">图 2： </span>前向传播：数据从输入流向输出，每一层先进行线性变换再经过激活函数" >}}
 
-## Backward Propagation {#backward-propagation}
+## Backward Propagation（反向传播） {#backward-propagation}
 
 {{< alert theme="info" dir="ltr" >}}
 
-backward propagation is the process of using the chain rule to compute the gradients \\(\nabla C\\) of the loss with respect to each parameter.
+反向传播是使用链式法则（chain rule）计算损失对每个参数的梯度 \\(\nabla C\\) 的过程。
 
 {{< /alert >}}
 
-after forward propagation produces a prediction \\(a^{(L)}\\) and the loss \\(C\\), backward propagation computes how much each parameter contributed to that loss. we need the gradient of all parameters: \\(\frac{\partial C}{\partial W^{(l)}}\\) and \\(\frac{\partial C}{\partial b^{(l)}}\\).
+前向传播产生预测 \\(a^{(L)}\\) 和损失 \\(C\\) 之后，反向传播计算每个参数对该损失的贡献程度。我们需要所有参数的梯度：\\(\frac{\partial C}{\partial W^{(l)}}\\) 和 \\(\frac{\partial C}{\partial b^{(l)}}\\)。
 
-define the error signal (also called delta) at layer \\(l\\) as:
+定义第 \\(l\\) 层的误差信号（也称 delta）为：
 
 \begin{align}
 \label{eq:8}
@@ -157,9 +157,9 @@ define the error signal (also called delta) at layer \\(l\\) as:
 &= \delta^{(l)} \\\\
 \end{align}
 
-{{< figure src="/images/posts/forward-backward-propagation/backward-propagation.svg" caption="<span class=\"figure-number\">Figure 3: </span>backward propagation: error signals flow from output layer back to input, computing gradients for each layer along the way" >}}
+{{< figure src="/images/posts/forward-backward-propagation/backward-propagation.svg" caption="<span class=\"figure-number\">图 3： </span>反向传播：误差信号从输出层向输入层回传，沿途计算每一层的梯度" >}}
 
-take the neural network (where \\(L = 3\\)) as an example:
+以神经网络（\\(L = 3\\)）为例：
 
 \begin{align}
 \label{eq:11}
@@ -224,13 +224,13 @@ take the neural network (where \\(L = 3\\)) as an example:
         \end{cases}
 \end{align}
 
-## the full training loop {#full-training-loop}
+## 完整训练流程 {#full-training-loop}
 
-with all gradients computed by backward propagation, the complete gradient descent algorithm is:
+反向传播计算出所有梯度后，完整的梯度下降算法如下：
 
-1. **initialize** all weights \\(W^{(l)}\\) and biases \\(b^{(l)}\\) with small random values
-2. **repeat** until convergence (or for a fixed number of epochs):
-   1. **forward pass**: compute \\(a^{(l)}\\) for each layer \\(l = 1 \ldots L\\), then compute the loss \\(C\\)
-   2. **backward pass**: compute \\(\delta^{(l)}\\) for each layer \\(l = L, L-1, \ldots, 2\\) using the chain rule
-   3. **compute gradients**: \\(\frac{\partial C}{\partial W^{(l)}} = \delta^{(l)}(a^{(l-1)})^{T}\\), \\(\frac{\partial C}{\partial b^{(l)}} = \delta^{(l)}\\)
-   4. **update parameters**: for each layer, \\(W^{(l)} \leftarrow W^{(l)} - \eta \frac{\partial C}{\partial W^{(l)}}\\) and \\(b^{(l)} \leftarrow b^{(l)} - \eta \frac{\partial C}{\partial b^{(l)}}\\)
+1. **初始化（initialize）**：用小的随机值初始化所有权重 \\(W^{(l)}\\) 和偏置 \\(b^{(l)}\\)
+2. **重复（repeat）** 直到收敛（或固定轮数）：
+   1. **前向传播**：逐层计算 \\(a^{(l)}\\)（\\(l = 1 \ldots L\\)），然后计算损失 \\(C\\)
+   2. **反向传播**：使用链式法则从输出层到输入层计算 \\(\delta^{(l)}\\)（\\(l = L, L-1, \ldots, 2\\)）
+   3. **计算梯度**：\\(\frac{\partial C}{\partial W^{(l)}} = \delta^{(l)}(a^{(l-1)})^{T}\\)，\\(\frac{\partial C}{\partial b^{(l)}} = \delta^{(l)}\\)
+   4. **更新参数**：对于每一层，\\(W^{(l)} \leftarrow W^{(l)} - \eta \frac{\partial C}{\partial W^{(l)}}\\) 和 \\(b^{(l)} \leftarrow b^{(l)} - \eta \frac{\partial C}{\partial b^{(l)}}\\)

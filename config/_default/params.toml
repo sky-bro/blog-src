@@ -1,7 +1,7 @@
 logoText = "K4i"
 logoType = "short" # long, short
 description = "This is k4i's blog"
-custom_css = ["scss/partials/body/copyright.scss"]
+custom_css = ["scss/partials/body/copyright.scss", "scss/partials/header/slide-text.scss"]
 custom_js = []
 useFaviconGenerator = false # https://www.favicon-generator.org/
 meta_image = ""
@@ -24,7 +24,7 @@ enableAppbarSearchIcon = false
 enableAppbarLangIcon = false
 
 # header
-homeHeaderType = "img" # text, img, slide
+homeHeaderType = "slide" # text, img, slide
 hideHomeHeaderWhenMobile = true
 
 # menu

@@ -25,11 +25,11 @@ header:
     height: 100vh # this height will subtract the nav height
     paddingX: 50
     paddingY: 0
-    align: left
+    align: center
     title:
-      # - "Always"
+      - "Always"
     subtitle:
-      # - "Improvise, Adapt and Overcome!"
+      - "Improvise, Adapt and Overcome!"
     titleColor:
     titleShadow: true
     titleFontSize: 44
@@ -42,55 +42,55 @@ header:
     height: 100vh
     options:
         startSlide: 0
-        auto: 2500
+        auto: 4000
         draggable: true
         autoRestart: true
         continuous: true
         disableScroll: true
         stopPropagation: true
     slide:
-      - paddingX: 50
+      - paddingX: 80
         paddingY: 0
         align: left
-        imageSrc: images/header/bubble.jpg
+        imageSrc: images/header/slide1.jpg
         imageSize: cover
         imageRepeat: no-repeat
         imagePosition: center
         title:
-          -
+          - "First Principles"
         subtitle:
-          -
-        titleFontSize: 32
-        subtitleFontSize: 16
-        spaceBetweenTitleSubtitle: 20
+          - "Strip it down until it's true"
+        titleFontSize: 44
+        subtitleFontSize: 18
+        spaceBetweenTitleSubtitle: 16
 
-      - paddingX: 50
+      - paddingX: 80
         paddingY: 0
         align: center
-        imageSrc: images/header/bubble2.jpg
+        imageSrc: images/header/slide2.jpg
         imageSize: cover
         imageRepeat: no-repeat
         imagePosition: center
         title:
-          -
+          - "Bloom Once, Bloom Right"
         subtitle:
-          - 
-        titleFontSize: 32
-        subtitleFontSize: 16
-        spaceBetweenTitleSubtitle: 20
+          - "Write it clean the first time"
+        titleFontSize: 44
+        subtitleFontSize: 18
+        spaceBetweenTitleSubtitle: 16
 
-      - paddingX: 50
+      - paddingX: 80
         paddingY: 0
         align: right
-        imageSrc: images/header/study.jpg
+        imageSrc: images/header/slide3.jpg
         imageSize: cover
         imageRepeat: no-repeat
         imagePosition: center
         title:
-          -
+          - "Rain, Tea & Recursion"
         subtitle:
-          -
-        titleFontSize: 32
-        subtitleFontSize: 16
-        spaceBetweenTitleSubtitle: 20
+          - "The paper you skipped has the answer"
+        titleFontSize: 44
+        subtitleFontSize: 18
+        spaceBetweenTitleSubtitle: 16
 ---

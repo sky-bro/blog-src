@@ -1,8 +1,8 @@
 logoText = "K4i"
 logoType = "short" # long, short
 description = "This is k4i's blog"
-custom_css = ["scss/partials/body/copyright.scss", "scss/partials/header/slide-text.scss"]
-custom_js = []
+custom_css = ["scss/partials/body/copyright.scss", "scss/partials/header/slide-text.scss", "scss/partials/body/reading-progress.scss"]
+custom_js = ["js/reading-progress.js"]
 useFaviconGenerator = false # https://www.favicon-generator.org/
 meta_image = ""
 themecolor = ""

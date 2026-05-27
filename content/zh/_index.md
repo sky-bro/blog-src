@@ -39,58 +39,58 @@ header:
     spaceBetweenTitleSubtitle: 16
 
   - type: slide
-    height: 60vh
+    height: 72vh
     options:
         startSlide: 0
-        auto: 3500
+        auto: 4000
         draggable: true
         autoRestart: true
         continuous: true
         disableScroll: true
         stopPropagation: true
     slide:
-      - paddingX: 50
+      - paddingX: 80
         paddingY: 0
         align: left
-        imageSrc: images/header/background6.jpg
+        imageSrc: images/header/slide1.jpg
         imageSize: cover
         imageRepeat: no-repeat
         imagePosition: center
         title:
-          -
+          - "First Principles"
         subtitle:
-          -
-        titleFontSize: 32
-        subtitleFontSize: 16
-        spaceBetweenTitleSubtitle: 20
+          - "Strip it down until it's true"
+        titleFontSize: 44
+        subtitleFontSize: 18
+        spaceBetweenTitleSubtitle: 16
 
-      - paddingX: 50
+      - paddingX: 80
         paddingY: 0
         align: center
-        imageSrc: images/header/background7.jpg
+        imageSrc: images/header/slide2.jpg
         imageSize: cover
         imageRepeat: no-repeat
         imagePosition: center
         title:
-          -
+          - "Bloom Once, Bloom Right"
         subtitle:
-          - 
-        titleFontSize: 32
-        subtitleFontSize: 16
-        spaceBetweenTitleSubtitle: 20
+          - "Write it clean the first time"
+        titleFontSize: 44
+        subtitleFontSize: 18
+        spaceBetweenTitleSubtitle: 16
 
-      - paddingX: 50
+      - paddingX: 80
         paddingY: 0
         align: right
-        imageSrc: images/header/background4.jpg
+        imageSrc: images/header/slide3.jpg
         imageSize: cover
         imageRepeat: no-repeat
         imagePosition: center
         title:
-          -
+          - "Rain, Tea & Recursion"
         subtitle:
-          -
-        titleFontSize: 32
-        subtitleFontSize: 16
-        spaceBetweenTitleSubtitle: 20
+          - "The paper you skipped has the answer"
+        titleFontSize: 44
+        subtitleFontSize: 18
+        spaceBetweenTitleSubtitle: 16
 ---

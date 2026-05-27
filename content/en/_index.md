@@ -39,7 +39,7 @@ header:
     spaceBetweenTitleSubtitle: 16
 
   - type: slide
-    height: 100vh
+    height: 72vh
     options:
         startSlide: 0
         auto: 4000

@@ -1,8 +1,8 @@
 logoText = "K4i"
 logoType = "short" # long, short
 description = "This is k4i's blog"
-custom_css = ["scss/partials/body/copyright.scss", "scss/partials/header/slide-text.scss", "scss/partials/body/reading-progress.scss"]
-custom_js = ["js/reading-progress.js"]
+custom_css = ["scss/partials/body/copyright.scss", "scss/partials/header/slide-text.scss", "scss/partials/body/reading-progress.scss", "scss/partials/body/read-aloud.scss"]
+custom_js = ["js/reading-progress.js", "js/read-aloud.js"]
 useFaviconGenerator = false # https://www.favicon-generator.org/
 meta_image = ""
 themecolor = ""
@@ -17,6 +17,8 @@ viewportSize = "wider" # widest, wider, wide, normal, narrow
 enableUiAnimation = true
 hideSingleContentsWhenJSDisabled = false
 enablePinnedPosts = true
+enableReadAloud = true
+readAloudDefaultRate = 1.0
 minItemsToShowInTagCloud = 1 # Minimum items to show in tag cloud
 
 # appbar

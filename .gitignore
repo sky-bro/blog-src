@@ -5,3 +5,4 @@
 /drawio/
 *.aria2
 /.agent-shell/
+.codex

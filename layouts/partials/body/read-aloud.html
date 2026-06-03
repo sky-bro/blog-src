@@ -1,0 +1,33 @@
+{{ if and ($.Param "enableReadAloud") (not ($.Param "disableReadAloud")) }}
+<section class="read-aloud" data-read-aloud data-lang="{{ .Site.Language.Lang }}" data-rate="{{ $.Param "readAloudDefaultRate" | default 1.0 }}">
+  <div class="read-aloud__summary">
+    <span class="read-aloud__label" data-read-aloud-label>Read aloud</span>
+    <span class="read-aloud__status" data-read-aloud-status aria-live="polite">Ready</span>
+  </div>
+  <div class="read-aloud__controls" role="group" aria-label="Read aloud controls">
+    <button class="read-aloud__button" type="button" data-read-aloud-action="play">Play</button>
+    <button class="read-aloud__button" type="button" data-read-aloud-action="pause">Pause</button>
+    <button class="read-aloud__button" type="button" data-read-aloud-action="stop">Stop</button>
+    <label class="read-aloud__rate">
+      <span class="read-aloud__rate-label" data-read-aloud-rate-label>Speed</span>
+      <select data-read-aloud-rate>
+        <option value="0.8">0.8x</option>
+        <option value="0.9">0.9x</option>
+        <option value="1">1x</option>
+        <option value="1.2">1.2x</option>
+        <option value="1.5">1.5x</option>
+      </select>
+    </label>
+    <label class="read-aloud__voice">
+      <span class="read-aloud__voice-label" data-read-aloud-voice-label>Voice</span>
+      <select data-read-aloud-voice>
+        <option value="">Auto</option>
+      </select>
+    </label>
+  </div>
+  <div class="read-aloud__progress">
+    <input class="read-aloud__progress-range" type="range" min="0" max="100" value="0" step="1" data-read-aloud-progress disabled>
+    <span class="read-aloud__progress-text" data-read-aloud-progress-text>0/0</span>
+  </div>
+</section>
+{{ end }}

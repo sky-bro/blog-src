@@ -5,7 +5,7 @@ tags = ["llm", "inference", "kv-cache", "vllm", "sglang", "systems"]
 categories = ["AI"]
 series = ["LLM Inference Internals"]
 draft = false
-image = "/images/posts/llm-flops-memory-estimation/flops-memory-icon.svg"
+image = "/images/posts/llm-inference-internals/engine-kv-cache-icon.svg"
 description = "A series index for core LLM serving mechanisms: prefill/decode, KV cache, PagedAttention, continuous batching, prefix caching, and disaggregated prefill."
 +++
 

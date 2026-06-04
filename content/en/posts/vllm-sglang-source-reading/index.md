@@ -5,7 +5,7 @@ tags = ["llm", "inference", "vllm", "sglang", "source-reading", "ai-infra"]
 categories = ["AI"]
 series = ["vLLM and SGLang Source Reading"]
 draft = false
-image = "/images/posts/llm-flops-memory-estimation/flops-memory-icon.svg"
+image = "/images/posts/vllm-sglang-source-reading/source-reading-code-path-icon.svg"
 description = "A vLLM / SGLang source-reading series index: request lifecycle, scheduler, KV cache allocation, block manager, radix cache, and benchmarks."
 +++
 

@@ -5,7 +5,7 @@ tags = ["llm", "quantization", "low-precision", "int4", "fp8", "serving"]
 categories = ["AI"]
 series = ["LLM Quantization and Low-Precision Serving"]
 draft = false
-image = "/images/posts/llm-quantization/quantization-buckets-icon.svg"
+image = "/images/posts/llm-quantization-low-precision-serving/quantization-4bit-buckets-icon.svg"
 description = "A series index for LLM quantization and low-precision serving: INT8/INT4, GPTQ, AWQ, SmoothQuant, NF4, AQLM, KV cache quantization, FP8 serving, and quality/speed/memory tradeoffs."
 +++
 

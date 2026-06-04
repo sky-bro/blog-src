@@ -5,7 +5,7 @@ tags = ["llm", "推理", "benchmark", "profiling", "vllm", "sglang"]
 categories = ["AI"]
 series = ["LLM Inference Lab Reports"]
 draft = false
-image = "/images/posts/llm-flops-memory-estimation/flops-memory-icon.svg"
+image = "/images/posts/llm-inference-lab-reports/benchmark-profiler-dashboard-icon.svg"
 description = "LLM 推理实验系列索引：vLLM/SGLang benchmark、TTFT/TPOT、prefix cache、chunked prefill、PagedAttention、量化和 profiler dashboard。"
 +++
 

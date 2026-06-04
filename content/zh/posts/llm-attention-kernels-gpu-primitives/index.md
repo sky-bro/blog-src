@@ -5,7 +5,7 @@ tags = ["llm", "attention", "triton", "cuda", "gpu", "kernel"]
 categories = ["AI"]
 series = ["LLM Attention Kernels and GPU Primitives"]
 draft = false
-image = "/images/posts/fused-softmax/cover.png"
+image = "/images/posts/llm-attention-kernels-gpu-primitives/gpu-attention-kernel-icon.svg"
 description = "LLM attention kernel 与 GPU 基元系列索引：fused softmax、online softmax、FlashAttention、PagedAttention kernel、Triton/CUDA 和内存访问优化。"
 +++
 

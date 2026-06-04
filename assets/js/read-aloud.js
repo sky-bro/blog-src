@@ -16,7 +16,6 @@
     'script',
     'style',
     'textarea',
-    'mjx-container',
     '.MathJax',
   ];
 
@@ -35,6 +34,7 @@
       reading: 'Reading',
       paused: 'Paused',
       stopped: 'Stopped',
+      math: 'formula',
       unsupported: 'Read aloud is not supported in this browser',
       empty: 'No readable article text found',
     },
@@ -52,6 +52,7 @@
       reading: '正在朗读',
       paused: '已暂停',
       stopped: '已停止',
+      math: '数学公式',
       unsupported: '当前浏览器不支持朗读',
       empty: '没有找到可朗读的正文',
     },
@@ -74,15 +75,20 @@
 
   function pickBestVoice(voices, lang, savedVoiceName) {
     if (!voices || voices.length === 0) return null;
+    var normalized = normalizeSpeechLang(lang).toLowerCase();
+    var prefix = normalized.split('-')[0];
+
+    function voiceMatchesLang(voice) {
+      var voiceLang = String(voice && voice.lang || '').toLowerCase();
+      return voiceLang === normalized || voiceLang.indexOf(prefix) === 0;
+    }
+
     if (savedVoiceName) {
       var savedVoice = voices.find(function (voice) {
-        return voice.name === savedVoiceName;
+        return voice.name === savedVoiceName && voiceMatchesLang(voice);
       });
       if (savedVoice) return savedVoice;
     }
-
-    var normalized = normalizeSpeechLang(lang).toLowerCase();
-    var prefix = normalized.split('-')[0];
 
     return voices.find(function (voice) {
       return String(voice.lang || '').toLowerCase() === normalized;
@@ -141,16 +147,53 @@
     });
   }
 
+  function isMathJaxElement(element) {
+    return String(element && element.tagName || '').toUpperCase() === 'MJX-CONTAINER';
+  }
+
+  function getMathSpeech(element, mathLabel) {
+    if (!element || !element.getAttribute) return '';
+    var speech = (
+      element.getAttribute('aria-label') ||
+      element.getAttribute('aria-braillelabel') ||
+      element.getAttribute('data-semantic-speech-none') ||
+      element.getAttribute('data-semantic-speech') ||
+      element.getAttribute('data-semantic-braille') ||
+      mathLabel
+    );
+    return normalizeText(String(speech || '')
+      .replace(/<mark\b[^>]*\/>/gi, ' ')
+      .replace(/<break\b[^>]*\/>/gi, ' ')
+      .replace(/<\/?(say-as|prosody)\b[^>]*>/gi, ' '));
+  }
+
   function normalizeText(text) {
     return String(text || '')
       .replace(/\s+/g, ' ')
       .trim();
   }
 
+  function isLikelyInlineMath(content) {
+    return /[\\^_=]|[{}]|[A-Za-z]\s*\(|\b(frac|sum|prod|int|sqrt|theta|alpha|beta|gamma|lambda|log|sin|cos|tan)\b/.test(content);
+  }
+
+  function replaceMathForSpeech(text, mathLabel) {
+    var label = mathLabel || 'formula';
+
+    return String(text || '')
+      .replace(/\$\$[\s\S]*?\$\$/g, ' ' + label + ' ')
+      .replace(/\\\[[\s\S]*?\\\]/g, ' ' + label + ' ')
+      .replace(/\\\([\s\S]*?\\\)/g, ' ' + label + ' ')
+      .replace(/\$([^$\n]+)\$/g, function (match, content) {
+        return isLikelyInlineMath(content) ? ' ' + label + ' ' : match;
+      });
+  }
+
   function extractReadableText(rootElement, options) {
     if (!rootElement) return '';
 
     var skipSelectors = options && options.skipSelectors ? options.skipSelectors : SKIP_SELECTORS;
+    var mathLabel = options && options.mathLabel ? options.mathLabel : 'formula';
     var parts = [];
     var blockTags = {
       P: true,
@@ -168,7 +211,8 @@
 
     function collectText(node) {
       if (!node) return '';
-      if (node.nodeType === 3) return node.textContent || '';
+      if (node.nodeType === 3) return replaceMathForSpeech(node.textContent || '', mathLabel);
+      if (isMathJaxElement(node)) return getMathSpeech(node, mathLabel);
       if (shouldSkip(node, skipSelectors)) return '';
 
       var childNodes = Array.prototype.slice.call(node.childNodes || []);
@@ -220,6 +264,12 @@
     return chunks;
   }
 
+  function buildReadAloudChunks(titleText, bodyText, maxLength) {
+    var titleChunk = normalizeText(titleText);
+    var bodyChunks = splitIntoUtterances(bodyText, maxLength);
+    return titleChunk ? [titleChunk].concat(bodyChunks) : bodyChunks;
+  }
+
   function getProgressPercent(index, total) {
     if (!total || total <= 1) return 0;
     var clampedIndex = Math.max(0, Math.min(index, total - 1));
@@ -234,6 +284,32 @@
 
   function setText(element, text) {
     if (element) element.textContent = text;
+  }
+
+  function waitForMathJax(mathJax) {
+    var instance = mathJax || (typeof window !== 'undefined' ? window.MathJax : null);
+    if (instance && instance.startup && instance.startup.promise && instance.startup.promise.then) {
+      return instance.startup.promise.catch(function () {});
+    }
+    return Promise.resolve();
+  }
+
+  function getVoiceChangeAction(synth, isPaused) {
+    if (isPaused) return 'pause-current';
+    if (synth && (synth.speaking || synth.pending)) return 'restart-current';
+    return 'idle';
+  }
+
+  function bindSpeechCancellationOnPageExit(synth, target) {
+    var eventTarget = target || (typeof window !== 'undefined' ? window : null);
+    if (!synth || !eventTarget || !eventTarget.addEventListener) return;
+
+    function cancelOnExit() {
+      synth.cancel();
+    }
+
+    eventTarget.addEventListener('pagehide', cancelOnExit);
+    eventTarget.addEventListener('beforeunload', cancelOnExit);
   }
 
   function initPlayer(player) {
@@ -260,6 +336,7 @@
     var index = 0;
     var paused = false;
     var suppressEnd = false;
+    var preparedAfterMathJax = false;
     var defaultRate = Number(player.getAttribute('data-rate')) || Number(getDefaultRate());
 
     setText(playerLabel, labels.title);
@@ -284,6 +361,7 @@
       });
       return;
     }
+    bindSpeechCancellationOnPageExit(synth);
 
     function updateStatus(stateLabel) {
       var voiceSuffix = voice && voice.name ? ' · ' + voice.name : '';
@@ -351,9 +429,9 @@
 
     function prepareChunks(resetIndex) {
       var titleText = title ? normalizeText(title.textContent) : '';
-      var bodyText = extractReadableText(article);
-      var fullText = [titleText, bodyText].filter(Boolean).join('. ');
-      chunks = splitIntoUtterances(fullText);
+      var bodyText = extractReadableText(article, { mathLabel: labels.math });
+      chunks = buildReadAloudChunks(titleText, bodyText);
+      preparedAfterMathJax = true;
       if (resetIndex || index >= chunks.length) {
         index = 0;
       }
@@ -415,18 +493,22 @@
       }
 
       setText(status, labels.loading);
-      refreshVoice();
-      if (synth.speaking || synth.pending) {
-        cancelSpeech();
-      }
+      waitForMathJax().then(function () {
+        refreshVoice();
+        if (synth.speaking || synth.pending) {
+          cancelSpeech();
+        }
 
-      if (chunks.length === 0 && !prepareChunks(false)) {
-        setText(status, labels.empty);
-        updateButtons('ready');
-        return;
-      }
+        if (!preparedAfterMathJax || chunks.length === 0) {
+          if (!prepareChunks(false)) {
+            setText(status, labels.empty);
+            updateButtons('ready');
+            return;
+          }
+        }
 
-      speakNext();
+        speakNext();
+      });
     }
 
     function pause() {
@@ -472,10 +554,24 @@
       saveCurrentPreferences();
     });
     if (voiceInput) voiceInput.addEventListener('change', function () {
+      var voiceChangeAction = getVoiceChangeAction(synth, paused);
       preferences.voiceName = voiceInput.value;
       refreshVoice();
       saveCurrentPreferences();
-      stop();
+      if (voiceChangeAction === 'restart-current') {
+        paused = false;
+        cancelSpeech();
+        window.setTimeout(speakNext, 80);
+      } else if (voiceChangeAction === 'pause-current') {
+        paused = false;
+        cancelSpeech();
+        updateStatus(labels.ready);
+        updateButtons('ready');
+        setText(playButton, labels.resume);
+      } else {
+        updateStatus(labels.ready);
+        updateButtons('ready');
+      }
     });
     if (progressInput) {
       progressInput.addEventListener('input', function () {
@@ -490,7 +586,6 @@
 
     updateButtons('ready');
     refreshVoice();
-    prepareChunks(true);
     updateStatus(labels.ready);
     if (synth.onvoiceschanged !== undefined) {
       synth.onvoiceschanged = function () {
@@ -517,6 +612,10 @@
   return {
     extractReadableText: extractReadableText,
     splitIntoUtterances: splitIntoUtterances,
+    buildReadAloudChunks: buildReadAloudChunks,
+    waitForMathJax: waitForMathJax,
+    getVoiceChangeAction: getVoiceChangeAction,
+    bindSpeechCancellationOnPageExit: bindSpeechCancellationOnPageExit,
     getLabels: getLabels,
     normalizeSpeechLang: normalizeSpeechLang,
     getProgressPercent: getProgressPercent,

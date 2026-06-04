@@ -5,7 +5,7 @@ tags = ["llm", "推理", "vllm", "sglang", "源码阅读", "ai-infra"]
 categories = ["AI"]
 series = ["vLLM and SGLang Source Reading"]
 draft = false
-image = "/images/posts/llm-flops-memory-estimation/flops-memory-icon.svg"
+image = "/images/posts/vllm-sglang-source-reading/source-reading-code-path-icon.svg"
 description = "vLLM / SGLang 源码阅读系列索引：请求生命周期、scheduler、KV cache 分配、block manager、radix cache 和 benchmark。"
 +++
 

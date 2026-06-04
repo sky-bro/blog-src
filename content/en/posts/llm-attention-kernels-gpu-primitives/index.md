@@ -5,7 +5,7 @@ tags = ["llm", "attention", "triton", "cuda", "gpu", "kernel"]
 categories = ["AI"]
 series = ["LLM Attention Kernels and GPU Primitives"]
 draft = false
-image = "/images/posts/fused-softmax/cover.png"
+image = "/images/posts/llm-attention-kernels-gpu-primitives/gpu-attention-kernel-icon.svg"
 description = "A series index for LLM attention kernels and GPU primitives: fused softmax, online softmax, FlashAttention, PagedAttention kernels, Triton/CUDA, and memory-access optimization."
 +++
 

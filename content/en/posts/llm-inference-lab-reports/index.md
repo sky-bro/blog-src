@@ -5,7 +5,7 @@ tags = ["llm", "inference", "benchmark", "profiling", "vllm", "sglang"]
 categories = ["AI"]
 series = ["LLM Inference Lab Reports"]
 draft = false
-image = "/images/posts/llm-flops-memory-estimation/flops-memory-icon.svg"
+image = "/images/posts/llm-inference-lab-reports/benchmark-profiler-dashboard-icon.svg"
 description = "An LLM inference experiment series index: vLLM/SGLang benchmarks, TTFT/TPOT, prefix cache, chunked prefill, PagedAttention, quantization, and a profiler dashboard."
 +++
 

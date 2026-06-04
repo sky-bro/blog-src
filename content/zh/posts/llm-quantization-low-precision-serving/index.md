@@ -5,7 +5,7 @@ tags = ["llm", "量化", "低精度", "int4", "fp8", "serving"]
 categories = ["AI"]
 series = ["LLM Quantization and Low-Precision Serving"]
 draft = false
-image = "/images/posts/llm-quantization/quantization-buckets-icon.svg"
+image = "/images/posts/llm-quantization-low-precision-serving/quantization-4bit-buckets-icon.svg"
 description = "LLM 量化与低精度推理系列索引：INT8/INT4、GPTQ、AWQ、SmoothQuant、NF4、AQLM、KV cache 量化、FP8 serving 和质量/速度/显存权衡。"
 +++
 

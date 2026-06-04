@@ -3,6 +3,7 @@ title = "如何估算 LLM 训练和推理需要多少算力与显存"
 date = 2026-05-27T22:00:00+08:00
 tags = ["llm", "训练", "推理", "flops", "显存", "transformer"]
 categories = ["AI"]
+series = ["LLM Inference Internals"]
 draft = false
 image = "/images/posts/llm-flops-memory-estimation/flops-memory-icon.svg"
 libraries = ["mathjax", "mermaid"]

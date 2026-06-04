@@ -3,6 +3,7 @@ title = "From Absolute Positional Encoding to RoPE: Why Position Can Be a Rotati
 date = 2026-05-28T21:53:12+08:00
 tags = ["llm", "transformer", "attention", "position-encoding", "rope"]
 categories = ["AI"]
+series = ["LLM Inference Internals"]
 draft = false
 image = "/images/posts/positional-encoding-to-rope/rope-rotation-icon.svg"
 libraries = ["mathjax", "mermaid"]

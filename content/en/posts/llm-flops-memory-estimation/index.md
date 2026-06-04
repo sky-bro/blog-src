@@ -3,6 +3,7 @@ title = "Estimating Compute and Memory Requirements for LLM Training and Inferen
 date = 2026-05-27T22:00:00+08:00
 tags = ["llm", "training", "inference", "flops", "memory", "transformer"]
 categories = ["AI"]
+series = ["LLM Inference Internals"]
 draft = false
 image = "/images/posts/llm-flops-memory-estimation/flops-memory-icon.svg"
 libraries = ["mathjax", "mermaid"]

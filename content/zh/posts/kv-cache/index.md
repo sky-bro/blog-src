@@ -3,6 +3,7 @@ title = "LLM 推理中为什么 K、V 可以被缓存"
 date = 2026-04-20T12:00:00+08:00
 tags = ["llm", "推理", "kv-cache", "transformer", "优化"]
 categories = ["AI"]
+series = ["LLM Inference Internals"]
 draft = false
 image = "/images/posts/kv-cache/cover.png"
 libraries = ["mathjax"]

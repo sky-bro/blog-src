@@ -3,6 +3,7 @@ title = "大模型量化综述：从线性量化到码本量化"
 date = 2026-06-01T21:00:00+08:00
 tags = ["llm", "量化", "推理", "显存", "int8", "int4", "fp8"]
 categories = ["AI"]
+series = ["LLM Quantization and Low-Precision Serving"]
 draft = false
 image = "/images/posts/llm-quantization/quantization-buckets-icon.svg"
 libraries = ["mathjax", "mermaid"]

@@ -3,6 +3,7 @@ title = "Why KV Cache Works in LLM Inference"
 date = 2026-04-20T12:00:00+08:00
 tags = ["llm", "inference", "kv-cache", "transformer", "optimization"]
 categories = ["AI"]
+series = ["LLM Inference Internals"]
 draft = false
 image = "/images/posts/kv-cache/cover.png"
 libraries = ["mathjax"]

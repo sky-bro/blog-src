@@ -3,6 +3,7 @@ title = "从绝对位置编码到 RoPE：位置为什么可以被旋转表示"
 date = 2026-05-28T21:53:12+08:00
 tags = ["llm", "transformer", "attention", "position-encoding", "rope"]
 categories = ["AI"]
+series = ["LLM Inference Internals"]
 draft = false
 image = "/images/posts/positional-encoding-to-rope/rope-rotation-icon.svg"
 libraries = ["mathjax", "mermaid"]

@@ -3,6 +3,7 @@ title = "A Survey of LLM Quantization: From Linear Quantization to Codebooks"
 date = 2026-06-01T21:00:00+08:00
 tags = ["llm", "quantization", "inference", "memory", "int8", "int4", "fp8"]
 categories = ["AI"]
+series = ["LLM Quantization and Low-Precision Serving"]
 draft = false
 image = "/images/posts/llm-quantization/quantization-buckets-icon.svg"
 libraries = ["mathjax", "mermaid"]

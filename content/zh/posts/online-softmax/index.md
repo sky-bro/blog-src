@@ -3,6 +3,7 @@ title = "Online Softmax：为任意大行设计的分块算法"
 date = 2026-04-21T10:00:00+08:00
 tags = ["triton", "gpu", "softmax", "online-softmax", "性能优化", "flash-attention"]
 categories = ["AI"]
+series = ["LLM Attention Kernels and GPU Primitives"]
 draft = false
 image = "/images/posts/online-softmax/cover.png"
 libraries = ["mathjax", "mermaid"]

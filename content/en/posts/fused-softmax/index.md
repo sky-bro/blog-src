@@ -3,6 +3,7 @@ title = "Fused Softmax in Triton"
 date = 2026-04-20T10:00:00+08:00
 tags = ["triton", "gpu", "softmax", "kernel-fusion", "performance"]
 categories = ["AI"]
+series = ["LLM Attention Kernels and GPU Primitives"]
 draft = false
 image = "/images/posts/fused-softmax/cover.png"
 libraries = ["mathjax", "chart"]

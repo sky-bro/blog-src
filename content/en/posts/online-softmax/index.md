@@ -3,6 +3,7 @@ title = "Online Softmax: Tiling for Arbitrarily Large Rows"
 date = 2026-04-21T10:00:00+08:00
 tags = ["triton", "gpu", "softmax", "online-softmax", "performance", "flash-attention"]
 categories = ["AI"]
+series = ["LLM Attention Kernels and GPU Primitives"]
 draft = false
 image = "/images/posts/online-softmax/cover.png"
 libraries = ["mathjax", "mermaid"]

@@ -487,3 +487,16 @@ CLOSED: [2025-01-25 Sat 02:19]
 | [[https://music.163.com/#/song?id=1459849658][First Love]]                            | Jurrivh                         | 纯音乐      | 安静             |
 | [[https://music.163.com/#/song?id=26237342][River Flows in You]]                    | Yiruma                          | 纯音乐      | 钢琴曲、安静、好听 |
 | [[https://music.163.com/#/song?id=1455273374][风的小径]]                                | 万能日记                          | 纯音乐      | 舒缓、安静        |
+
+* TODO Trojan配置教程  :@cat:tag:
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: trojan配置教程
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2026-03-17 Tue 22:22]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/tortoise.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "this is a description"
+:END:
+
+- [[https://github.com/p4gefau1t/trojan-go][github: trojan-go]]
+- [[id:0d68365a-ab6c-49dd-8242-4af01a647f03][trojan setup]]

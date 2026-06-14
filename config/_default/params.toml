@@ -9,7 +9,7 @@ themecolor = ""
 
 themeOptions = ["light", "dark", "hacker", "solarized", "kimbie"] # first is the default theme
 notAllowedTypesInHome = ["contact", "talks", "about", "showcase", "publication", "presentation", "resume", "gallery"]
-notAllowedTypesInHomeSidebar = ["gallery", "about", "archive", "showcase", "publication", "presentation", "resume"]
+notAllowedTypesInHomeSidebar = ["posts", "gallery", "about", "archive", "showcase", "publication", "presentation", "resume"]
 notAllowedTypesInArchive = ["about", "talks", "showcase", "publication", "presentation", "resume", "gallery"]
 notAllowedTypesInHomeFeed = ["about", "archive", "contact", "talks", "showcase", "publication", "presentation", "resume", "gallery"]
 
@@ -20,13 +20,14 @@ enablePinnedPosts = true
 enableReadAloud = true
 readAloudDefaultRate = 1.0
 minItemsToShowInTagCloud = 1 # Minimum items to show in tag cloud
+sidebarTaxonomyVisibleItems = 8 # Taxonomy items shown in the sidebar before the rest are collapsed.
 
 # appbar
 enableAppbarSearchIcon = false
 enableAppbarLangIcon = true
 
 # header
-homeHeaderType = "slide" # text, img, slide
+homeHeaderType = "none" # none, text, img, slide
 hideHomeHeaderWhenMobile = true
 
 # menu
@@ -72,7 +73,7 @@ enableSidebarTags = true
 enableSidebarSeries = true
 enableSidebarCategories = true
 enableHomeSidebarTitles = true
-enableListSidebarTitles = true
+enableListSidebarTitles = false
 enableToc = true
 hideToc = false
 tocFolding = true

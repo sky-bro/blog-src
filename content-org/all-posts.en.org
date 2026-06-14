@@ -5090,6 +5090,96 @@ take the neural network (where $L = 3$) as an example:
 
 this algorithm is used for answering queries like: how many vertices in the subtree of vertex v has some property in $O(n\log {n})$
 
+* TODO Claude Code QuickStart                  :claude_code:@workspace_setup:
+:PROPERTIES:
+:EXPORT_HUGO_BUNDLE: claude-code-quickstart
+:EXPORT_FILE_NAME: index
+:EXPORT_DATE: [2026-02-14 Sat 18:15]
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER: :image "/images/icons/tortoise.png"
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :libraries '(mathjax)
+:EXPORT_HUGO_CUSTOM_FRONT_MATTER+: :description "this is a description"
+:END:
+
+** LLM Configuration
+
+#+html: {{< tabs "~/.claude/settings.json" "~/.config/claude-code-sugar/config.json" >}}
+  #+html: {{< tab >}}
+
+  #+begin_src json
+    {
+      "apiKey": "sk-xxx",
+      "baseURL": "http://192.168.31.248:4000/v1/",
+      "modelMapping": {
+        "small_model": "qwen3-32b",
+        "model": "qwen3-coder-plus",
+        "opus_model": "qwen3-coder-plus"
+      },
+      "searchEndpoint": "http://192.168.31.248:4000/v1/",
+      "searchApiKey": "sk-xxx"
+    }
+  #+end_src
+
+  #+html: {{< /tab >}}
+  #+html: {{< tab >}}
+
+  #+begin_src json
+    {
+      "env": {
+        "DISABLE_PROMPT_CACHING": "0",
+        "CLAUDE_CODE_DISABLE_NONESSENTIAL_TRAFFIC": "1",
+        "ANTHROPIC_BASE_URL": "http://192.168.31.248:4000",
+        "ANTHROPIC_AUTH_TOKEN": "sk-xxx",
+        "ANTHROPIC_DEFAULT_HAIKU_MODEL": "qwen3-coder-plus",
+        "ANTHROPIC_DEFAULT_OPUS_MODEL": "qwen3-coder-plus",
+        "ANTHROPIC_DEFAULT_SONNET_MODEL": "qwen3-coder-plus"
+      }
+    }
+  #+end_src
+
+  #+html: {{< /tab >}}
+#+html: {{< /tabs >}}
+
+
+
+** LLM Providers
+
+|                       | iflow | deepseek |
+|-----------------------+-------+----------|
+| Openai Api baseUrl    |       |          |
+| Anthropic Api baseUrl |       |          |
+
+** Hooks
+
+use hooks[fn:claude-code-hooks] to send notifications when task finished or notification arise. Merge code below to your =~/.claude/settings.json=
+
+#+begin_src json
+  {
+    "hooks": {
+      "Stop": [
+        {
+          "matcher": "",
+          "hooks": [
+            {
+              "type": "command",
+              "command": "dunstify \"Done\" \"Claude Code Finished\" && paplay /usr/share/sounds/freedesktop/stereo/complete.oga"
+            }
+          ]
+        }
+      ],
+      "Notification": [
+        {
+          "matcher": "",
+          "hooks": [
+            {
+              "type": "command",
+              "command": "dunstify \"Help\" \"Claude Code Needs Help\" && paplay /usr/share/sounds/freedesktop/stereo/message.oga"
+            }
+          ]
+        }
+      ]
+    }
+  }
+#+end_src
 
 * DONE Mitmproxy + Tampermonkey = better {llm, ...} viewer :mitmproxy:llm:@proxy:@workspace_setup:
 CLOSED: [2026-03-22 Sun 21:49]
@@ -5208,6 +5298,7 @@ This approach works with any LLM service that communicates over HTTP/HTTPS, maki
 [fn:cdlatex] use [[https://orgmode.org/manual/CDLaTeX-mode.html][CDLaTex mode]] to simplify math typing in latex
 
 [fn:claude-code-hooks] use [[https://code.claude.com/docs/en/hooks][claude code hooks]] to trigger custom scripts
+
 [fn:GnuPG] GNU Privacy Guard is a complete and free implementation of the OpenPGP standard as defined by [[https://www.ietf.org/rfc/rfc4880.txt][RFC4880]].
 
 [fn:org-download] [[https://github.com/abo-abo/org-download][org-download]] facilitates moving images from point A to B.

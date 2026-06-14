@@ -13,8 +13,11 @@ buildFuture = true
 copyright = 'All content is subject to the license of <a rel="license noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> .'
 timeout = 10000
 enableEmoji = true
-paginate = 10
+paginate = 20
 rssLimit = 100
+
+[pagination]
+  pagerSize = 20
 
 enableGitInfo = true
 googleAnalytics = "UA-163569254-1"
